@@ -3851,11 +3851,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Học Tập\\Đồ Án Tốt Nghiệp\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api.csproj",
+      "projectUniqueName": "C:\\Users\\phamd\\OneDrive\\Máy tính\\BanTrangSuc\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api.csproj",
       "projectName": "DoAnTotNghiep_Api",
-      "projectPath": "D:\\Học Tập\\Đồ Án Tốt Nghiệp\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api.csproj",
+      "projectPath": "C:\\Users\\phamd\\OneDrive\\Máy tính\\BanTrangSuc\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api.csproj",
       "packagesPath": "C:\\Users\\phamd\\.nuget\\packages\\",
-      "outputPath": "D:\\Học Tập\\Đồ Án Tốt Nghiệp\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api\\obj\\",
+      "outputPath": "C:\\Users\\phamd\\OneDrive\\Máy tính\\BanTrangSuc\\DoAnTotNghiep_Api\\DoAnTotNghiep_Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\phamd\\AppData\\Roaming\\NuGet\\NuGet.Config",
