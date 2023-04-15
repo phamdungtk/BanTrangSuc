@@ -1,0 +1,83 @@
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2>Other</h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Cart</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Hiraola's Breadcrumb Area End Here -->
+<!-- Begin Hiraola's Cart Area -->
+<div class="hiraola-cart-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="javascript:void(0)">
+                    <div class="table-content table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="hiraola-product-remove">remove</th>
+                                    <th class="hiraola-product-thumbnail">images</th>
+                                    <th class="cart-product-name">Product</th>
+                                    <th class="hiraola-product-price">Unit Price</th>
+                                    <th class="hiraola-product-quantity">Quantity</th>
+                                    <th class="hiraola-product-subtotal">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let x of list">
+                                    <td class="hiraola-product-remove"><a (click)="Xoa(x.maSanPham)"><i class="fa fa-trash"
+                                        title="Remove"></i></a></td>
+                                    <td class="hiraola-product-thumbnail"><a href="javascript:void(0)"><img src="{{x.anhDaiDien}}"></a></td>
+                                    <td class="hiraola-product-name"><a href="javascript:void(0)">{{x.tenSanPham}}</a></td>
+                                    <td class="hiraola-product-price"><span class="amount">{{x.gia}}đ</span></td>
+                                    <td class="quantity">
+                                        <div class="cart-plus-minus">
+                                            <input class="cart-plus-minus-box"[(ngModel)] = "x.quantity" type="text" value="{{x.quantity}}">
+                                            <button class="dec qtybutton" (click)="Giam(x.maSanPham)"><i class="fa fa-angle-down"></i></button>
+                                            <button class="inc qtybutton" (click) ="Tang(x.maSanPham)"><i class="fa fa-angle-up"></i></button>
+                                        </div>
+                                    </td>                                
+                                    <td class="product-subtotal"><span class="amount">{{x.gia * x.quantity}}đ</span></td>
+                                </tr>                              
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="coupon-all">
+                                <div class="coupon">
+                                    <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
+                                    <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
+                                  
+                                </div>
+                                <div class="coupon2">
+                                    <input class="button" (click)="updateCart()" value="Cập Nhập" type="submit">&nbsp; &nbsp; 
+                                    <input class="button" (click)="XoaCart()" value="Xoá Tất Cả" type="submit">&nbsp; &nbsp; 
+                                    <input class="button" name="update_cart" value="Update cart" type="submit">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  
+                    <div class="row">
+                        <div class="col-md-5 ml-auto">
+                            <div class="cart-page-total">
+                                <h2>Cart totals</h2>
+                                <ul>
+                                    <li>Subtotal <span>$118.60</span></li>
+                                    <li>Total <span>$118.60</span></li>
+                                </ul>
+                                <a href="javascript:void(0)">Proceed to checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,322 @@
+<div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-wrapper-before"></div>
+      <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+			<button (click)="createModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+				Thêm Người Dùng
+			</button>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+          <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+              	<ol class="breadcrumb">
+                	<li class="breadcrumb-item"><a href="index.html">Trang Chủ</a>
+                		</li>
+                			<li class="breadcrumb-item active">Người Dùng
+                		</li>
+              		</ol>
+            		</div>
+          		</div>
+        	</div>
+      	</div>
+    	<div class="content-body"><!-- Basic Tables start -->
+        	<div class="row">
+            	<div class="col-12">
+              
+                    <div class="card">
+                       
+						<form [formGroup]="frmSearch" class="form-horizontal" (ngSubmit)="LoadData()" >
+							<div class="card-header">    
+								<div class="card-content collapse show">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class="thead-dark">
+												<tr style="text-align: center;">                                              
+													<th>
+														<input formControlName="txt_hoten" type="text" class="form-control" placeholder="Họ tên">
+													</th>
+													<th>
+														<input formControlName="txt_taikhoan" type="text" class="form-control" placeholder="Tài khoản">
+													</th>
+													<th>
+														<select formControlName="txt_loaiquyen" class="form-control"placeholder="Quyền">										
+															<option [value]="'Admin'">Admin</option>
+															<option [value]="'User'">User</option>
+														</select>
+													</th>
+													<th ><button type="submit" class="btn btn-primary"><i class="icon-search4 position-right"></i> Tìm kiếm</button></th>                                    					
+												</tr>
+											</thead> 									
+										</table>
+									</div>
+								</div>
+							</div>
+							
+							<div class="card-content collapse show">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class="thead-dark">
+											<tr style="text-align: center;">
+												<th >STT</th>
+												<th >Ảnh</th>
+												<th >Họ tên</th>
+												<th >Địa chỉ</th>
+												<th >SDT</th>                                    
+												<th >Quyền</th>   
+												<th >Thao Tác</th>                             
+											</tr>
+										</thead>
+										<tbody> 
+											<tr *ngFor="let ur of list_users index as i" style="text-align: center;">
+												<td style="vertical-align: middle;">{{ i + 1 }}</td>
+												<td style="vertical-align: middle;"><img
+													[src]="ur.anhDaiDien"
+													style="width: 58px; height: 58px;" class="img-rounded" alt=""></td>
+												<td style="vertical-align: middle;">{{ur.hoTen}}</td>
+												<td style="vertical-align: middle;">{{ur.diaChi}}</td>
+												<td style="vertical-align: middle;">{{ur.dienThoai}}</td>
+												<td style="vertical-align: middle;">{{ur.loaiQuyen}}</td>
+												<td style="text-align: center; vertical-align: middle;">   
+													<div class="card-content collapse show">
+														<div class="card-body">
+															<div class="form-group">                                               
+																<button type="button" (click)="openViewModal(ur.maNguoiDung)"class="btn btn-outline-success btn-sm mr-1" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="la la-eye"></i> </button>
+																<button type="button" (click)="openUpdateModal(ur.maNguoiDung)" class="btn btn-outline-warning btn-sm mr-1"><i class="la la-edit"></i></button>
+																<button type="button" (click)="onRemove(ur.maNguoiDung)"class="btn btn-outline-red btn-sm mr-1"><i class="la la-trash"></i></button>														
+															</div>
+														</div>
+													</div>      
+												</td>                         
+											</tr>                          
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</form>
+						<div class="card-content collapse show">
+							<div class="card-body">
+								<div class="form-group">                                               
+									<div  class="btn mr-1"><ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+									</ngb-pagination></div>
+									<div class="btn mr-1"  style="float: right;"><select class="form-control" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+										<option value="6">6</option>
+										<option value="12">12</option>
+										<option value="24">24</option> 
+										<option value="46">46</option>
+									</select></div>
+									<div class="btn mr-1"  style="float: right;"><button [ngClass]="{active: loc=='TD'}" (click)="setDieuKienLoc('TD')"type="submit" class="btn btn-primary"><i class="la la-sort-up"></i></button></div>
+									<div class="btn mr-1" style="float: right;"><button [ngClass]="{active: loc=='GD'}" (click)="setDieuKienLoc('GD')"type="submit" class="btn btn-primary"><i class="la la-sort-down"></i></button></div>
+									<div class="btn mr-1" style="float: right;"><button [ngClass]="{active: loc=='ALL'}" (click)="setDieuKienLoc('ALL')"type="submit" class="btn btn-primary"><i class="la la-retweet"></i></button></div>
+								</div>
+							</div>
+						</div> 
+												
+                    </div>
+            	</div>
+        	</div>
+      	</div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="ViewModal">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  	<div class="modal-body" *ngIf = "user">
+				<div class="row">
+					<div class="col-md-5" style="text-align: right;">Họ Tên: </div>
+					<div class="col-md-7">{{user.hoTen}}</div>
+					<div class="col-md-5"style="text-align: right;">Ngày Sinh: </div>
+					<div class="col-md-7"> {{user.ngaySinh}}</div>
+					<div class="col-md-5"style="text-align: right;">Giới Tính: </div>
+					<div class="col-md-7">{{user.gioiTinh}}</div>				
+					<div class="col-md-5"style="text-align: right;">Địa Chỉ: </div>
+					<div class="col-md-7">{{user.diaChi}}</div>
+					<div class="col-md-5"style="text-align: right;">Email: </div>
+					<div class="col-md-7">{{user.email}}</div>
+					<div class="col-md-5"style="text-align: right;">Điện Thoại: </div>
+					<div class="col-md-7">{{user.dienThoai}}</div>
+					<div class="col-md-5"style="text-align: right;">Quyền: </div>
+					<div class="col-md-7">{{user.loaiQuyen}}</div>
+					<div class="col-md-5"style="text-align: right;">Ngày Thêm: </div>
+					<div class="col-md-7">{{user.createdAt}}</div>
+					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
+					<div class="col-md-7">{{user.updatedAt}}</div>
+					<div class="col-md-5"style="text-align: right;">Ảnh: </div>
+					<div class="col-md-7"><img [src]="user.anhDaiDien" style="width: 58px; height: 58px;" class="img-rounded" alt=""></div>			
+				</div>
+		  	</div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  </div>
+	  </div>
+	</div>
+</div>
+<div *ngIf="showUpdateModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="createUserModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<hr>
+			<form *ngIf="doneSetupForm" [formGroup]="frmUser" (ngSubmit)="OnSubmit(frmUser.value)"
+				class="form-horizontal">
+				<div class="modal-body" style="padding-left: 50px !important; padding-right:50px !important;">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Họ tên<span style="color:red ;">*</span></label>
+						<div class="col-lg-12">
+							<input formControlName="txt_hoten" type="text" class="form-control" placeholder="Họ tên">
+							<div *ngIf="hoten.invalid && (hoten.dirty || hoten.touched)">
+								<div *ngIf="hoten.errors?.['required']" style="color:red ;">Họ tên không được rỗng</div>
+								<div *ngIf="hoten.errors?.['minlength']" style="color:red ;">
+									Họ tên không được nhỏ hơn 3 ký tự
+								</div>
+								<div *ngIf="hoten.errors?.['maxlength']" style="color:red ;">
+									Họ tên không được lớn hơn 250 ký tự
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Ngày sinh<span style="color:red ;">*</span>:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_ngaysinh" type="date" class="form-control"
+								placeholder="Ngày sinh">
+							<div *ngIf="ngaysinh.invalid && (ngaysinh.dirty || ngaysinh.touched)">
+								<div *ngIf="ngaysinh.errors?.['required']" style="color:red ;">Ngày sinh không được rỗng
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Giới tính<span style="color:red ;">*</span>:</label>
+						<div class="col-lg-12">
+							<label class="radio-inline">
+								<input formControlName="txt_gioitinh" type="radio" class="styled" name="txt_gioitinh"
+									checked="checked" value="Nam">
+								Nam
+							</label>
+
+							<label class="radio-inline">
+								<input formControlName="txt_gioitinh" type="radio" class="styled" name="txt_gioitinh"
+									value="Nữ">
+								Nữ
+							</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Địa chỉ:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_diachi" type="text" class="form-control" placeholder="Địa chỉ">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Email:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_email" type="text" class="form-control" placeholder="Email">
+							<div *ngIf="email.invalid && (email.dirty || email.touched)">
+								<div *ngIf="email.errors?.['email']" style="color:red ;">Không đúng định dạng của email!
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Điện thoại:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_dienthoai" type="text" class="form-control"
+								placeholder="Điện thoại">
+							<div *ngIf="dienthoai.invalid && (dienthoai.dirty || dienthoai.touched)">
+								<div *ngIf="dienthoai.errors?.['pattern']" style="color:red ;">Không đúng định dạng số
+									điện thoại!</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Tài khoản<span style="color:red ;">*</span>:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_taikhoan" type="text" class="form-control"
+								placeholder="Tài khoản">
+							<div *ngIf="taikhoan.invalid && (taikhoan.dirty || taikhoan.touched)">
+								<div *ngIf="taikhoan.errors?.['required']" style="color:red ;">Tài khoản không được rỗng
+								</div>
+								<div *ngIf="taikhoan.errors?.['minlength']" style="color:red ;">
+									Tài khoản không được nhỏ hơn 5 ký tự
+								</div>
+								<div *ngIf="taikhoan.errors?.['maxlength']" style="color:red ;">
+									Tài khoản không được lớn hơn 50 ký tự
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Mật khẩu<span style="color:red ;">*</span>:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_matkhau" type="password" class="form-control"
+								placeholder="Mật khẩu">
+							<div *ngIf="matkhau.invalid && (matkhau.dirty || matkhau.touched)">
+								<div *ngIf="matkhau.errors?.['required']" style="color:red ;">Mật khẩu là bắt buộc</div>
+								<div *ngIf="matkhau.errors?.['matkhau']" style="color:red ;"> Độ dài mật khẩu tối thiệu
+									phải là 6 ký tự và
+									phải chứa ký tự đặc biệt @#!$%&*</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Nhập lại mật khẩu<span
+								style="color:red ;">*</span>:</label>
+						<div class="col-lg-12">
+							<input formControlName="txt_nhaplai_matkhau" type="password" class="form-control"
+								placeholder="Nhập lại mật khẩu">
+							<div *ngIf="nhaplaimatkhau.invalid && (nhaplaimatkhau.dirty || nhaplaimatkhau.touched)">
+								<div *ngIf="nhaplaimatkhau.errors?.['required']" style="color:red ;">Xác nhận lại mật
+									khẩu là bắt buộc</div>
+								<div *ngIf="nhaplaimatkhau.errors?.['matching']" style="color:red ;">Xác thực lại mật
+									khẩu không đúng</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Loại quyền:</label>
+						<div class="col-lg-12">
+							<select formControlName="txt_loaiquyen" [(ngModel)]="loaiQuyen" class="form-control">
+								<option [value]="'Admin'">Admin</option>
+								<option [value]="'User'">User</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Ảnh đại diện:</label>
+						<div class="col-lg-12">
+							<div class="media no-margin-top">
+								<div class="media-left">
+									<a href="#"><img
+											[src]="user && user.anhDaiDien?user.anhDaiDien:'assets/images/placeholder.jpg'"
+											style="width: 58px; height: 58px;" class="img-rounded" alt=""></a>
+								</div>
+
+								<div class="media-body">
+									<input (change)="upload($event)"accept=".jpg,.png,.jpeg,.gif,.bmp,.tif,.tiff"
+										type="file" class="file-styled">
+									<span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" (click)="closeModal()">Đóng</button>
+					<button type="submit" class="btn btn-primary" [disabled]="frmUser.invalid">Lưu lại</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

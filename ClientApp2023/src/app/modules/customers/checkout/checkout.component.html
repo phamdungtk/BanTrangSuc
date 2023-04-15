@@ -1,0 +1,178 @@
+<!-- Begin Hiraola's Breadcrumb Area -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2>Other</h2>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Checkout</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Hiraola's Breadcrumb Area End Here -->
+<!-- Begin Hiraola's Checkout Area -->
+<div class="checkout-area">
+    <div class="container">
+        <form [formGroup]="frmKhach" (ngSubmit)="onSubmit(frmKhach.value)">
+            <div class="row">
+                <div class="col-lg-6 col-12">              
+                        <div class="checkbox-form">
+                            <h3>Billing Details</h3>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label for="txt_hoten">Họ tên: <span>*</span>
+                                            <span *ngIf="hoten.invalid && (hoten.dirty || hoten.touched)">
+                                                <span *ngIf="hoten.errors?.['required']">Họ tên không được rỗng</span>
+                                                <span *ngIf="hoten.errors?.['minlength']">
+                                                    Họ tên không được nhỏ hơn 3 ký tự
+                                                </span>
+                                                <span *ngIf="hoten.errors?.['maxlength']">
+                                                    Họ tên không được lớn hơn 20 ký tự
+                                                </span>
+                                            </span>
+                                        </label> 
+                                        <br>
+                                        <input formControlName="txt_hoten" type="text" ngModel>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label for="txt_sdt">Số điện thoại: <span>*</span>
+                                            <span *ngIf="sodienthoai.invalid && (sodienthoai.dirty || sodienthoai.touched)">
+                                                <span *ngIf="sodienthoai.errors?.['required']">Số điện thoại không được rỗng</span>
+                                                <span *ngIf="sodienthoai.errors?.['pattern']">Không đúng định dạng số điện thoại</span>
+                                            </span>
+                                        </label><br>
+                                        <input formControlName="txt_sdt" type="text" ngModel>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label for="txt_email">Email:
+                                            <span *ngIf="email.invalid && (email.dirty || email.touched)">
+                                                <span *ngIf="email.errors?.['email']">Không đúng định dạng của email</span>
+                                            </span> 
+                                        </label><br>
+                                        <input formControlName="txt_email" type="text" ngModel>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">
+                                        <label for="txt_diachi">Địa chỉ: <span>*</span>
+                                            <span *ngIf="diachi.invalid && (diachi.dirty || diachi.touched)">
+                                                <span *ngIf="diachi.errors?.['required']">Địa chỉ không được rỗng</span>
+                                            </span> 
+                                        </label><br>
+                                        <input formControlName="txt_diachi" cols="135"type="text" rows="1" ngModel>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="checkout-form-list">             
+                                        <label for="txt_ghichu">Ghi chú:</label><br>
+                                        <input formControlName="txt_ghichu" id="txt_ghichu" cols="135"type="text" rows="1" ngModel>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                
+                </div>
+                <div class="col-lg-6 col-12">
+                    <div class="your-order">
+                        <h3>Your order</h3>
+                        <div class="your-order-table table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="cart-product-name">Product</th>
+                                        <th class="cart-product-total">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let it of list_items" class="cart_item">
+                                        <td class="cart-product-name"> {{it.tenSanPham}} <strong class="product-quantity">
+                                            * {{it.quantity}}</strong></td>
+                                        <td class="cart-product-total"><span class="amount">{{it.quantity * it.gia}}đ</span></td>
+                                    </tr>
+                                
+                                </tbody>
+                                <tfoot>
+                                    <tr class="cart-subtotal">
+                                        <th>Cart Subtotal</th>
+                                        <td><span class="amount">{{tTong}}</span></td>
+                                    </tr>
+                                    <tr class="order-total">
+                                        <th>Order Total</th>
+                                        <td><strong><span class="amount">{{tTong}}</span></strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="payment-method">
+                            <div class="payment-accordion">
+                                <!-- <div id="accordion">
+                                    <div class="card">
+                                        <div class="card-header" id="#payment-1">
+                                            <h5 class="panel-title">
+                                                <a href="javascript:void(0)" class="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    Direct Bank Transfer.
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>Make your payment directly into our bank account. Please use your Order
+                                                    ID as the payment
+                                                    reference. Your order won’t be shipped until the funds have cleared in
+                                                    our account.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="#payment-2">
+                                            <h5 class="panel-title">
+                                                <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                    Cheque Payment
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseTwo" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>Make your payment directly into our bank account. Please use your Order
+                                                    ID as the payment
+                                                    reference. Your order won’t be shipped until the funds have cleared in
+                                                    our account.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header" id="#payment-3">
+                                            <h5 class="panel-title">
+                                                <a href="javascript:void(0)" class="collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                    PayPal
+                                                </a>
+                                            </h5>
+                                        </div>
+                                        <div id="collapseThree" class="collapse" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <p>Make your payment directly into our bank account. Please use your Order
+                                                    ID as the payment
+                                                    reference. Your order won’t be shipped until the funds have cleared in
+                                                    our account.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="order-button-payment">
+                                    <input [disabled]="frmKhach.invalid" [ngStyle]="{'background-color':frmKhach.invalid?'#F4F6F8':'blue'}" value="Place order" type="submit">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
