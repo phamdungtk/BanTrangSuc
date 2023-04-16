@@ -85,10 +85,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
       // console.log(res.data);
-      // console.log(res.totalItem);
-      setTimeout(() => {
-        this.loadScripts('');
-      });
+      // console.log(res.totalItem); 
     });
   } 
   change_dm(sel_dm: any){

@@ -20,7 +20,7 @@
           		</div>
         	</div>
       	</div>
-    	<div class="content-body"><!-- Basic Tables start -->
+    	<div class="content-body">
         	<div class="row">
             	<div class="col-12">
               
@@ -40,7 +40,8 @@
 														<input formControlName="txt_taikhoan" type="text" class="form-control" placeholder="Tài khoản">
 													</th>
 													<th>
-														<select formControlName="txt_loaiquyen" class="form-control"placeholder="Quyền">										
+														<select formControlName="txt_loaiquyen" class="form-control"placeholder="Quyền">
+															<option [value]="''">All</option>										
 															<option [value]="'Admin'">Admin</option>
 															<option [value]="'User'">User</option>
 														</select>
@@ -132,7 +133,7 @@
 					<div class="col-md-5" style="text-align: right;">Họ Tên: </div>
 					<div class="col-md-7">{{user.hoTen}}</div>
 					<div class="col-md-5"style="text-align: right;">Ngày Sinh: </div>
-					<div class="col-md-7"> {{user.ngaySinh}}</div>
+					<div class="col-md-7"> {{user.ngaySinh | date:'dd/MM/yyyy'}}</div>
 					<div class="col-md-5"style="text-align: right;">Giới Tính: </div>
 					<div class="col-md-7">{{user.gioiTinh}}</div>				
 					<div class="col-md-5"style="text-align: right;">Địa Chỉ: </div>

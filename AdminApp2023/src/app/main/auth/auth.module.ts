@@ -8,13 +8,19 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SanPhamComponent } from './san-pham/san-pham.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DanhMucComponent } from './danh-muc/danh-muc.component';
+import { NhaSanXuatComponent } from './nha-san-xuat/nha-san-xuat.component';
+import { DonViTinhComponent } from './don-vi-tinh/don-vi-tinh.component';
+import { CtAnhSanPhamComponent } from './ct-anh-san-pham/ct-anh-san-pham.component';
 
 
 @NgModule({
   declarations: [
     NguoiDungComponent,
     SanPhamComponent,
-    DanhMucComponent
+    DanhMucComponent,
+    NhaSanXuatComponent,
+    DonViTinhComponent,
+    CtAnhSanPhamComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -35,6 +41,14 @@ import { DanhMucComponent } from './danh-muc/danh-muc.component';
       {
         path: 'danh-muc',
         component: DanhMucComponent,
+      },
+      {
+        path: 'nha-san-xuat',
+        component: NhaSanXuatComponent,
+      },
+      {
+        path: 'don-vi-tinh',
+        component: DonViTinhComponent,
       },
   ]),  
   ]

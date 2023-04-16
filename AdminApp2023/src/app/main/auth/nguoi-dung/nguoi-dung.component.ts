@@ -21,7 +21,7 @@ export class NguoiDungComponent extends BaseComponent implements OnInit, AfterVi
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 2;
+  public pageSize: any = 6;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);

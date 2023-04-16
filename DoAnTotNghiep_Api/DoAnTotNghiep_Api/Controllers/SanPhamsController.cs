@@ -232,22 +232,26 @@ namespace DoAnTotNghiep_Api.Controllers
             obj_sanpham.AnhDaiDien = model.sanpham.AnhDaiDien;
             obj_sanpham.MaNhaSanXuat = model.sanpham.MaNhaSanXuat;
             obj_sanpham.MaDonViTinh = model.sanpham.MaDonViTinh;
+            obj_sanpham.UpdatedAt = model.sanpham.UpdatedAt;
             db.SaveChanges();
 
             model.giasapham.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_giasanpham = db.GiaSanPhams.SingleOrDefault(x => x.MaSanPham == model.giasapham.MaSanPham);
             obj_giasanpham.Gia = model.giasapham.Gia;
+            obj_giasanpham.UpdatedAt = model.giasapham.UpdatedAt;
             db.SaveChanges();
 
             model.giamgia.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_giamgia = db.GiamGia.SingleOrDefault(x => x.MaSanPham == model.giamgia.MaSanPham);
             obj_giamgia.PhanTram = model.giamgia.PhanTram;
+            obj_giamgia.UpdatedAt = model.giamgia.UpdatedAt;
             db.SaveChanges();
 
             model.thongsokythuat.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_thongsokythuat = db.ThongSoKyThuats.SingleOrDefault(x => x.MaSanPham == model.thongsokythuat.MaSanPham);
             obj_thongsokythuat.TenThongSo = model.thongsokythuat.TenThongSo;
             obj_thongsokythuat.MoTa = model.thongsokythuat.MoTa;
+            obj_thongsokythuat.UpdatedAt = model.thongsokythuat.UpdatedAt;
             db.SaveChanges();
             return Ok(new { data = "OK" });
         }

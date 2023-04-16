@@ -22,6 +22,20 @@ namespace DoAnTotNghiep_Api.Controllers
             DateFormat = configuration["Constants:DateFormat"];
 
         }
+        [Route("Get-All")]
+        [HttpGet]
+        public IActionResult Getall()
+        {
+            try
+            {
+                var result = db.DanhMucs.OrderBy(x => x.MaDanhMuc).ToList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
         [Route("get-loai-sanpham")]
         [HttpGet]
         public IEnumerable<DanhMucModel> GetAllMenu()
@@ -171,6 +185,7 @@ namespace DoAnTotNghiep_Api.Controllers
             var obj_loaisanpham = db.DanhMucs.SingleOrDefault(x => x.MaDanhMuc == model.MaDanhMuc);
             obj_loaisanpham.MaDanhMucCha = model.MaDanhMucCha;
             obj_loaisanpham.TenDanhMuc = model.TenDanhMuc;
+            obj_loaisanpham.UpdatedAt = model.UpdatedAt;
             db.SaveChanges();
 
            

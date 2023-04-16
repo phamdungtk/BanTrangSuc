@@ -4,7 +4,7 @@
       <div class="content-header row">
         <div class="content-header-left col-md-4 col-12 mb-2">
 			<button (click)="createModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-				Thêm Danh Mục
+				Thêm Nhà Sản Xuất
 			</button>
         </div>
         <div class="content-header-right col-md-8 col-12">
@@ -13,7 +13,7 @@
               	<ol class="breadcrumb">
                 	<li class="breadcrumb-item"><a href="index.html">Trang Chủ</a>
                 		</li>
-                			<li class="breadcrumb-item active">Danh Mục
+                			<li class="breadcrumb-item active">Nhà Sản Xuất
                 		</li>
               		</ol>
             		</div>
@@ -32,7 +32,7 @@
 											<thead class="thead-dark">
 												<tr style="text-align: center;">                                              
 													<th>
-														<input formControlName="txt_tendanhmuc" type="text" class="form-control" placeholder="Họ tên">
+														<input formControlName="txt_tennsx" type="text" class="form-control" placeholder="Tên Nhà Sản Xuất">
 													</th>									
 													<th ><button  style="float: right;" type="submit" class="btn btn-primary"><i class="icon-search4 position-right"></i> Tìm kiếm</button></th>                                    					
 												</tr>
@@ -48,24 +48,22 @@
 										<thead class="thead-dark">
 											<tr style="text-align: center;">
 												<th >STT</th>
-												<th >ID Danh Mục</th>
-												<th >ID Danh Mục Cha</th>
-												<th >Tên Danh Mục</th> 
+												<th >Tên Nhà Sản Xuất</th> 
+                                                <th >Mô Tả</th> 
 												<th >Thao Tác</th>                             
 											</tr>
 										</thead>
 										<tbody> 
-											<tr *ngFor="let ur of list_loaisanpham index as i" style="text-align: center;">
-												<td style="vertical-align: middle;">{{ i + 1 }}</td>
-												<td style="vertical-align: middle;">{{ur.maDanhMuc}}</td>
-												<td style="vertical-align: middle;">{{ur.maDanhMucCha}}</td>
-												<td style="vertical-align: middle;">{{ur.tenDanhMuc}}</td>											
-												<td style="text-align: center; vertical-align: middle;">   
+											<tr *ngFor="let ur of list_nsx index as i">
+												<td style="vertical-align: middle; text-align: center;">{{ i + 1 }}</td>
+												<td style="vertical-align: middle; text-align: center; width: 20%;">{{ur.tenNhaSanXuat}}</td>
+												<td style="vertical-align: middle; width: 50%;" [innerHTML]="(ur.moTa.length>6)? (ur.moTa | slice:0:60)+'...':(ur.moTa)"></td>											
+												<td style="vertical-align: middle; text-align: center;">   
 													<div class="card-content collapse show">
 														<div class="card-body">
 															<div class="form-group">                                               											
-																<button type="button" (click)="openUpdateModal(ur.maDanhMuc)" class="btn btn-outline-warning btn-sm mr-1"><i class="la la-edit"></i></button>
-																<button type="button" (click)="onRemove(ur.maDanhMuc)"class="btn btn-outline-red btn-sm mr-1"><i class="la la-trash"></i></button>														
+																<button type="button" (click)="openUpdateModal(ur.maNhaSanXuat)" class="btn btn-outline-warning btn-sm mr-1"><i class="la la-edit"></i></button>
+																<button type="button" (click)="onRemove(ur.maNhaSanXuat)"class="btn btn-outline-red btn-sm mr-1"><i class="la la-trash"></i></button>														
 															</div>
 														</div>
 													</div>      
@@ -107,38 +105,35 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<hr>
-			<form *ngIf="doneSetupForm" [formGroup]="frmLoai" (ngSubmit)="OnSubmit(frmLoai.value)"
+			<form *ngIf="doneSetupForm" [formGroup]="frmNSX" (ngSubmit)="OnSubmit(frmNSX.value)"
 				class="form-horizontal">
 				<div class="modal-body" style="padding-left: 50px !important; padding-right:50px !important;">
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Tên Danh Mục</label>
-                        <div class="col-lg-12 ">
-                            <select #sel_dm (change)="change_dm(sel_dm.value)" class="form-control">
-								<option value=""></option>
-                                <option *ngFor="let lsp of list_maloai" [selected]="selectloaicha==lsp.maDanhMucCha?true:false" value="{{lsp.maDanhMuc}}">{{lsp.tenDanhMuc}}</option>
-                            </select>
-                        </div>                       
-					</div>
-					<div class="form-group">
-						<label class="col-lg-3 control-label">Tên Danh Mục<span style="color:red ;">*</span></label>
+						<label class="col-lg-3 control-label">Tên Nhà Sản Xuất<span style="color:red ;">*</span></label>
 						<div class="col-lg-12">
-							<input formControlName="txt_tendanhmuc" type="text" class="form-control" placeholder="Họ tên">
-							<div *ngIf="tendanhmuc.invalid && (tendanhmuc.dirty || tendanhmuc.touched)">
-								<div *ngIf="tendanhmuc.errors?.['required']" style="color:red ;">Tên danh mục không được rỗng</div>
-								<div *ngIf="tendanhmuc.errors?.['minlength']" style="color:red ;">
+							<input formControlName="txt_tennsx" type="text" class="form-control" placeholder="Họ tên">
+							<div *ngIf="tennsx.invalid && (tennsx.dirty || tennsx.touched)">
+								<div *ngIf="tennsx.errors?.['required']" style="color:red ;">Tên danh mục không được rỗng</div>
+								<div *ngIf="tennsx.errors?.['minlength']" style="color:red ;">
 									Họ tên không được nhỏ hơn 1 ký tự
 								</div>
-								<div *ngIf="tendanhmuc.errors?.['maxlength']" style="color:red ;">
+								<div *ngIf="tennsx.errors?.['maxlength']" style="color:red ;">
 									Họ tên không được lớn hơn 250 ký tự
 								</div>
 							</div>
+						</div>
+					</div>
+                    <div class="form-group">
+						<label class="col-lg-3 control-label">Mô Tả Nhà Sản Xuất</label>
+						<div class="col-lg-12">
+                            <ckeditor  formControlName="txt_mota" [editor]="Editor" data="<p>Nhập thông tin tại đây!</p>"></ckeditor>						
 						</div>
 					</div>
 				</div>
 				<hr>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-link" (click)="closeModal()">Đóng</button>
-					<button type="submit" class="btn btn-primary" [disabled]="frmLoai.invalid">Lưu lại</button>
+					<button type="submit" class="btn btn-primary" [disabled]="frmNSX.invalid">Lưu lại</button>
 				</div>
 			</form>
 		</div>

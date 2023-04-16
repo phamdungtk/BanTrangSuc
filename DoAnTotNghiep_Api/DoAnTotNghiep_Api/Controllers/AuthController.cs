@@ -185,12 +185,14 @@ namespace DoAnTotNghiep_Api.Controllers
             obj_nguoidung.DiaChi = model.nguoidung.DiaChi;
             obj_nguoidung.Email = model.nguoidung.Email;
             obj_nguoidung.DienThoai = model.nguoidung.DienThoai;
+            obj_nguoidung.UpdatedAt = model.nguoidung.UpdatedAt;
             db.SaveChanges();
             model.taikhoan.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_taikhoan = db.TaiKhoans.SingleOrDefault(x => x.MaNguoiDung == model.taikhoan.MaNguoiDung);
             obj_taikhoan.TaiKhoan1 = model.taikhoan.TaiKhoan1;
             obj_taikhoan.MatKhau = model.taikhoan.MatKhau;
             obj_taikhoan.LoaiQuyen = model.taikhoan.LoaiQuyen;
+            obj_taikhoan.UpdatedAt = model.taikhoan.UpdatedAt;
 
             db.SaveChanges();
             return Ok(new { data = "OK" });
