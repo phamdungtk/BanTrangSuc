@@ -50,6 +50,7 @@ import { CtAnhSanPhamComponent } from './ct-anh-san-pham/ct-anh-san-pham.compone
         path: 'don-vi-tinh',
         component: DonViTinhComponent,
       },
+      { path: 'chi-tiet-anh/:id', component: CtAnhSanPhamComponent },
   ]),  
   ]
 })

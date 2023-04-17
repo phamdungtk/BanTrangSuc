@@ -41,7 +41,7 @@ namespace DoAnTotNghiep_Api.Controllers
                              {
                                  TenSanPham = a.TenSanPham,
                                  TenDanhMuc = b.TenDanhMuc,
-                                 //Anh = c.Anh,
+                                 MaSanPham = a.MaSanPham,
                                  //SoLuong = d.SoLuong,
                                  //DonGiaNhap = d.DonGiaNhap,
                                  //MaNhomSanPham = e.MaNhomSanPham,

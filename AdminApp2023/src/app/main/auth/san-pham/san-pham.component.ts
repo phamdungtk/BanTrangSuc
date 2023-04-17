@@ -11,6 +11,7 @@ declare var $: any;
 export class SanPhamComponent extends BaseComponent implements OnInit, AfterViewInit {
   public Editor = ClassicEditor;
   public list_sanpham: any;
+  public list_ctanhsanpham: any;
   public list_loaisp: any;
   public list_donvitinh: any;
   public list_nhasanxuat: any;
@@ -19,6 +20,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   public selectnhasanxuat: any = 1;
   public isCreate = false;
   public sanpham: any;
+  public ctanhsanpham: any;
   public frmSanPham: FormGroup;
   public frmSearch: FormGroup;
   public file: any;
@@ -45,11 +47,16 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     this._api.post('/api/SanPhams/search', {  loc: this.loc, page: this.page, pageSize: this.pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc'], tennhasanxuat: this.frmSearch.value['txt_tennhasanxuat']}).subscribe(res => {
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
-      // console.log(res.data);
-      // console.log(res.totalItem);   
       setTimeout(() => {
         this.loadScripts(
         );
+      });
+    });
+    this._route.params.subscribe(params => {
+      let id = params['id'];
+      this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {
+        this.list_ctanhsanpham = res;
+        console.log(res);              
       });
     });
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
@@ -159,6 +166,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
 
     });
   }
+  
   public openViewModal(MaSanPham: any) {
     setTimeout(() => {
       debugger; 
@@ -288,12 +296,11 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       }
     } else {
       obj.sanpham.MaSanPham = this.sanpham.maSanPham;
-      // obj.chitietanhsanpham.MaSanPham = this.sanpham.maSanPham;
       obj.giasapham.MaSanPham = this.sanpham.maSanPham;
       obj.giamgia.MaSanPham = this.sanpham.maSanPham;
       obj.thongsokythuat.MaSanPham = this.sanpham.maSanPham;
       if (this.file) {
-        this._api.uploadFileSingle('/api/upload/upload-single', 'auth', this.file).subscribe((res: any) => {
+        this._api.uploadFileSingle('/api/upload/upload-single', 'sanpham', this.file).subscribe((res: any) => {
           if (res && res.body && res.body.filePath) {
             obj.sanpham.AnhDaiDien = res.body.filePath;
             this._api.post('/api/SanPhams/update-sanpham', obj).subscribe(res => {

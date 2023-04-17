@@ -7,7 +7,7 @@ public partial class ChiTietAnhSanPham
 {
     public int MaAnhChitiet { get; set; }
 
-    public int? MaSanPham { get; set; }
+    public int MaSanPham { get; set; }
 
     public string? Anh { get; set; }
 

@@ -155,6 +155,7 @@ export class DonViTinhComponent extends BaseComponent implements OnInit, AfterVi
       });
     } else {
       obj.DonViTinh.maDonViTinh = this.dvt.maDonViTinh;
+      debugger
       console.log(this.dvt.maDonViTinh);
       this._api.post('/api/DonViTinhs/update-dvt', obj.DonViTinh).subscribe(res => {
         if (res && res.data) {
