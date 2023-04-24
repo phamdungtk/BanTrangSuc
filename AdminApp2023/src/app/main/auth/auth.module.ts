@@ -11,6 +11,7 @@ import { DanhMucComponent } from './danh-muc/danh-muc.component';
 import { NhaSanXuatComponent } from './nha-san-xuat/nha-san-xuat.component';
 import { DonViTinhComponent } from './don-vi-tinh/don-vi-tinh.component';
 import { CtAnhSanPhamComponent } from './ct-anh-san-pham/ct-anh-san-pham.component';
+import { HoaDonNhapComponent } from './hoa-don-nhap/hoa-don-nhap.component';
 
 
 @NgModule({
@@ -20,10 +21,12 @@ import { CtAnhSanPhamComponent } from './ct-anh-san-pham/ct-anh-san-pham.compone
     DanhMucComponent,
     NhaSanXuatComponent,
     DonViTinhComponent,
-    CtAnhSanPhamComponent
+    CtAnhSanPhamComponent,
+    HoaDonNhapComponent
   ],
   imports: [
     ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     CommonModule,
     SharedModule,
     NgbModule,
@@ -49,6 +52,10 @@ import { CtAnhSanPhamComponent } from './ct-anh-san-pham/ct-anh-san-pham.compone
       {
         path: 'don-vi-tinh',
         component: DonViTinhComponent,
+      },
+      {
+        path: 'hoa-don-nhap',
+        component: HoaDonNhapComponent,
       },
       { path: 'chi-tiet-anh/:id', component: CtAnhSanPhamComponent },
   ]),  

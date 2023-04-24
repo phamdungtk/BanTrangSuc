@@ -24,7 +24,7 @@ import { ApiService } from 'src/app/core/services/api.service';
     this.loc = localStorage.getItem('loc') || '';
     this._route.params.subscribe(params => {
       this.id = params['id'];
-      this._api.post('/api/DanhMucs/search', { loc: this.loc, page: this.page, pageSize: this.pageSize, ma_danh_muc: this.id }).subscribe(res => {
+      this._api.post('/api/LoaiSanPhams/search', { loc: this.loc, page: this.page, pageSize: this.pageSize, ma_danh_muc: this.id }).subscribe(res => {
         this.list_item = res.data;
         this.totalItem = res.totalItem;
         console.log(res.data);
@@ -33,7 +33,7 @@ import { ApiService } from 'src/app/core/services/api.service';
           this.loadScripts('assets/js/main.js');
         });
       });
-      this._api.get('/api/DanhMucs/get-danhmuc').subscribe(res => {
+      this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
         this.danh_sach_danh_muc = res;
         setTimeout(() => {
           this.loadScripts('');
@@ -42,7 +42,7 @@ import { ApiService } from 'src/app/core/services/api.service';
     })
   }
   public loadPage(page: any) {
-    this._api.post('/api/DanhMucs/search', {loc: this.loc,  page: page, pageSize: this.pageSize, ma_danh_muc: this.id }).subscribe(res => {
+    this._api.post('/api/LoaiSanPhams/search', {loc: this.loc,  page: page, pageSize: this.pageSize, ma_danh_muc: this.id }).subscribe(res => {
       this.list_item = res.data;
       this.totalItem = res.totalItem;
       setTimeout(() => {
@@ -53,7 +53,7 @@ import { ApiService } from 'src/app/core/services/api.service';
  
   public loadData(pageSize:any) {
    this.pageSize = pageSize;
-    this._api.post('/api/DanhMucs/search', { loc: this.loc, page: 1, pageSize: pageSize, ma_danh_muc: this.id }).subscribe(res => {
+    this._api.post('/api/LoaiSanPhams/search', { loc: this.loc, page: 1, pageSize: pageSize, ma_danh_muc: this.id }).subscribe(res => {
       this.list_item = res.data;
       this.totalItem = res.totalItem;
       setTimeout(() => {

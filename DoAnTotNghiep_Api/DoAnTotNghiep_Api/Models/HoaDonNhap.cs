@@ -9,7 +9,7 @@ public partial class HoaDonNhap
 
     public string SoHoaDon { get; set; } = null!;
 
-    public DateTime NgayNhap { get; set; }
+    public DateTime? NgayNhap { get; set; }
 
     public int MaNguoiDung { get; set; }
 
@@ -21,7 +21,7 @@ public partial class HoaDonNhap
 
     public virtual ICollection<ChiTietHoaDonNhap> ChiTietHoaDonNhaps { get; } = new List<ChiTietHoaDonNhap>();
 
-    public virtual NguoiDung MaNguoiDungNavigation { get; set; } = null!;
+    public virtual NguoiDung? MaNguoiDungNavigation { get; set; } = null!;
 
-    public virtual NhaCungCap MaNhaCungCapNavigation { get; set; } = null!;
+    public virtual NhaCungCap? MaNhaCungCapNavigation { get; set; } = null!;
 }

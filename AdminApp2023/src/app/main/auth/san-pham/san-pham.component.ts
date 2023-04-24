@@ -10,14 +10,14 @@ declare var $: any;
 })
 export class SanPhamComponent extends BaseComponent implements OnInit, AfterViewInit {
   public Editor = ClassicEditor;
+  public mdm: string = "";
+  public nsx: string = "";
+  public mdvt: string = "";
   public list_sanpham: any;
   public list_ctanhsanpham: any;
   public list_loaisp: any;
   public list_donvitinh: any;
   public list_nhasanxuat: any;
-  public selectloai: any = 1;
-  public selectdonvitinh: any = 1;
-  public selectnhasanxuat: any = 1;
   public isCreate = false;
   public sanpham: any;
   public ctanhsanpham: any;
@@ -48,32 +48,31 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
       setTimeout(() => {
-        this.loadScripts(
-        );
+        this.loadScripts( 'assets/js/core/app-lite.js', 'assets/js/core/app-menu-lite.js' );
       });
     });
-    this._route.params.subscribe(params => {
-      let id = params['id'];
-      this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {
-        this.list_ctanhsanpham = res;
-        console.log(res);              
-      });
-    });
+    // this._route.params.subscribe(params => {
+    //   let id = params['id'];
+    //   this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {
+    //     this.list_ctanhsanpham = res;
+    //     console.log(res);              
+    //   });
+    // });
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.list_loaisp = res;
-      this.selectloai = this.list_loaisp[0].maDanhMuc;
-      console.log(this.selectloai);
+      // this.selectloai = this.list_loaisp[0].maDanhMuc;
+      // console.log(this.selectloai);
       
     });
     this._api.get('/api/DonViTinhs/Get-All').subscribe(res => {
       this.list_donvitinh = res;
-      this.selectdonvitinh = this.list_donvitinh[0].maDonViTinh;
-      console.log(this.selectdonvitinh);      
+      // this.selectdonvitinh = this.list_donvitinh[0].maDonViTinh;
+      // console.log(this.selectdonvitinh);      
     });
     this._api.get('/api/NhaSanXuats/Get-All').subscribe(res => {
       this.list_nhasanxuat = res;
-      this.selectnhasanxuat = this.list_nhasanxuat[0].maNhaSanXuat;
-      console.log(this.selectnhasanxuat);     
+      // this.selectnhasanxuat = this.list_nhasanxuat[0].maNhaSanXuat;
+      // console.log(this.selectnhasanxuat);     
     });
   }
   public loadPage(page: any) {
@@ -95,17 +94,17 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       // console.log(res.totalItem); 
     });
   } 
-  change_dm(sel_dm: any){
-    this.selectloai= sel_dm;
-  }
-  change_dvt(sel_dvt: any){
+  // change_dm(sel_dm: any){
+  //   this.selectloai= sel_dm;
+  // }
+  // change_dvt(sel_dvt: any){
 
-    this.selectdonvitinh = sel_dvt;
-  }
-  change_nsx(sel_nsx: any){
+  //   this.selectdonvitinh = sel_dvt;
+  // }
+  // change_nsx(sel_nsx: any){
 
-    this.selectnhasanxuat = sel_nsx;
-  }
+  //   this.selectnhasanxuat = sel_nsx;
+  // }
   setDieuKienLoc(loc: any) {
     this.loc = loc;
     localStorage.setItem('loc',loc); 
@@ -191,17 +190,21 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
         this.doneSetupForm = true;
         this.frmSanPham = new FormGroup({
           'txt_tensanpham': new FormControl(this.sanpham.tenSanPham, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-          'txt_madanhmuc': new FormControl(this.sanpham.maDanhMuc, []),
+          'txt_madanhmuc': new FormControl('', []),
           'txt_motasanpham': new FormControl(this.sanpham.moTaSanPham, []),
           'txt_anhdaidien': new FormControl(this.sanpham.anhDaiDien, []),
-          'txt_manhasanxuat': new FormControl(this.sanpham.maNhaSanXuat, []),
-          'txt_madonvitinh': new FormControl(this.sanpham.maDonViTinh, []),        
+          'txt_manhasanxuat': new FormControl('', []),
+          'txt_madonvitinh': new FormControl('', []),        
           'txt_gia': new FormControl(this.sanpham.gia, []),
           'txt_phantram': new FormControl(this.sanpham.phanTram, []),
           'txt_tenthongso': new FormControl(this.sanpham.tenThongSo, []),
           'txt_mota': new FormControl(this.sanpham.mota, []),
         });
-      });
+        this.nsx = this.sanpham.maNhaSanXuat;
+        this.mdm = this.sanpham.maDanhMuc;
+        this.mdvt = this.sanpham.maDonViTinh;
+      }); 
+
     });
   }
 
@@ -246,11 +249,11 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     obj.sanpham = {
       tenSanPham: vl.txt_tensanpham,
       // maDanhMuc: vl.txt_madanhmuc,
-      maDanhMuc:parseInt(this.selectloai),
+      maDanhMuc:vl.txt_madanhmuc,
       moTaSanPham: vl.txt_motasanpham,
       anhDaiDien: vl.txt_anhdaidien,
-      maNhaSanXuat:parseInt(this.selectnhasanxuat),
-      maDonViTinh:parseInt(this.selectdonvitinh),
+      maNhaSanXuat:vl.txt_manhasanxuat,
+      maDonViTinh:vl.txt_madonvitinh,
     }
     // obj.chitietanhsanpham = {
     //   anh: vl.txt_anh,

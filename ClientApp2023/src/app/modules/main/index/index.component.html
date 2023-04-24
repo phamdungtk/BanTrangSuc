@@ -138,14 +138,13 @@
                         <div class="single_product"  >
                             <div class="product-img">
                                 <a  [routerLink]="['/chi-tiet',dssp.maSanPham]">
-                                    <img class="primary-img" src="assets/images/product/medium-size/1-2.jpg" alt="Hiraola's Product Image">
+                                    <img class="primary-img" src="{{dssp.anhDaiDien}}" alt="Hiraola's Product Image">
                                     <img class="secondary-img" src="assets/images/product/medium-size/1-2.jpg" alt="Hiraola's Product Image">
                                 </a>
-                                <span class="sticker">New</span>
+                                <span class="sticker">{{dssp.phanTram}}%</span>
                                 <div class="add-actions">
                                     <ul>
                                         <li><a class="hiraola-add_cart" (click)="_addToCart(dssp)" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="ion-bag"></i></a></li>
-                                        <li><a class="hiraola-add_compare" href="compare.html" data-toggle="tooltip" data-placement="top" title="Compare This Product"><i class="ion-ios-shuffle-strong"></i></a></li>
                                         <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Quick View"><i class="ion-eye"></i></a></li>
                                     </ul>
                                 </div>

@@ -53,6 +53,39 @@ namespace DoAnTotNghiep_Api.Controllers
                 return Ok("Err");
             }
         }
+        [Route("get-admin")]
+        [HttpGet]
+        public IActionResult GetIdadmin()
+        {
+            try
+            {
+                var result = from t in db.NguoiDungs
+                             join n in db.TaiKhoans on t.MaNguoiDung equals n.MaNguoiDung
+                             select new
+                             {
+                                 MaTaiKhoan = n.MaTaiKhoan,
+                                 MaNguoiDung = t.MaNguoiDung,
+                                 HoTen = t.HoTen,
+                                 NgaySinh = t.NgaySinh,
+                                 GioiTinh = t.GioiTinh,
+                                 AnhDaiDien = t.AnhDaiDien,
+                                 DiaChi = t.DiaChi,
+                                 Email = t.Email,
+                                 DienThoai = t.DienThoai,
+                                 TrangThai = t.TrangThai,
+                                 LoaiQuyen = n.LoaiQuyen,
+                                 CreatedAt = n.CreatedAt,
+                                 UpdatedAt = n.UpdatedAt,
+                             };
+                var kq = result.OrderBy(x => x.MaTaiKhoan).Where(x => x.LoaiQuyen == "Admin").ToList();      
+                return Ok(kq);
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+           
+        }
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] AuthenticateModel model)

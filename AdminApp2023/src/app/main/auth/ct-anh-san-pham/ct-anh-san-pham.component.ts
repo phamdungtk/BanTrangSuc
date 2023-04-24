@@ -11,11 +11,12 @@ declare var $: any;
 })
 export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, AfterViewInit {
   public Editor = ClassicEditor;
+  public msp: string = "";
   public list_ctanhsanpham: any;
   public list_sanpham: any;
   public isCreate = false;
   public ctanhsanpham: any;
-  public selectsp: any = 1;
+  // public selectsp: any = 1;
   public frmCTAnhSanPham: FormGroup;
   public file: any;
   public showUpdateModal: any;
@@ -44,15 +45,15 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
     this._api.get('/api/SanPhams/Get-All').subscribe(res => {
       this.list_sanpham = res;
       // console.log(this.list_sanpham);
-      this.selectsp = this.list_sanpham[0].maSanPham;
+      // this.selectsp = this.list_sanpham[0].maSanPham;
       // console.log(this.selectsp);
       
     });
 
   }
-  change_sp(sel_sp: any){
-    this.selectsp = sel_sp;
-  }
+  // change_sp(sel_sp: any){
+  //   this.selectsp = sel_sp;
+  // }
   public createModal() {
     this.showUpdateModal = true;
     this.isCreate = true;
@@ -80,7 +81,9 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
           'txt_masp': new FormControl(this.ctanhsanpham.maSanPham, []),
           'txt_anh': new FormControl(this.ctanhsanpham.anh, []),
         });
+        this.msp = this.ctanhsanpham.maSanPham;
       });
+
     });
   }
  
@@ -118,7 +121,7 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
     }
     let obj: any = {};
     obj.anhsanpham = {
-      maSanPham: parseInt(this.selectsp),
+      maSanPham: vl.txt_masp,
       anh: vl.txt_anh,
     }
     if (this.isCreate) {

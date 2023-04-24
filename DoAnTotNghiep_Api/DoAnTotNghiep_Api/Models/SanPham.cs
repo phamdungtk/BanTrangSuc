@@ -7,17 +7,17 @@ public partial class SanPham
 {
     public int MaSanPham { get; set; }
 
-    public int MaDanhMuc { get; set; }
+    public int? MaDanhMuc { get; set; }
 
-    public string TenSanPham { get; set; } = null!;
+    public string? TenSanPham { get; set; } = null!;
 
-    public string MoTaSanPham { get; set; } = null!;
+    public string? MoTaSanPham { get; set; } = null!;
 
-    public string AnhDaiDien { get; set; } = null!;
+    public string? AnhDaiDien { get; set; } = null!;
 
-    public int MaNhaSanXuat { get; set; }
+    public int? MaNhaSanXuat { get; set; }
 
-    public int MaDonViTinh { get; set; }
+    public int? MaDonViTinh { get; set; }
 
     public string? CreatedAt { get; set; } = null!;
 

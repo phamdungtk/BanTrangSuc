@@ -31,7 +31,7 @@ export class IndexComponent extends BaseComponent implements OnInit,AfterViewIni
         this.loadScripts('assets/js/main.js');
       });
     });
-    this._api.get('/api/DanhMucs/get-danhmuc').subscribe(res => {
+    this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.danh_sach_danh_muc = res;
       setTimeout(() => {
         this.loadScripts('');

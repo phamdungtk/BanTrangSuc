@@ -23,9 +23,9 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
   ngOnInit(): void {
     this._route.params.subscribe(params => {
       let id = params['id'];
-      this._api.get('/api/SanPhams/Get-By-Id/'+ id).subscribe(res => {
-        this.item = res;
-        console.log(res);       
+      this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {
+        this.item = res.sanpham;
+        console.log(res.sanpham);       
         setTimeout(() => {
           this.loadScripts('assets/js/main.js');
         });

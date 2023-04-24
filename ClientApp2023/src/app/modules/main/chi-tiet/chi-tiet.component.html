@@ -16,11 +16,11 @@
         <div class="sp-area">
             <div class="container">
                 <div class="sp-nav">
-                    <div class="row"    >
+                    <div class="row" *ngIf="item"   >
                         <div class="col-lg-5 col-md-5">
                             <div class="sp-img_area">
                                 <div class="zoompro-border">
-                                    <img class="zoompro" src="assets/images/single-product/large-size/1.jpg" data-zoom-image="assets/images/single-product/large-size/1.jpg" alt="Hiraola's Product Image" />
+                                    <img class="zoompro" src="{{item.anhDaiDien}}" data-zoom-image="assets/images/single-product/large-size/1.jpg" alt="Hiraola's Product Image" />
                                 </div>
                                 <div id="gallery" class="sp-img_slider">
                                     <a class="active" data-image="assets/images/single-product/large-size/1.jpg" data-zoom-image="assets/images/single-product/large-size/1.jpg">
@@ -47,9 +47,9 @@
                         <div class="col-lg-7 col-md-7">
                             <div class="sp-content">
                                 <div class="sp-heading">
-                                    <h5><a href="#"> {{item.tenSanPham}}</a></h5>
+                                    <h5><a> {{item.tenSanPham}}</a></h5>
                                 </div>
-                                <span class="reference">Reference: demo_1</span>
+                                <span class="reference">Giảm giá: {{item.phanTram}}%</span>
                                 <div class="rating-box">
                                     <ul>
                                         <li><i class="fa fa-star-of-david"></i></li>
@@ -61,14 +61,14 @@
                                 </div>
                                 <div class="sp-essential_stuff">
                                     <ul>
-                                        <li>EX Tax: <a href="javascript:void(0)"><span>£453.35</span></a></li>
-                                        <li>Brands <a href="javascript:void(0)">Buxton</a></li>
-                                        <li>Product Code: <a href="javascript:void(0)">Product 16</a></li>
-                                        <li>Reward Points: <a href="javascript:void(0)">600</a></li>
+                                        <li>Giá Sản Phẩm: <a href="javascript:void(0)"><span>{{item.gia | number:'1.0-0' }} VND</span></a></li>
+                                        <li>Thương Hiệu <a href="javascript:void(0)">{{item.tenNhaSanXuat}}</a></li>
+                                        <li>Mã Sản Phẩm: <a href="javascript:void(0)">Sản phẩm {{item.maSanPham}}</a></li>
+                                        <li>Số Lượng: <a href="javascript:void(0)">600</a></li>
                                         <li>Availability: <a href="javascript:void(0)">In Stock</a></li>
                                     </ul>
                                 </div>
-                                <div class="product-size_box">
+                                <!-- <div class="product-size_box">
                                     <span>Size</span>
                                     <select class="myniceselect nice-select">
                                         <option value="1">S</option>
@@ -76,7 +76,7 @@
                                         <option value="3">L</option>
                                         <option value="4">XL</option>
                                     </select>
-                                </div>
+                                </div> -->
                                 <div class="quantity">
                                     <label>Quantity</label>
                                     <div class="cart-plus-minus">
@@ -87,9 +87,7 @@
                                 </div>
                                 <div class="qty-btn_area">
                                     <ul>
-                                        <li><a class="qty-cart_btn" (click)="_addToCart(item)"  href="">Add To Cart</a></li>
-                                        <li><a class="qty-wishlist_btn" href="wishlist.html" data-toggle="tooltip" title="Add To Wishlist"><i class="ion-android-favorite-outline"></i></a></li>
-                                        <li><a class="qty-compare_btn" href="compare.html" data-toggle="tooltip" title="Compare This Product"><i class="ion-ios-shuffle-strong"></i></a></li>
+                                        <li><a class="qty-cart_btn" (click)="_addToCart(item)"  href="">Add To Cart</a></li>                  
                                     </ul>
                                 </div>
                                 <div class="hiraola-tag-line">
@@ -153,39 +151,9 @@
                                 <div id="description" class="tab-pane active show" role="tabpanel">
                                     <div class="product-description">
                                         <ul>
-                                            <li>
-                                                <strong>Karat Gold</strong>
-                                                <span>24K gold is called pure gold or fine gold. (99.99% pure) The color of fine
-                                                gold is a bright yellow with a bit of orange. Some say it is too soft for
-                                                jewelry application, but high karat gold is commonly worn in some parts of
-                                                the world, and it is growing in popularity in designer jewelry. Most will
-                                                prefer karat golds for their engagement rings, because of the needed
-                                                hardness to hold a gemstone.</span>
+                                            <li [innerHTML]="item.moTaSanPham">
                                             </li>
-                                            <li>
-                                                <strong>Gold Colors</strong>
-                                                <span>The most popular color is yellow which is made by adding silver and some
-                                                copper. The metals are melted together to form an alloy of the desired color
-                                                and karat. It is very important that all the ingredients are pure and that
-                                                the amounts of each are weighed very accurately to prevent porosity, which
-                                                weakens the alloy.</span>
-                                            </li>
-                                            <li>
-                                                <strong>White alloys</strong>
-                                                <span>There are two kinds of White Gold: Nickel based and Palladium based. Some
-                                                people are allergic to Nickel, so Palladium white gold is a good
-                                                alternative. Palladium white gold is the only legal alloy in Europe. It also
-                                                self burnishes and keeps a polish.</span>
-                                            </li>
-                                            <li>
-                                                <strong>The Most Expensive Diamond Color</strong>
-                                                <span>D colored diamonds are the rarest and most expensive of diamonds within
-                                                the D-Z scale. Certain fancy colored diamonds will command the highest
-                                                prices overall, and these will be discussed in separate tutorial. Many
-                                                people enjoy diamonds in the near colorless range G-J, as they find a
-                                                balance of size, clarity, and price to meet their needs.</span>
-                                            </li>
-
+                                          
                                         </ul>
                                     </div>
                                 </div>

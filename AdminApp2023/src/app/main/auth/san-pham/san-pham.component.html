@@ -138,9 +138,9 @@
 					<div class="col-md-5"style="text-align: right;">Điện Thoại: </div>
 					<div class="col-md-7"[innerHTML]="sanpham.mota"></div>
 					<div class="col-md-5"style="text-align: right;">Mô Tả: </div>
-					<div class="col-md-7" [innerHTML]="sanpham.moTaSanPham"></div>
+					<div class="col-md-7" style="height: 108px; overflow: auto; "[innerHTML]="sanpham.moTaSanPham"></div>
 					<div class="col-md-5"style="text-align: right;">Ngày Thêm: </div>
-					<div class="col-md-7"[innerHTML]="sanpham.motaNSX"></div>
+					<div class="col-md-7"style="height: 108px; overflow: auto; "[innerHTML]="sanpham.motaNSX"></div>
 					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
 					<div class="col-md-7">{{sanpham.tenDonViTinh}}</div>
 					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
@@ -171,30 +171,30 @@
 					<div class="form-group">
 						<label class="col-lg-3 control-label">Tên Sản Phẩm<span style="color:red ;">*</span></label>
 						<div class="col-lg-12">
-							<input formControlName="txt_masp" type="text" class="form-control" placeholder="Tên Sản Phẩm">							
+							<input formControlName="txt_tensanpham" type="text" class="form-control" placeholder="Tên Sản Phẩm">							
 						</div>
 					</div>
                     <div class="form-group">
 						<label class="col-lg-3 control-label">Tên Danh Mục</label>
                         <div class="col-lg-12 ">
-                            <select #sel_dm (change)="change_dm(sel_dm.value)" class="form-control">
-                                <option *ngFor="let lsp of list_loaisp" [selected]="selectloai==lsp.maDanhMuc?true:false" value="{{lsp.maDanhMuc}}">{{lsp.tenDanhMuc}}</option>
+                            <select formControlName="txt_madanhmuc" [(ngModel)]="mdm" class="form-control">
+                                <option *ngFor="let lsp of list_loaisp" value="{{lsp.maDanhMuc}}">{{lsp.tenDanhMuc}}</option>
                             </select>
                         </div>                       
 					</div>
                     <div class="form-group">
 						<label class="col-lg-3 control-label">Nhà Sản Xuất</label>
                         <div class="col-lg-12 ">
-                            <select #sel_nsx (change)="change_nsx(sel_nsx.value)" class="form-control">
-                                <option *ngFor="let nsx of list_nhasanxuat" [selected]="selectnhasanxuat==nsx.maNhaSanXuat?true:false" value="{{nsx.maNhaSanXuat}}">{{nsx.tenNhaSanXuat}}</option>
+                            <select formControlName="txt_manhasanxuat" [(ngModel)]="nsx"  class="form-control">
+                                <option *ngFor="let nsx of list_nhasanxuat" value="{{nsx.maNhaSanXuat}}">{{nsx.tenNhaSanXuat}}</option>
                             </select>
                         </div>                       
 					</div>
                     <div class="form-group">
 						<label  class="col-lg-3 control-label">Đơn Vị Tính</label>
                         <div class="col-lg-12 ">
-                            <select #sel_dvt (change)="change_dvt(sel_dvt.value)" class="form-control">
-                                <option *ngFor="let dvt of list_donvitinh" [selected]="selectdonvitinh==dvt.maDonViTinh?true:false" value="{{dvt.maDonViTinh}}">{{dvt.tenDonViTinh}}</option>
+                            <select formControlName="txt_madonvitinh" [(ngModel)]="mdvt"  class="form-control">
+                                <option *ngFor="let dvt of list_donvitinh" value="{{dvt.maDonViTinh}}">{{dvt.tenDonViTinh}}</option>
                             </select>
                         </div>                       
 					</div>
