@@ -1,0 +1,110 @@
+<div class="app-content content">
+    <div class="content-wrapper">
+      <div class="content-wrapper-before"></div>
+      <div class="content-header row">
+        <div class="content-header-left col-md-4 col-12 mb-2">
+			<button (click)="createModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+				Thêm Sản Phẩm
+			</button>
+        </div>
+        <div class="content-header-right col-md-8 col-12">
+          <div class="breadcrumbs-top float-md-right">
+            <div class="breadcrumb-wrapper mr-1">
+              	<ol class="breadcrumb">
+                	<li class="breadcrumb-item"><a href="index.html">Trang Chủ</a>
+                		</li>
+                			<li class="breadcrumb-item active">Người Dùng
+                		</li>
+              		</ol>
+            		</div>
+          		</div>
+        	</div>
+      	</div>
+		  <div class="content-body"><!-- Basic Tables start -->
+        	<div class="row">
+            	<div class="col-12">
+					<div class="card-body">
+						<table id="example1" class="table table-bordered table-striped">
+							<thead>
+								<tr style="text-align: center;">
+									<th >STT</th>
+									<th >Anh Nhóm</th>
+									<th >Tên Nhóm</th>
+									<th >Tên Sản Phẩm</th>
+									<th >Ngày Thêm</th>
+									<th >Ngày Sửa</th>                                  
+									<th >Thao Tác</th>                               
+								</tr>
+							</thead>
+							<tbody> 
+								<tr *ngFor="let ctn of list_chitietnhom index as i" style="text-align: center;">
+									<td style="vertical-align: middle;">{{ i + 1 }}</td>
+									<td style="vertical-align: middle;"><img [src]="ctn.anhNhom"
+										style="width: 58px; height: 58px;" class="img-rounded" alt=""></td>
+
+									<td style="vertical-align: middle;">{{ctn.tenNhom}}</td>
+									<td style="vertical-align: middle;">{{ctn.tenSanPham}}</td>
+									<td style="vertical-align: middle;">{{ctn.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+									<td style="vertical-align: middle;">{{ctn.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+									<td style="text-align: center; vertical-align: middle;"> 
+										<div class="btn-group">
+											<button type="button" [routerLink]="['/auth/nhom-san-pham']" class="btn btn-warning">Quay Lại</button>
+											&nbsp;&nbsp;&nbsp;&nbsp; 
+											<button type="button" class="btn btn-success"><i class="fa fa-cog"></i></button>
+											<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+											</button>
+											<div class="dropdown-menu"style="height: 108px; overflow: auto;" role="menu">
+												<div class="dropdown-divider"></div>				
+												<button class="dropdown-item" (click)="openUpdateModal(ctn.maChiTietNhom)">Sửa</button>
+												<div class="dropdown-divider"></div>
+												<button class="dropdown-item" (click)="onRemove(ctn.maChiTietNhom)">Xoá</button>
+												<div class="dropdown-divider"></div>
+											</div>
+										</div>		
+											
+									</td>                         
+								</tr>                          
+							</tbody>
+						</table>
+					</div>
+            	</div>
+        	</div>
+      	</div>
+    </div>
+</div>
+<div *ngIf="showUpdateModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="createsanphamModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<hr>
+			<form *ngIf="doneSetupForm" [formGroup]="frmChiTietNhom" (ngSubmit)="OnSubmit(frmChiTietNhom.value)"
+				class="form-horizontal">
+				<div class="modal-body" style="padding-left: 50px !important; padding-right:50px !important;">
+					<div class="form-group">
+						<label class="col-lg-3 control-label">Người Nhập</label>
+                        <div class="col-lg-12 ">
+                            <select class="form-control" formControlName="txt_masanpham" [(ngModel)]="sp">
+                                <option *ngFor="let nd of list_sanpham" value="{{nd.maSanPham}}">{{nd.tenSanPham}}</option>
+                            </select>
+                        </div>                       
+					</div>  
+                    <div class="form-group">
+						<label class="col-lg-3 control-label">Nhóm Sản Phẩm</label>
+                        <div class="col-lg-12 ">
+                            <select class="form-control" formControlName="txt_manhomsanpham" [(ngModel)]="nsp">
+                                <option *ngFor="let item of list_nhomsanpham" value="{{item.maNhomSanPham}}">{{item.tenNhom}}</option>
+                            </select>
+                        </div>                       
+					</div>                 
+				</div>
+				<hr>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" (click)="closeModal()">Đóng</button>
+					<button type="submit" class="btn btn-primary" [disabled]="frmChiTietNhom.invalid">Lưu lại</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div> 

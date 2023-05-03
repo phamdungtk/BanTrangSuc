@@ -1,26 +1,114 @@
-<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="assets/images/backgrounds/02.jpg">
-    <div class="navbar-header">
-      <ul class="nav navbar-nav flex-row">       
-        <li class="nav-item mr-auto"><a class="navbar-brand" href="/"><img class="brand-logo" alt="Chameleon admin logo" src="assets/images/logo/logo.png"/>
-            <h3 class="brand-text">Trang Sức PNJ</h3></a></li>
-        <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
-      </ul>
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="assets/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img  [src]="auth.anhDaiDien" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{auth.hoTen}}</a>
+        </div>
+      </div>
+
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a [routerLink]="['/']" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                QL Người Dùng
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a [routerLink]="['/auth/nguoi-dung']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Người Dùng</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                QL Sản Phẩm
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a [routerLink]="['/auth/san-pham']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Sản Phẩm</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/auth/danh-muc']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh Mục</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/auth/hoa-don-nhap']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hoá Đơn Nhập</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/auth/nhom-san-pham']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nhóm Sản Phẩm</p>
+                </a>
+              </li>          
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                QL Cấu Hình Chung
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a [routerLink]="['/auth/don-vi-tinh']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Đơn Vị Tính</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a [routerLink]="['/auth/nha-san-xuat']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nhà Sản Xuất</p>
+                </a>
+              </li>
+                    
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
     </div>
-    <div class="main-menu-content">
-      <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-        <li class="active"><a [routerLink]="['/']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Tổng Quan</span></a>
-        </li>  
-        <li class="active" ><a [routerLink]="['/auth/nguoi-dung']"><i class="la la-user"></i><span class="menu-title" data-i18n="">Người Dùng</span></a>
-        </li>   
-        <li class="active" ><a [routerLink]="['/auth/hoa-don-nhap']"><i class="la la-user"></i><span class="menu-title" data-i18n="">Hoá Đơn Nhập</span></a>
-        </li>  
-        <li class="active"><a [routerLink]="['/auth/san-pham']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Sản Phẩm</span></a>
-        </li> 
-        <li class="active"><a [routerLink]="['/auth/danh-muc']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Danh Mục</span></a>
-        </li> 
-        <li class="active"><a [routerLink]="['/auth/nha-san-xuat']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Nhà Sản Xuất</span></a>
-        </li> 
-         <li class="active"><a [routerLink]="['/auth/don-vi-tinh']"><i class="ft-home"></i><span class="menu-title" data-i18n="">Đơn Vị Tính</span></a>
-        </li> 
-      </ul>
-  </div>
+    <!-- /.sidebar -->
+  </aside>

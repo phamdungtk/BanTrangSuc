@@ -28,7 +28,7 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 2;
+  public pageSize: any = 6;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);

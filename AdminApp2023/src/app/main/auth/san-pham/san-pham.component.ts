@@ -28,7 +28,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 2;
+  public pageSize: any = 6;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
@@ -40,39 +40,23 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   }
 
   ngOnInit(): void {
-    // this.loc = localStorage.getItem('loc') || '';
+    this.loc = localStorage.getItem('loc') || '';
     this.LoadData();
   }
   public LoadData() {
     this._api.post('/api/SanPhams/search', {  loc: this.loc, page: this.page, pageSize: this.pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc'], tennhasanxuat: this.frmSearch.value['txt_tennhasanxuat']}).subscribe(res => {
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
-      setTimeout(() => {
-        this.loadScripts( 'assets/js/core/app-lite.js', 'assets/js/core/app-menu-lite.js' );
-      });
+
     });
-    // this._route.params.subscribe(params => {
-    //   let id = params['id'];
-    //   this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {
-    //     this.list_ctanhsanpham = res;
-    //     console.log(res);              
-    //   });
-    // });
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.list_loaisp = res;
-      // this.selectloai = this.list_loaisp[0].maDanhMuc;
-      // console.log(this.selectloai);
-      
     });
     this._api.get('/api/DonViTinhs/Get-All').subscribe(res => {
-      this.list_donvitinh = res;
-      // this.selectdonvitinh = this.list_donvitinh[0].maDonViTinh;
-      // console.log(this.selectdonvitinh);      
+      this.list_donvitinh = res;   
     });
     this._api.get('/api/NhaSanXuats/Get-All').subscribe(res => {
-      this.list_nhasanxuat = res;
-      // this.selectnhasanxuat = this.list_nhasanxuat[0].maNhaSanXuat;
-      // console.log(this.selectnhasanxuat);     
+      this.list_nhasanxuat = res;    
     });
   }
   public loadPage(page: any) {
@@ -90,21 +74,8 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     this._api.post('/api/SanPhams/search', {  loc: this.loc, page: 1, pageSize: pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc'], tennhasanxuat: this.frmSearch.value['txt_tennhasanxuat']}).subscribe(res => {
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
-      // console.log(res.data);
-      // console.log(res.totalItem); 
     });
   } 
-  // change_dm(sel_dm: any){
-  //   this.selectloai= sel_dm;
-  // }
-  // change_dvt(sel_dvt: any){
-
-  //   this.selectdonvitinh = sel_dvt;
-  // }
-  // change_nsx(sel_nsx: any){
-
-  //   this.selectnhasanxuat = sel_nsx;
-  // }
   setDieuKienLoc(loc: any) {
     this.loc = loc;
     localStorage.setItem('loc',loc); 
@@ -330,6 +301,5 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
         });
       }
     }
-
   }
 }

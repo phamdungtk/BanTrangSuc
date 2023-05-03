@@ -191,7 +191,7 @@
         </div>
     </div>
     <div class="offcanvas-minicart_wrapper" id="miniCart">
-        <div class="offcanvas-menu-inner">
+        <div class="offcanvas-menu-inner" *ngFor="let x of list">
             <a href="#" class="btn-close"><i class="ion-android-close"></i>
             </a>
           
@@ -200,27 +200,27 @@
                     <h4>Giỏ Hàng</h4>
                 </div>
                 <ul class="minicart-list">
-                    <li class="minicart-product" *ngFor="let x of list">
+                    <li class="minicart-product">
                         <a class="product-item_remove" (click)="Xoa(x.maSanPham)"><i class="ion-android-close"></i></a>
                         <div class="product-item_img">
-                            <img src="assets/images/product/small-size/2-1.jpg" alt="Hiraola's Product Image">
+                            <img [src]="x.anhDaiDien" alt="Hiraola's Product Image">
                         </div>
                         <div class="product-item_content">
                             <a class="product-item_title" href="shop-left-sidebar.html">{{x.tenSanPham}}</a>
-                            <span class="product-item_quantity">1 x $120.80</span>
+                            <span class="product-item_quantity">{{x.gia}}đ</span>
                         </div>
                     </li>                    
                 </ul>
             </div>
             <div class="minicart-item_total">
-                <span>Subtotal</span>
-                <span class="ammount">$360.00</span>
+                <span>Tổng:</span>
+                <span class="ammount">{{x.gia * x.quantity}}đ</span>
             </div>
             <div class="minicart-btn_area">
-                <a href="cart.html" class="hiraola-btn hiraola-btn_dark hiraola-btn_fullwidth">Minicart</a>
+                <a [routerLink]="['/customers/cart']" class="hiraola-btn hiraola-btn_dark hiraola-btn_fullwidth">Giỏ Hàng</a>
             </div>
             <div class="minicart-btn_area">
-                <a href="checkout.html" class="hiraola-btn hiraola-btn_dark hiraola-btn_fullwidth">Checkout</a>
+                <a [routerLink]="['/customers/check-out']" class="hiraola-btn hiraola-btn_dark hiraola-btn_fullwidth">Thanh Toán</a>
             </div>
         </div>
     </div>

@@ -49,7 +49,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  UpdatedAt = a.UpdatedAt,
 
                              };
-                var kq = result.ToList();
+                var kq = result.OrderByDescending(x => x.CreatedAt).ToList();
                 return Ok(kq);
             }
             catch (Exception ex)
@@ -93,7 +93,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  CreatedAt = a.CreatedAt,
                                  UpdatedAt = a.UpdatedAt,
                              };
-                var result1 = result.Where(x => x.SoHoaDon.Contains(sohoadon) && x.HoTen.Contains(nguoidung)&& x.TenSanPham.Contains(sanpham) && x.TenNhaCungCap.Contains(nhacungcap)).ToList();
+                var result1 = result.Where(x => x.SoHoaDon.Contains(sohoadon) && x.HoTen.Contains(nguoidung)&& x.TenSanPham.Contains(sanpham) && x.TenNhaCungCap.Contains(nhacungcap)).OrderByDescending(x => x.CreatedAt).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)

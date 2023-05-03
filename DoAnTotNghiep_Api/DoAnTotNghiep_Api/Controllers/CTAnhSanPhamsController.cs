@@ -26,7 +26,7 @@ namespace DoAnTotNghiep_Api.Controllers
         {
             try
             {
-                var result = db.ChiTietAnhSanPhams.OrderBy(x => x.MaAnhChitiet).ToList();
+                var result = db.ChiTietAnhSanPhams.OrderByDescending(x => x.CreatedAt).ToList();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -41,7 +41,7 @@ namespace DoAnTotNghiep_Api.Controllers
         {
             try
             {
-                var result = db.ChiTietAnhSanPhams.Where(x => x.MaSanPham == id).ToList();
+                var result = db.ChiTietAnhSanPhams.Where(x => x.MaSanPham == id).OrderByDescending(x => x.CreatedAt).ToList();
                 return Ok(result);
 
             }
@@ -55,7 +55,7 @@ namespace DoAnTotNghiep_Api.Controllers
         [HttpGet]
         public IActionResult GetByIdAnh(int? id)
         {
-            var result = db.ChiTietAnhSanPhams.ToList();
+            var result = db.ChiTietAnhSanPhams.OrderByDescending(x => x.CreatedAt).ToList();
             var kq = result.SingleOrDefault(x => x.MaAnhChitiet == id);
             return Ok(new { kq });
         }

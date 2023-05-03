@@ -28,7 +28,7 @@ namespace DoAnTotNghiep_Api.Controllers
         {
             try
             {
-                var result = db.DanhMucs.OrderBy(x => x.MaDanhMuc).ToList();
+                var result = db.DanhMucs.OrderBy(x => x.MaDanhMuc).OrderByDescending(x => x.CreatedAt).ToList();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace DoAnTotNghiep_Api.Controllers
                 var result = from r in db.SanPhams
                              join g in db.GiaSanPhams on r.MaSanPham equals g.MaSanPham
                              select new { r.MaSanPham, r.TenSanPham, r.AnhDaiDien, g.Gia, r.MaDanhMuc ,r.CreatedAt,r.UpdatedAt };
-                var result1 = result.Where(s => s.MaDanhMuc == ma_danh_muc || ma_danh_muc == null).ToList();
+                var result1 = result.Where(s => s.MaDanhMuc == ma_danh_muc || ma_danh_muc == null).OrderByDescending(x => x.CreatedAt).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)

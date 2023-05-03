@@ -19,7 +19,7 @@ public partial class ChiTietDonHang
 
     public string? UpdatedAt { get; set; }
 
-    public virtual DonHang MaDonHangNavigation { get; set; } = null!;
+    public virtual DonHang? MaDonHangNavigation { get; set; } = null!;
 
-    public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
+    public virtual SanPham? MaSanPhamNavigation { get; set; } = null!;
 }

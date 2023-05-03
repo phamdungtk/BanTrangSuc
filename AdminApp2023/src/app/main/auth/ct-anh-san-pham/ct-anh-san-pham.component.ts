@@ -38,22 +38,17 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
     this._route.params.subscribe(params => {
       let id = params['id'];
       this._api.get('/api/CTAnhSanPhams/get-by-id/'+ id).subscribe(res => {
-        this.list_ctanhsanpham = res;
-        // console.log(this.list_ctanhsanpham );              
+        this.list_ctanhsanpham = res;   
+        setTimeout(() => {
+          this.loadScripts('assets/dist/js/demo.js' );
+        });          
       });
     });
     this._api.get('/api/SanPhams/Get-All').subscribe(res => {
       this.list_sanpham = res;
-      // console.log(this.list_sanpham);
-      // this.selectsp = this.list_sanpham[0].maSanPham;
-      // console.log(this.selectsp);
-      
     });
 
   }
-  // change_sp(sel_sp: any){
-  //   this.selectsp = sel_sp;
-  // }
   public createModal() {
     this.showUpdateModal = true;
     this.isCreate = true;

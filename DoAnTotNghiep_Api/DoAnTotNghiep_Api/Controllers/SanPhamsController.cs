@@ -58,7 +58,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  UpdatedAt = a.UpdatedAt,
 
                              };
-                var kq = result.ToList();
+                var kq = result.OrderByDescending(x => x.CreatedAt).ToList();
                 return Ok(kq);
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  UpdatedAt = a.UpdatedAt,
 
                              };
-                var result1 = result.Where(x => x.TenSanPham.Contains(tensanpham) && x.TenDanhMuc.Contains(tendanhmuc) && x.TenNhaSanXuat.Contains(tennhasanxuat)).ToList();
+                var result1 = result.Where(x => x.TenSanPham.Contains(tensanpham) && x.TenDanhMuc.Contains(tendanhmuc) && x.TenNhaSanXuat.Contains(tennhasanxuat)).OrderByDescending(x => x.CreatedAt).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)
@@ -185,7 +185,22 @@ namespace DoAnTotNghiep_Api.Controllers
             var sanpham = result.SingleOrDefault(x => x.MaSanPham == id);
             return Ok(new { sanpham });
         }
+        [Route("get-product-related-by-id/{id}")]
+        [HttpGet]
+        public IActionResult GetProducRelatedtById(int id)
+        {
+            try
+            {
+                var result = db.SanPhams.Where(x => x.MaSanPham == id).FirstOrDefault();
+                var result2 = db.SanPhams.Where(x => x.MaDanhMuc == result.MaDanhMuc).ToList();
 
+                return Ok(result2);
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
         [Route("create-sanpham")]
         [HttpPost]
         public IActionResult CreateUser([FromBody] SanphamModel model)

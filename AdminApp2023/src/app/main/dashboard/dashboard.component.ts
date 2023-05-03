@@ -11,10 +11,9 @@ export class DashboardComponent extends BaseComponent implements OnInit, AfterVi
   constructor(injector: Injector) {
     super(injector);
   }
-
   ngOnInit(): void {
   }
   ngAfterViewInit() {
-    this.loadScripts('assets/js/scripts/pages/dashboard-lite.js', 'assets/js/core/app-lite.js', 'assets/js/core/app-menu-lite.js' );
+    this.loadScripts('assets/dist/js/demo.js','assets/dist/js/adminlte.min.js' );
   }
 }

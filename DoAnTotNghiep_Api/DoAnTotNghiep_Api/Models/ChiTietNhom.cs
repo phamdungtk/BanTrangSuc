@@ -9,13 +9,13 @@ public partial class ChiTietNhom
 
     public int MaNhomSanPham { get; set; }
 
-    public int MaSanPham { get; set; }
+    public int? MaSanPham { get; set; }
 
     public string? CreatedAt { get; set; }
 
     public string? UpdatedAt { get; set; }
 
-    public virtual NhomSanPham MaNhomSanPhamNavigation { get; set; } = null!;
+    public virtual NhomSanPham? MaNhomSanPhamNavigation { get; set; } = null!;
 
-    public virtual SanPham MaSanPhamNavigation { get; set; } = null!;
+    public virtual SanPham? MaSanPhamNavigation { get; set; } = null!;
 }

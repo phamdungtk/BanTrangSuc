@@ -1,6 +1,5 @@
 ﻿using DoAnTotNghiep_Api.Models;
 using DoAnTotNghiep_Api.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoAnTotNghiep_Api.Controllers
@@ -18,7 +17,6 @@ namespace DoAnTotNghiep_Api.Controllers
             configuration = configuration;
             _userService = userService;
             DateFormat = configuration["Constants:DateFormat"];
-
         }
         [Route("Get-All")]
         [HttpGet]
@@ -26,7 +24,7 @@ namespace DoAnTotNghiep_Api.Controllers
         {
             try
             {
-                var result = db.DonViTinhs.OrderBy(x => x.MaDonViTinh).ToList();
+                var result = db.DonViTinhs.OrderBy(x => x.MaDonViTinh).OrderByDescending(x => x.CreatedAt).ToList();
                 return Ok(result);
             }
             catch (Exception ex)
@@ -46,7 +44,7 @@ namespace DoAnTotNghiep_Api.Controllers
                 if (formData.Keys.Contains("loc") && !string.IsNullOrEmpty(Convert.ToString(formData["loc"]))) { loc = formData["loc"].ToString(); }
                 var tendvt = formData.Keys.Contains("tendvt") ? (formData["tendvt"]).ToString().Trim() : "";
                 var result = db.DonViTinhs.ToList();
-                var result1 = result.Where(x => x.TenDonViTinh.Contains(tendvt)).ToList();
+                var result1 = result.Where(x => x.TenDonViTinh.Contains(tendvt)).OrderByDescending(x => x.CreatedAt).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)
@@ -58,7 +56,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.TenDonViTinh).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderBy(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(
@@ -80,11 +78,10 @@ namespace DoAnTotNghiep_Api.Controllers
         [HttpGet]
         public IActionResult GetById(int? id)
         {
-            var result = db.DonViTinhs.ToList();
+            var result = db.DonViTinhs.OrderByDescending(x => x.CreatedAt).ToList();
             var kq = result.SingleOrDefault(x => x.MaDonViTinh == id);
             return Ok(new { kq });
         }
-
         [Route("create-dvt")]
         [HttpPost]
         public IActionResult Create([FromBody] DonViTinh model)
