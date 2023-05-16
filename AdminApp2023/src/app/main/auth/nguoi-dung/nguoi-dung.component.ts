@@ -141,6 +141,7 @@ export class NguoiDungComponent extends BaseComponent implements OnInit, AfterVi
     this.showUpdateModal = true;
     this.doneSetupForm = false;
     this.isCreate = false;
+    debugger
     setTimeout(() => {
       $('#createUserModal').modal('toggle');
       this._api.get('/api/Auth/get-by-id/' + maNguoiDung).subscribe(res => {

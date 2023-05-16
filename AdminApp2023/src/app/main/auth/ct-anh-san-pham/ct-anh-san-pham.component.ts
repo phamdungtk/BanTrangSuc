@@ -16,18 +16,22 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
   public list_sanpham: any;
   public isCreate = false;
   public ctanhsanpham: any;
-  // public selectsp: any = 1;
+  public id: any;
   public frmCTAnhSanPham: FormGroup;
+  public frmSearch: FormGroup;
   public file: any;
   public showUpdateModal: any;
   public showUpdateModalCTA: any;
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 2;
+  public pageSize: any = 1;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
+    this.frmSearch = new FormGroup({
+      'txt_ma_san_pham': new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit(): void {
@@ -36,18 +40,42 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
   }
   public LoadData() {
     this._route.params.subscribe(params => {
-      let id = params['id'];
-      this._api.get('/api/CTAnhSanPhams/get-by-id/'+ id).subscribe(res => {
-        this.list_ctanhsanpham = res;   
-        setTimeout(() => {
-          this.loadScripts('assets/dist/js/demo.js' );
-        });          
-      });
+      this.id = params['id'];
+      this._api.post('/api/CTAnhSanPhams/search', {  loc: this.loc, page: this.page, pageSize: this.pageSize, ma_san_pham: this.id}).subscribe(res => {
+        this.list_ctanhsanpham = res.data;
+        this.totalItem = res.totalItem;
+        console.log(res.data);
+      }); 
     });
-    this._api.get('/api/SanPhams/Get-All').subscribe(res => {
-      this.list_sanpham = res;
+    this._route.params.subscribe(params => {
+      this.id = params['id'];
+      this._api.post('/api/CTAnhSanPhams/search-sp', { ma_san_pham: this.id}).subscribe(res => {
+        this.list_sanpham = res.result1;
+        console.log(res.result1);
+      }); 
     });
+    // this._api.get('/api/SanPhams/Get-All').subscribe(res => {
+    //   this.list_sanpham = res;
+    // });
 
+  }
+  public loadPage(page: any) {
+    this._api.post('/api/CTAnhSanPhams/search', {loc: this.loc,  page: page, pageSize: this.pageSize, ma_san_pham: this.id}).subscribe(res => {
+      this.list_ctanhsanpham = res.data;
+      this.totalItem = res.totalItem;
+    });
+  }
+  public loadData(pageSize:any) {
+   this.pageSize = pageSize;
+    this._api.post('/api/CTAnhSanPhams/search', {  loc: this.loc, page: 1, pageSize: pageSize, ma_san_pham: this.id}).subscribe(res => {
+      this.list_ctanhsanpham = res.data;
+      this.totalItem = res.totalItem;
+    });
+  } 
+  setDieuKienLoc(loc: any) {
+    this.loc = loc;
+    localStorage.setItem('loc',loc); 
+    this.loadData(this.pageSize);
   }
   public createModal() {
     this.showUpdateModal = true;

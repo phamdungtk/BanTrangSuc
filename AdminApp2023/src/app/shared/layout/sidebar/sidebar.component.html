@@ -11,14 +11,12 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img  [src]="auth.anhDaiDien" class="img-circle elevation-2" alt="User Image">
+          <img  [src]="user.anhDaiDien" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{auth.hoTen}}</a>
+          <a href="" class="d-block">{{user.hoTen}}</a>
         </div>
       </div>
-
-
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -30,8 +28,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item" *ngIf="user.loaiQuyen == 'Admin'">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 QL Người Dùng
@@ -48,7 +46,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 QL Sản Phẩm
@@ -83,7 +81,24 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                QL Đơn Hàng
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a [routerLink]="['/auth/don-hang']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Đơn Hàng</p>
+                </a>
+              </li>            
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 QL Cấu Hình Chung
@@ -103,9 +118,15 @@
                   <p>Nhà Sản Xuất</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a [routerLink]="['/auth/nha-cung-cap']"class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nhà Cung Cấp</p>
+                </a>
+              </li>
                     
             </ul>
-          </li>
+          </li>   
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

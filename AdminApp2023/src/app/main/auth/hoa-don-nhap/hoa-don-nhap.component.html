@@ -131,15 +131,31 @@
 			  <span aria-hidden="true">&times;</span>
 			</button>
 		  </div>
-		  	<!-- <div class="modal-body" *ngIf = "hoadonnhap">
+		  	<div class="modal-body" *ngIf = "hoadonnhap">
 				<div class="row">
-					<div class="col-md-5" style="text-align: right;">Họ Tên: </div>
+					<div class="col-md-5" style="text-align: right;">Hoá Đơn: </div>
+					<div class="col-md-7">{{hoadonnhap.soHoaDon}}</div>
+					<div class="col-md-5" style="text-align: right;">Tên Sản Phẩm: </div>
 					<div class="col-md-7">{{hoadonnhap.tenSanPham}}</div>
+					<div class="col-md-5" style="text-align: right;">Ngày Nhập: </div>
+					<div class="col-md-7">{{hoadonnhap.ngayNhap}}</div>
+					<div class="col-md-5" style="text-align: right;">Số Lượng: </div>
+					<div class="col-md-7">{{hoadonnhap.soLuong}}</div>
+					<div class="col-md-5" style="text-align: right;">Đơn Giá Nhập: </div>
+					<div class="col-md-7">{{hoadonnhap.donGiaNhap}}</div>
+					<div class="col-md-5" style="text-align: right;">Họ Tên Người Nhập: </div>
+					<div class="col-md-7">{{hoadonnhap.hoTen}}</div>
+					<div class="col-md-5" style="text-align: right;">Tên Nhà Cung Cấp: </div>
+					<div class="col-md-7">{{hoadonnhap.tenNhaCungCap}}</div>
+					<div class="col-md-5"style="text-align: right;">Ngày Thêm: </div>
+					<div class="col-md-7">{{hoadonnhap.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
+					<div class="col-md-7">{{hoadonnhap.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
 				
 				</div>
-		  	</div> -->
+		  	</div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
 		  </div>
 	  </div>
 	</div>

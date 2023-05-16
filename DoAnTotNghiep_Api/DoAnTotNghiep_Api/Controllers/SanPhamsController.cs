@@ -111,7 +111,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  UpdatedAt = a.UpdatedAt,
 
                              };
-                var result1 = result.Where(x => x.TenSanPham.Contains(tensanpham) && x.TenDanhMuc.Contains(tendanhmuc) && x.TenNhaSanXuat.Contains(tennhasanxuat)).OrderByDescending(x => x.CreatedAt).ToList();
+                var result1 = result.Where(x => x.TenSanPham.Contains(tensanpham) && x.TenDanhMuc.Contains(tendanhmuc) && x.TenNhaSanXuat.Contains(tennhasanxuat)).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)
@@ -123,7 +123,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.Gia).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderBy(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(
@@ -185,21 +185,27 @@ namespace DoAnTotNghiep_Api.Controllers
             var sanpham = result.SingleOrDefault(x => x.MaSanPham == id);
             return Ok(new { sanpham });
         }
-        [Route("get-product-related-by-id/{id}")]
+        [Route("get-tuongtu/{id}")]
         [HttpGet]
         public IActionResult GetProducRelatedtById(int id)
         {
-            try
-            {
-                var result = db.SanPhams.Where(x => x.MaSanPham == id).FirstOrDefault();
-                var result2 = db.SanPhams.Where(x => x.MaDanhMuc == result.MaDanhMuc).ToList();
-
-                return Ok(result2);
-            }
-            catch (Exception ex)
-            {
-                return Ok("Err");
-            }
+            var result = from a in db.SanPhams                     
+                         join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
+                         join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
+                         select new
+                         {
+                             MaSanPham = a.MaSanPham,
+                             MaDanhMuc = a.MaDanhMuc,
+                             TenSanPham = a.TenSanPham,                          
+                             Gia = f.Gia,
+                             PhanTram = g.PhanTram,
+                             AnhDaiDien = a.AnhDaiDien,
+                             CreatedAt = a.CreatedAt,
+                             UpdatedAt = a.UpdatedAt,
+                         };
+            var result1 = result.Where(x => x.MaSanPham == id).FirstOrDefault();
+            var result2 = result.Where(x => x.MaDanhMuc == result1.MaDanhMuc).ToList();
+            return Ok(result2);
         }
         [Route("create-sanpham")]
         [HttpPost]

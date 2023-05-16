@@ -23,6 +23,10 @@ export class IndexComponent extends BaseComponent implements OnInit,AfterViewIni
     this._send.addObjct(this._cart.getItems().length);
     alert('Đã thêm vào giở hàng thành công');
   }
+  applyDiscount(gia: number, phanTram: number): number {
+    let finalPrice: number = gia - gia * (phanTram / 100);
+    return finalPrice;
+  }
   ngOnInit(): void {
     this._api.get('/api/SanPhams/Get-All').subscribe(res => {
       this.danh_sach_san_pham = res;
@@ -34,7 +38,7 @@ export class IndexComponent extends BaseComponent implements OnInit,AfterViewIni
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.danh_sach_danh_muc = res;
       setTimeout(() => {
-        this.loadScripts('');
+        this.loadScripts('assets/js/main.js');
       });
     });
   }

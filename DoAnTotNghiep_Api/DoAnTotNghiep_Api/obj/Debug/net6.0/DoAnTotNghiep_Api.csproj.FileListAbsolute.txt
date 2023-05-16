@@ -180,3 +180,4 @@ C:\Users\phamd\OneDrive\Máy tính\BanTrangSuc\DoAnTotNghiep_Api\DoAnTotNghiep_A
 C:\Users\phamd\OneDrive\Máy tính\BanTrangSuc\DoAnTotNghiep_Api\DoAnTotNghiep_Api\obj\Debug\net6.0\DoAnTotNghiep_Api.pdb
 C:\Users\phamd\OneDrive\Máy tính\BanTrangSuc\DoAnTotNghiep_Api\DoAnTotNghiep_Api\obj\Debug\net6.0\DoAnTotNghiep_Api.genruntimeconfig.cache
 C:\Users\phamd\OneDrive\Máy tính\BanTrangSuc\DoAnTotNghiep_Api\DoAnTotNghiep_Api\obj\Debug\net6.0\ref\DoAnTotNghiep_Api.dll
+C:\Users\phamd\OneDrive\Máy tính\BanTrangSuc\DoAnTotNghiep_Api\DoAnTotNghiep_Api\bin\Debug\net6.0\log4net.dll

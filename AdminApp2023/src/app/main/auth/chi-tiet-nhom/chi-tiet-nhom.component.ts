@@ -9,13 +9,14 @@ declare var $: any;
   styleUrls: ['./chi-tiet-nhom.component.css']
 })
 export class ChiTietNhomComponent extends BaseComponent implements OnInit, AfterViewInit {
-
+  public list_chitiet: any;
   public list_chitietnhom: any;
   public list_sanpham: any;
   public list_nhomsanpham: any;
   public item: any;
   public sp: string = "";
   public nsp: string = "";
+  public id: any;
   public isCreate = false;
   public chitietnhom: any;
   public ctanhsanpham: any;
@@ -26,7 +27,7 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 2;
+  public pageSize: any = 1;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
@@ -42,21 +43,52 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
   }
   public LoadData() {
     this._route.params.subscribe(params => {
-      let id = params['id'];
-      this._api.get('/api/ChiTietNhoms/get-by-id/'+ id).subscribe(res => {
-        this.list_chitietnhom = res;
-        console.log(this.list_chitietnhom );   
-        setTimeout(() => {
-          this.loadScripts('assets/js/scripts/pages/dashboard.js','assets/dist/js/demo.js','assets/dist/js/adminlte.min.js' );
-        }); 
-      });
+      this.id = params['id'];
+      this._api.post('/api/ChiTietNhoms/search', {  loc: this.loc, page: this.page, pageSize: this.pageSize, ma_nhom: this.id}).subscribe(res => {
+        this.list_chitietnhom = res.data;
+        this.totalItem = res.totalItem;
+        console.log(res.data);
+      }); 
     });
-    this._api.get('/api/NhomSanPhams/Get-All').subscribe(res => {
-      this.list_nhomsanpham = res;
+    this._route.params.subscribe(params => {
+      this.id = params['id'];
+      this._api.post('/api/ChiTietNhoms/search-nsp', { ma_nhom: this.id}).subscribe(res => {
+        this.list_nhomsanpham = res.result1;
+        console.log(res.result1);
+      }); 
     });
+    // this._route.params.subscribe(params => {
+    //   let id = params['id'];
+    //   this._api.get('/api/ChiTietNhoms/get-by-id-nhom/'+ id).subscribe(res => {
+    //     this.list_chitietnhom = res;
+    //     console.log(this.list_chitietnhom);   
+    //     setTimeout(() => {
+    //       this.loadScripts('assets/dist/js/demo.js' );
+    //     }); 
+    //   });
+    // });
+    
     this._api.get('/api/SanPhams/Get-All').subscribe(res => {
       this.list_sanpham = res;
     });
+  }
+  public loadPage(page: any) {
+    this._api.post('/api/ChiTietNhoms/search', {loc: this.loc,  page: page, pageSize: this.pageSize, ma_nhom: this.id}).subscribe(res => {
+      this.list_chitietnhom = res.data;
+      this.totalItem = res.totalItem;
+    });
+  }
+  public loadData(pageSize:any) {
+   this.pageSize = pageSize;
+    this._api.post('/api/ChiTietNhoms/search', {  loc: this.loc, page: 1, pageSize: pageSize, ma_nhom: this.id}).subscribe(res => {
+      this.list_chitietnhom = res.data;
+      this.totalItem = res.totalItem;
+    });
+  } 
+  setDieuKienLoc(loc: any) {
+    this.loc = loc;
+    localStorage.setItem('loc',loc); 
+    this.loadData(this.pageSize);
   }
   public createModal() {
     this.showUpdateModal = true;
@@ -71,21 +103,26 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
       
     });
   } 
-  public openUpdateModal(MaChiTietNhom: any) {
+  public openUpdateModal(maChiTietNhom: any) {
     this.showUpdateModal = true;
     this.doneSetupForm = false;
     this.isCreate = false;
     setTimeout(() => {
       $('#createsanphamModal').modal('toggle');
-      this._api.get('/api/ChiTietNhoms/get-by-id/' + MaChiTietNhom).subscribe(res => {
-        this.chitietnhom = res.chitietnhom;
+      this._api.get('/api/ChiTietNhoms/get-by-id/' + maChiTietNhom).subscribe(res => {
+        this.chitietnhom = res.kq;
+        console.log(this.chitietnhom);
+        
         this.doneSetupForm = true;
         this.frmChiTietNhom = new FormGroup({
           'txt_manhomsanpham': new FormControl(this.chitietnhom.maNhomSanPham, [Validators.required]),
           'txt_masanpham': new FormControl(this.chitietnhom.maSanPham, [Validators.required]),
         });
+      
         this.sp = this.chitietnhom.maSanPham;
         this.nsp = this.chitietnhom.maNhomSanPham;
+        console.log(this.sp);
+        console.log(this.nsp);
       });
     });
   }
@@ -94,6 +131,7 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
     this._api.delete('/api/ChiTietNhoms/delete-chitietnhom', MaChiTietNhom).subscribe(res => {
       alert('Xóa dữ liệu thành công');
       this.LoadData();
+      location.reload();
     });
   }
   public closeModal() {
@@ -134,6 +172,7 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
           console.log(res);
           alert('Thêm dữ liệu thành công');
           this.LoadData();
+          location.reload();
           this.closeModal();
         } else {
           alert('Có lỗi')
@@ -148,6 +187,7 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
         if (res && res.data) {
           alert('Cập nhật dữ liệu thành công');
           this.LoadData();
+          location.reload();
           this.closeModal();
         } else {
           alert('Có lỗi')

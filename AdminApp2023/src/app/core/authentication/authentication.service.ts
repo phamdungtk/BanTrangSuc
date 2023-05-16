@@ -9,14 +9,14 @@ import { map } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private userSubject: BehaviorSubject<any>;
-    public auth: Observable<User>;
+    public user: Observable<User>;
 
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('auth') || '{}'));
-        this.auth = this.userSubject.asObservable();
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
+        this.user = this.userSubject.asObservable();
     }
 
     public get userValue(): User {
@@ -26,22 +26,22 @@ export class AuthenticationService {
 
     login(username: string, password: string) {
         return this.http.post<any>(`${environment.BASE_API}/api/Auth/authenticate`, { username, password })
-            .pipe(map(auth => {
-                localStorage.setItem('auth', JSON.stringify(auth));
-                this.userSubject.next(auth);
-                return auth;
+            .pipe(map(user => {
+                localStorage.setItem('user', JSON.stringify(user));
+                this.userSubject.next(user);
+                return user;
             }));
     }
 
     logout() {
-        localStorage.removeItem('auth');
+        localStorage.removeItem('user');
         this.userSubject.next(null);
         this.router.navigate(['/login']);
     }
 
     remove() {
         // remove user from local storage to log user out
-        localStorage.removeItem('auth');
+        localStorage.removeItem('user');
         this.userSubject.next(null);
     }
 }

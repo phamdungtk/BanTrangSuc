@@ -33,12 +33,11 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   constructor(injector: Injector) {
     super(injector);
     this.frmSearch = new FormGroup({
-      'txt_tensanpham': new FormControl('', []),
-      'txt_tendanhmuc': new FormControl('', []),
-      'txt_tennhasanxuat': new FormControl('', []),
+      'txt_tensanpham': new FormControl('', [Validators.required]),
+      'txt_tendanhmuc': new FormControl('', [Validators.required]),
+      'txt_tennhasanxuat': new FormControl('', [Validators.required]),
     });
   }
-
   ngOnInit(): void {
     this.loc = localStorage.getItem('loc') || '';
     this.LoadData();
@@ -47,7 +46,6 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     this._api.post('/api/SanPhams/search', {  loc: this.loc, page: this.page, pageSize: this.pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc'], tennhasanxuat: this.frmSearch.value['txt_tennhasanxuat']}).subscribe(res => {
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
-
     });
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.list_loaisp = res;
@@ -68,7 +66,6 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       });
     });
   }
- 
   public loadData(pageSize:any) {
    this.pageSize = pageSize;
     this._api.post('/api/SanPhams/search', {  loc: this.loc, page: 1, pageSize: pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc'], tennhasanxuat: this.frmSearch.value['txt_tennhasanxuat']}).subscribe(res => {
@@ -80,6 +77,10 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     this.loc = loc;
     localStorage.setItem('loc',loc); 
     this.loadData(this.pageSize);
+  }
+  applyDiscount(gia: number, phanTram: number): number {
+    let finalPrice: number = gia - gia * (phanTram / 100);
+    return finalPrice;
   }
   get tensanpham() {
     return this.frmSanPham.get('txt_tensanpham')!;
@@ -106,7 +107,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     return this.frmSanPham.get('txt_tennhasanxuat')!;
   }
   get mota() {
-    return this.frmSanPham.get('txt_motan')!;
+    return this.frmSanPham.get('txt_mota')!;
   }
   get tendonvitinh() {
     return this.frmSanPham.get('txt_tendonvitinh')!;
@@ -114,7 +115,6 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   get motasanpham() {
     return this.frmSanPham.get('txt_motasanpham')!;
   }
-
   public createModal() {
     this.showUpdateModal = true;
     this.isCreate = true;
@@ -123,33 +123,27 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       this.doneSetupForm = true;
       this.frmSanPham = new FormGroup({
         'txt_tensanpham': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-        'txt_madanhmuc': new FormControl('', []),
-        'txt_motasanpham': new FormControl('', []),
-        'txt_anhdaidien': new FormControl('', []),
-        'txt_manhasanxuat': new FormControl('', []),
-        'txt_madonvitinh': new FormControl('', []),
-        'txt_gia': new FormControl('', []),
-        'txt_phantram': new FormControl('', []),
-        'txt_tenthongso': new FormControl('', []),
-        'txt_mota': new FormControl('', []),
+        'txt_madanhmuc': new FormControl('', [Validators.required]),
+        'txt_motasanpham': new FormControl('', [Validators.required]),
+        'txt_anhdaidien': new FormControl('', [Validators.required]),
+        'txt_manhasanxuat': new FormControl('', [Validators.required]),
+        'txt_madonvitinh': new FormControl('', [Validators.required]),
+        'txt_gia': new FormControl('', [Validators.required]),
+        'txt_phantram': new FormControl('', [Validators.required]),
+        'txt_tenthongso': new FormControl('', [Validators.required]),
+        'txt_mota': new FormControl('', [Validators.required]),
       });
-
     });
   }
-  
   public openViewModal(MaSanPham: any) {
     setTimeout(() => {
       debugger; 
       $('#ViewModal').modal('toggle');
-      this._api.get('/api/SanPhams/get-by-id/' + MaSanPham).subscribe(res => {
-          
+      this._api.get('/api/SanPhams/get-by-id/' + MaSanPham).subscribe(res => {      
         this.sanpham = res.sanpham;
-        // console.log(res.sanpham); 
-    
       });
     });
   }
-
   public openUpdateModal(MaSanPham: any) {
     this.showUpdateModal = true;
     this.doneSetupForm = false;
@@ -161,24 +155,22 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
         this.doneSetupForm = true;
         this.frmSanPham = new FormGroup({
           'txt_tensanpham': new FormControl(this.sanpham.tenSanPham, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
-          'txt_madanhmuc': new FormControl('', []),
-          'txt_motasanpham': new FormControl(this.sanpham.moTaSanPham, []),
-          'txt_anhdaidien': new FormControl(this.sanpham.anhDaiDien, []),
-          'txt_manhasanxuat': new FormControl('', []),
-          'txt_madonvitinh': new FormControl('', []),        
-          'txt_gia': new FormControl(this.sanpham.gia, []),
-          'txt_phantram': new FormControl(this.sanpham.phanTram, []),
-          'txt_tenthongso': new FormControl(this.sanpham.tenThongSo, []),
-          'txt_mota': new FormControl(this.sanpham.mota, []),
+          'txt_madanhmuc': new FormControl('', [Validators.required]),
+          'txt_motasanpham': new FormControl(this.sanpham.moTaSanPham, [Validators.required]),
+          'txt_anhdaidien': new FormControl(this.sanpham.anhDaiDien, [Validators.required]),
+          'txt_manhasanxuat': new FormControl('', [Validators.required]),
+          'txt_madonvitinh': new FormControl('', [Validators.required]),        
+          'txt_gia': new FormControl(this.sanpham.gia, [Validators.required]),
+          'txt_phantram': new FormControl(this.sanpham.phanTram, [Validators.required]),
+          'txt_tenthongso': new FormControl(this.sanpham.tenThongSo, [Validators.required]),
+          'txt_mota': new FormControl(this.sanpham.mota, [Validators.required]),
         });
         this.nsx = this.sanpham.maNhaSanXuat;
         this.mdm = this.sanpham.maDanhMuc;
         this.mdvt = this.sanpham.maDonViTinh;
       }); 
-
     });
   }
-
   public onRemove(MaSanPham: any) {
     this._api.delete('/api/SanPhams/delete-sanpham', MaSanPham).subscribe(res => {
       alert('Xóa dữ liệu thành công');
@@ -188,12 +180,9 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   public closeModal() {
     $('#createsanphamModal').closest('.modal').modal('hide');
   }
-
-
   ngAfterViewInit() {
     this.loadScripts('');
   }
-
   public upload(event: any) {
     if (event.target.files && event.target.files.length > 0) {
       this.file = event.target.files[0];
@@ -209,8 +198,6 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     }
     return invalid;
   }
-
-
   OnSubmit(vl: any) {
     console.log(this.findInvalidControls())
     if (this.frmSanPham.invalid) {
@@ -219,17 +206,13 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     let obj: any = {};
     obj.sanpham = {
       tenSanPham: vl.txt_tensanpham,
-      // maDanhMuc: vl.txt_madanhmuc,
       maDanhMuc:vl.txt_madanhmuc,
       moTaSanPham: vl.txt_motasanpham,
       anhDaiDien: vl.txt_anhdaidien,
       maNhaSanXuat:vl.txt_manhasanxuat,
       maDonViTinh:vl.txt_madonvitinh,
     }
-    // obj.chitietanhsanpham = {
-    //   anh: vl.txt_anh,
 
-    // }
     obj.giasapham = {
       gia: vl.txt_gia,
     }

@@ -4,9 +4,10 @@
  * You should not use this file in production.
  * This file is for demo purposes only.
  */
+
 $(function () {
   $("#example1").DataTable({
-  "responsive": true, "lengthChange": false, "autoWidth": false,
+  "responsive": true, "lengthChange": false, "autoWidth": false,"bDestroy": true,
   "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
   }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
   $('#example2').DataTable({
@@ -28,7 +29,7 @@ $(function () {
     if (window.___browserSync___ === undefined && Number(localStorage.getItem('AdminLTE:Demo:MessageShowed')) < Date.now()) {
       localStorage.setItem('AdminLTE:Demo:MessageShowed', (Date.now()) + (15 * 60 * 1000))
       // eslint-disable-next-line no-alert
-      alert('You load AdminLTE\'s "demo.js", \nthis file is only created for testing purposes!')
+      alert('Xin Chào')
     }
   }, 1000)
 

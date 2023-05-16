@@ -82,7 +82,17 @@ namespace DoAnTotNghiep_Api.Controllers
                 if (formData.Keys.Contains("ma_danh_muc") && !string.IsNullOrEmpty(Convert.ToString(formData["ma_danh_muc"]))) { ma_danh_muc = int.Parse(formData["ma_danh_muc"].ToString()); }
                 var result = from r in db.SanPhams
                              join g in db.GiaSanPhams on r.MaSanPham equals g.MaSanPham
-                             select new { r.MaSanPham, r.TenSanPham, r.AnhDaiDien, g.Gia, r.MaDanhMuc ,r.CreatedAt,r.UpdatedAt };
+                             join t in db.GiamGia on r.MaSanPham equals t.MaSanPham
+                             select new { 
+                                 r.MaSanPham,
+                                 r.TenSanPham, 
+                                 r.AnhDaiDien,
+                                 g.Gia,
+                                 t.PhanTram,
+                                 r.MaDanhMuc ,
+                                 r.CreatedAt,
+                                 r.UpdatedAt 
+                             };
                 var result1 = result.Where(s => s.MaDanhMuc == ma_danh_muc || ma_danh_muc == null).OrderByDescending(x => x.CreatedAt).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;

@@ -42,6 +42,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  DienThoai = t.DienThoai,
                                  TrangThai = t.TrangThai,
                                  LoaiQuyen = n.LoaiQuyen,
+                                 TaiKhoan1 = n.TaiKhoan1,
                                  CreatedAt = n.CreatedAt,
                                  UpdatedAt = n.UpdatedAt,
                              };
@@ -74,6 +75,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  DienThoai = t.DienThoai,
                                  TrangThai = t.TrangThai,
                                  LoaiQuyen = n.LoaiQuyen,
+                                 TaiKhoan1 = n.TaiKhoan1,
                                  CreatedAt = n.CreatedAt,
                                  UpdatedAt = n.UpdatedAt,
                              };
@@ -128,7 +130,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  CreatedAt = n.CreatedAt,
                                  UpdatedAt = n.UpdatedAt,
                                  MaNguoiDung = n.MaNguoiDung };
-                var result1 = result.Where(x => x.HoTen.Contains(hoten) && x.TaiKhoan1.Contains(taikhoan) && x.LoaiQuyen.Contains(loaiquyen)).OrderByDescending(x => x.CreatedAt).ToList();
+                var result1 = result.Where(x => x.HoTen.Contains(hoten) && x.TaiKhoan1.Contains(taikhoan) && x.LoaiQuyen.Contains(loaiquyen)).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)
@@ -140,7 +142,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.HoTen).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderBy(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(

@@ -23,9 +23,7 @@
     	<div class="content-body">
         	<div class="row">
             	<div class="col-12">
-              
-                    <div class="card">
-                       
+                    <div class="card">                
 						<form [formGroup]="frmSearch" class="form-horizontal" (ngSubmit)="LoadData()" >
 							<div class="card-header">    
 								<div class="card-content collapse show">
@@ -53,7 +51,6 @@
 									</div>
 								</div>
 							</div>
-							
 							<div class="card-content collapse show">
 								<div class="table-responsive">
 									<table class="table">
@@ -62,6 +59,7 @@
 												<th >STT</th>
 												<th >Ảnh</th>
 												<th >Họ tên</th>
+												<th >Tài Khoản</th>
 												<th >Địa chỉ</th>
 												<th >SDT</th>                                    
 												<th >Quyền</th>   
@@ -75,6 +73,7 @@
 													[src]="ur.anhDaiDien"
 													style="width: 58px; height: 58px;" class="img-rounded" alt=""></td>
 												<td style="vertical-align: middle;">{{ur.hoTen}}</td>
+												<td style="vertical-align: middle;">{{ur.taiKhoan1}}</td>
 												<td style="vertical-align: middle;">{{ur.diaChi}}</td>
 												<td style="vertical-align: middle;">{{ur.dienThoai}}</td>
 												<td style="vertical-align: middle;">{{ur.loaiQuyen}}</td>
@@ -131,7 +130,7 @@
 	<div class="modal-dialog">
 	  <div class="modal-content">
 		<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+			<h5 class="modal-title" id="exampleModalLabel">Chi Tiết Người Dùng</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
@@ -150,18 +149,20 @@
 					<div class="col-md-7">{{user.email}}</div>
 					<div class="col-md-5"style="text-align: right;">Điện Thoại: </div>
 					<div class="col-md-7">{{user.dienThoai}}</div>
+					<div class="col-md-5"style="text-align: right;">Tài Khoản: </div>
+					<div class="col-md-7">{{user.taiKhoan1}}</div>
 					<div class="col-md-5"style="text-align: right;">Quyền: </div>
 					<div class="col-md-7">{{user.loaiQuyen}}</div>
 					<div class="col-md-5"style="text-align: right;">Ngày Thêm: </div>
-					<div class="col-md-7">{{user.createdAt}}</div>
+					<div class="col-md-7">{{user.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
 					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
-					<div class="col-md-7">{{user.updatedAt}}</div>
+					<div class="col-md-7">{{user.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
 					<div class="col-md-5"style="text-align: right;">Ảnh: </div>
-					<div class="col-md-7"><img [src]="user.anhDaiDien" style="width: 58px; height: 58px;" class="img-rounded" alt=""></div>			
+					<div class="col-md-7"><img [src]="user.anhDaiDien" style="width: 88px; height: 88px;" class="img-rounded" alt=""></div>			
 				</div>
 		  	</div>
 		  <div class="modal-footer">
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
 		  </div>
 	  </div>
 	</div>

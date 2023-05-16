@@ -5,20 +5,16 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     SidebarComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
   ],
   exports: [
     SidebarComponent,
     FooterComponent,
     NavbarComponent,
-    // UnauthorizedComponent,
-    // NotFoundComponent
   ],
   imports: [
     CommonModule,

@@ -12,17 +12,23 @@ import { SendService } from 'src/app/core/services/send.service';
 export class CartComponent extends BaseComponent implements OnInit, AfterViewInit {
   public list: any;
   public tTong: any;
+  public tTongGiamGia: any;
   constructor(injector: Injector,private _router: Router,private _send: SendService, private _cart: CartService,) {
     super(injector);
   }
 
   public ThanhToan () {
-    this._router.navigate(['/customers/thanhtoan']);
+    this._router.navigate(['/customers/check-out']);
+  }
+  applyDiscount(gia: number, phanTram: number): number {
+    let finalPrice: number = gia - gia * (phanTram / 100);
+    return finalPrice;
   }
 
   ngOnInit(): void {
     this.list = JSON.parse(localStorage.getItem('cart') || '[]');
-    this.tTong = this.list.reduce((sum:any, x:any) => sum +  x.gia * x.quantity, 0);
+    this.tTong = this.list.reduce((sum: any, x: any) => sum + x.gia * x.quantity, 0);
+    this.tTongGiamGia = this.list.reduce((sum:any, x:any) => sum +  (x.gia - x.gia * (x.phanTram / 100)) * x.quantity, 0);
   }
   ngAfterViewInit() {
     this.loadScripts('');

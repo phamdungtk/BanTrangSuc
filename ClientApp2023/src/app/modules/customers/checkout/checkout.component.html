@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-lg-6 col-12">              
                         <div class="checkbox-form">
-                            <h3>Billing Details</h3>
+                            <h3>Chi Tiết Thanh Toán</h3>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">
@@ -81,31 +81,31 @@
                 </div>
                 <div class="col-lg-6 col-12">
                     <div class="your-order">
-                        <h3>Your order</h3>
+                        <h3>Đơn Hàng Của Bạn</h3>
                         <div class="your-order-table table-responsive">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th class="cart-product-name">Product</th>
-                                        <th class="cart-product-total">Total</th>
+                                        <th class="cart-product-name">Sản Phẩm</th>
+                                        <th class="cart-product-total">Tổng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let it of list_items" class="cart_item">
                                         <td class="cart-product-name"> {{it.tenSanPham}} <strong class="product-quantity">
                                             * {{it.quantity}}</strong></td>
-                                        <td class="cart-product-total"><span class="amount">{{it.quantity * it.gia}}đ</span></td>
+                                        <td class="cart-product-total"><span class="amount">{{it.quantity * (applyDiscount(it.gia, it.phanTram)) | number:'1.0-0'}}đ</span></td>
                                     </tr>
                                 
                                 </tbody>
                                 <tfoot>
                                     <tr class="cart-subtotal">
-                                        <th>Cart Subtotal</th>
-                                        <td><span class="amount">{{tTong}}</span></td>
+                                        <th>Tổng</th>
+                                        <td><span class="amount">{{tTong | number:'1.0-0'}}</span></td>
                                     </tr>
                                     <tr class="order-total">
-                                        <th>Order Total</th>
-                                        <td><strong><span class="amount">{{tTong}}</span></strong></td>
+                                        <th>Tổng Giảm Giál</th>
+                                        <td><strong><span class="amount">{{tTongGiamGia | number:'1.0-0'}}</span></strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -166,6 +166,7 @@
                                     </div>
                                 </div> -->
                                 <div class="order-button-payment">
+                                    <!-- <a class="button" (click)="ThanhToan()" value="Cập Nhập" type="submit"> 123 </a> -->
                                     <input [disabled]="frmKhach.invalid" [ngStyle]="{'background-color':frmKhach.invalid?'#F4F6F8':'blue'}" value="Place order" type="submit">
                                 </div>
                             </div>
@@ -174,5 +175,6 @@
                 </div>
             </div>
         </form>
+       
     </div>
 </div>

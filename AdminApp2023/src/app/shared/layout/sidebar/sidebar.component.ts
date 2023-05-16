@@ -7,13 +7,17 @@ import { AuthenticationService } from 'src/app/core/authentication/authenticatio
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  public auth: any;
+  public user: any;
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.auth = this.authenticationService.userValue;
+    this.user = this.authenticationService.userValue;
   }
-  Logout() {
+  logout() {
     this.authenticationService.logout();
+  }
+  
+  isLoggedIn() {
+    return localStorage.getItem('user') ? true : false;
   }
 }

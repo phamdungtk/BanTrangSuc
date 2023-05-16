@@ -109,7 +109,7 @@ namespace DoAnTotNghiep_Api.Controllers
             db.SaveChanges();
             return Ok(new { data = "OK" });
         }
-        [Route("delete-ncc/{MaDonViTinh}")]
+        [Route("delete-ncc/{MaNhaCungCap}")]
         [HttpDelete]
         public IActionResult Delete(int? MaNhaCungCap)
         {
@@ -119,7 +119,7 @@ namespace DoAnTotNghiep_Api.Controllers
             return Ok(new { data = "OK" });
         }
     }
-    public class KQNCC
+    public class KQNCC 
     {
         public int page { get; set; }
         public int pageSize { get; set; }
