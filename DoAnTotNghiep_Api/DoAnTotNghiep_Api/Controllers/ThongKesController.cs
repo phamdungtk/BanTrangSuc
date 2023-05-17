@@ -1,6 +1,9 @@
-﻿using DoAnTotNghiep_Api.Models;
+﻿using DoAnTotNghiep_Api.Entities;
+using DoAnTotNghiep_Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing.Printing;
+using System.Globalization;
 
 namespace DoAnTotNghiep_Api.Controllers
 {
@@ -30,29 +33,45 @@ namespace DoAnTotNghiep_Api.Controllers
             TongTienn += decimal.Parse(query1.Sum(s => s.Gia * s.PhanTram / 100).ToString());
             return TongTienn;
         }
-        //[Route("get-by-id/{id}")]
-        //[HttpGet]
-        //public IActionResult GetById(int? id)
-        //{
-        //    var result = from a in db.SanPhams                   
-        //                 join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
-        //                 join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-        //                 select new
-        //                 {
-        //                     MaSanPham = a.MaSanPham,
-        //                     TenSanPham = a.TenSanPham,
-        //                     Gia = f.Gia,
-        //                     PhanTram = g.PhanTram,                            
-        //                     MoTaSanPham = a.MoTaSanPham,
-        //                     AnhDaiDien = a.AnhDaiDien,
-        //                     CreatedAt = a.CreatedAt,
-        //                     UpdatedAt = a.UpdatedAt,
-
-        //                 };
-        //    var sanpham = result.SingleOrDefault(x => x.MaSanPham == id);
-        //    var tong = sanpham.Sum
-        //    return Ok(new { sanpham });
-        //}
+        [Route("tong-don-hang-theo-ma")]
+        [HttpPost]
+        public IActionResult SearchCT([FromBody] Dictionary<string, object> formData)
+        {
+            try
+            {
+                decimal TongTienn = 0;
+                int? ma_don_hang = null;
+                if (formData.Keys.Contains("ma_don_hang") && !string.IsNullOrEmpty(Convert.ToString(formData["ma_don_hang"]))) { ma_don_hang = int.Parse(formData["ma_don_hang"].ToString()); }
+                var result = from a in db.DonHangs
+                             join b in db.ChiTietDonHangs on a.MaDonHang equals b.MaDonHang
+                             join f in db.SanPhams on b.MaSanPham equals f.MaSanPham
+                             join g in db.KhachHangs on a.MaKhachHang equals g.MaKhachHang
+                             select new
+                             {
+                                 a.MaDonHang,
+                                 a.MaKhachHang,
+                                 a.NgayDat,
+                                 a.TrangThaiDonHang,
+                                 b.MaChiTietDonHang,
+                                 b.MaSanPham,
+                                 b.SoLuong,
+                                 b.GiaMua,
+                                 f.TenSanPham,
+                                 f.AnhDaiDien,
+                                 g.TenKhachHang,
+                                 g.DiaChi,
+                                 g.SoDienThoai,
+                                 g.Email,
+                             };
+                var result1 = result.Where(s => s.MaDonHang == ma_don_hang || ma_don_hang == null).ToList();
+                TongTienn += decimal.Parse(result1.Sum(s => s.SoLuong * s.GiaMua).ToString());
+                return Ok(new { TongTienn });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [Route("get-sp-banchay")]
         [HttpGet]
         public IActionResult banchay()
@@ -76,13 +95,77 @@ namespace DoAnTotNghiep_Api.Controllers
 
         }
         [Route("thongketong-DonHang")]
-        [HttpPost]
-        public decimal tkInvoice()
+        [HttpGet]
+        public IActionResult Getalllll()
         {
-            decimal TongTienn = 0;
-            TongTienn += decimal.Parse(db.ChiTietDonHangs.Sum(s => s.SoLuong * s.GiaMua).ToString());
-            return TongTienn;
+            try
+            {
+                var result = db.DonHangs.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
         }
+        [Route("thongketongauth")]
+        [HttpGet]
+        public IActionResult Getallauth()
+        {
+            try
+            {
+                var result = db.NguoiDungs.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongssp")]
+        [HttpGet]
+        public IActionResult Getallssp()
+        {
+            try
+            {
+                var result = db.SanPhams.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketong")]
+        [HttpGet]
+        public IActionResult Getalll()
+        {
+            try
+            {
+                decimal TongTienn = 0;
+                var result = from a in db.DonHangs
+                             join b in db.ChiTietDonHangs on a.MaDonHang equals b.MaDonHang
+                             select new
+                             {
+                                 a.MaDonHang,
+                                 a.MaKhachHang,
+                                 a.NgayDat,
+                                 a.TrangThaiDonHang,
+                                 b.MaChiTietDonHang,
+                                 b.MaSanPham,
+                                 b.SoLuong,
+                                 b.GiaMua,
+                             };
+                TongTienn += decimal.Parse(result.Sum(s => s.SoLuong * s.GiaMua).ToString());
+                string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", TongTienn);
+                return Ok(new { formatted });
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         [Route("thongketong-sanphambanchay")]
         [HttpPost]
         public decimal sanphambanchay()
@@ -91,5 +174,9 @@ namespace DoAnTotNghiep_Api.Controllers
             TongTienn += decimal.Parse(db.ChiTietDonHangs.Sum(s => s.SoLuong).ToString());
             return TongTienn;
         }
+    }
+    public class Tong
+    {
+        public int data { get; set; }
     }
 }

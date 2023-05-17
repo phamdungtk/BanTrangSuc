@@ -146,16 +146,24 @@
                         <div class="list-slide_item">
                             <div class="single_product">
                                 <div class="product-img">
-                                    <a href="single-product.html">
-                                        <img class="primary-img" src="assets/images/product/medium-size/1-9.jpg" alt="Image">
-                                        <img class="secondary-img" src="assets/images/product/medium-size/1-8.jpg" alt="Image">
+                                    <a [routerLink]="['/chi-tiet',it.maSanPham]">
+                                        <img class="primary-img" src="{{it.anhDaiDien}}" alt="Image">
                                     </a>
                                 </div>
                                 <div class="hiraola-product_content">
                                     <div class="product-desc_info">
-                                        <h6><a class="product-name" href="single-product.html">Flash Furniture
-                                                Alonza Se...</a></h6>
-                                        <div class="rating-box">
+                                        <h6><a class="product-name" [routerLink]="['/chi-tiet',it.maSanPham]">{{it.tenSanPham}}</a></h6>
+                                        <!-- <div class="price-box">
+                                            <span class="old-price">{{it.gia | number:'1.0-0' }}</span>
+                                        </div> -->
+                                        <div class="additional-add_action">
+                                            <ul>
+                                                <li>
+                                                    <span class="old-price">{{applyDiscount(it.gia, it.phanTram) | number:'1.0-0'}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <div class="rating-box">
                                             <ul>
                                                 <li><i class="fa fa-star"></i></li>
                                                 <li><i class="fa fa-star"></i></li>
@@ -163,12 +171,9 @@
                                                 <li><i class="fa fa-star"></i></li>
                                                 <li class="silver-color"><i class="fa fa-star"></i></li>
                                             </ul>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="new-price">£90.36</span>
-                                        </div>
+                                        </div> --> 
                                         <div class="product-short_desc">
-                                            <p>The effects of gold are subtle, but definitely apparent. ... It was considered that gold possessed an energy that brought warm, soothing vibrations to the body to aid healing, for when the body relaxes and the blood vessels in the cells aren't as constricted, blood can move through the tissue spaces more easily.</p>
+                                            <p style="height: 200px; overflow: auto; "[innerHTML]="it.moTaSanPham"></p>
                                         </div>
                                     </div>
                                     <div class="add-actions">

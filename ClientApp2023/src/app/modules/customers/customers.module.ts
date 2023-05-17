@@ -4,6 +4,7 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -13,7 +14,7 @@ import { RouterModule } from '@angular/router';
     CheckoutComponent
   ],
   imports: [
-    CommonModule,FormsModule,ReactiveFormsModule,
+    CommonModule,FormsModule,ReactiveFormsModule,NgbModule,
     RouterModule.forChild([
       { path: 'cart', component: CartComponent },
       { path: 'check-out', component: CheckoutComponent }

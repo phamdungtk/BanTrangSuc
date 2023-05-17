@@ -27,7 +27,7 @@ export class ChiTietNhomComponent extends BaseComponent implements OnInit, After
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 1;
+  public pageSize: any = 5;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);

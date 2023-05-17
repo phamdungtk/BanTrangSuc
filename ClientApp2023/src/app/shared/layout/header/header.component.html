@@ -57,81 +57,19 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="hm-form_area">
-                        <form action="#" class="hm-searchbox">
-                            <select class="nice-select select-search-category">
-                                <option value="0">All</option>
-                                <option value="10">Laptops</option>
-                                <option value="17">- - Prime Video</option>
-                                <option value="20">- - - - All Videos</option>
-                                <option value="21">- - - - Blouses</option>
-                                <option value="22">- - - - Evening Dresses</option>
-                                <option value="23">- - - - Summer Dresses</option>
-                                <option value="24">- - - - T-shirts</option>
-                                <option value="25">- - - - Rent or Buy</option>
-                                <option value="26">- - - - Your Watchlist</option>
-                                <option value="27">- - - - Watch Anywhere</option>
-                                <option value="28">- - - - Getting Started</option>
-                                <option value="18">- - - - Computers</option>
-                                <option value="29">- - - - More to Explore</option>
-                                <option value="30">- - - - TV &amp; Video</option>
-                                <option value="31">- - - - Audio &amp; Theater</option>
-                                <option value="32">- - - - Camera, Photo </option>
-                                <option value="33">- - - - Cell Phones</option>
-                                <option value="34">- - - - Headphones</option>
-                                <option value="35">- - - - Video Games</option>
-                                <option value="36">- - - - Wireless Speakers</option>
-                                <option value="19">- - - - Electronics</option>
-                                <option value="37">- - - - Amazon Home</option>
-                                <option value="38">- - - - Kitchen &amp; Dining</option>
-                                <option value="39">- - - - Furniture</option>
-                                <option value="40">- - - - Bed &amp; Bath</option>
-                                <option value="41">- - - - Appliances</option>
-                                <option value="11">TV &amp; Audio</option>
-                                <option value="42">- - Chamcham</option>
-                                <option value="45">- - - - Office</option>
-                                <option value="47">- - - - Gaming</option>
-                                <option value="48">- - - - Chromebook</option>
-                                <option value="49">- - - - Refurbished</option>
-                                <option value="50">- - - - Touchscreen</option>
-                                <option value="51">- - - - Ultrabooks</option>
-                                <option value="52">- - - - Blouses</option>
-                                <option value="43">- - Sanai</option>
-                                <option value="53">- - - - Hard Drives</option>
-                                <option value="54">- - - - Graphic Cards</option>
-                                <option value="55">- - - - Processors (CPU)</option>
-                                <option value="56">- - - - Memory</option>
-                                <option value="57">- - - - Motherboards</option>
-                                <option value="58">- - - - Fans &amp; Cooling</option>
-                                <option value="59">- - - - CD/DVD Drives</option>
-                                <option value="44">- - Meito</option>
-                                <option value="60">- - - - Sound Cards</option>
-                                <option value="61">- - - - Cases &amp; Towers</option>
-                                <option value="62">- - - - Casual Dresses</option>
-                                <option value="63">- - - - Evening Dresses</option>
-                                <option value="64">- - - - T-shirts</option>
-                                <option value="65">- - - - Tops</option>
-                                <option value="12">Smartphone</option>
-                                <option value="66">- - Camera Accessories</option>
-                                <option value="68">- - - - Octa Core</option>
-                                <option value="69">- - - - Quad Core</option>
-                                <option value="70">- - - - Dual Core</option>
-                                <option value="71">- - - - 7.0 Screen</option>
-                                <option value="72">- - - - 9.0 Screen</option>
-                                <option value="73">- - - - Bags &amp; Cases</option>
-                                <option value="67">- - XailStation</option>
-                                <option value="74">- - - - Batteries</option>
-                                <option value="75">- - - - Microphones</option>
-                                <option value="76">- - - - Stabilizers</option>
-                                <option value="77">- - - - Video Tapes</option>
-                                <option value="78">- - - - Memory Card Readers</option>
-                                <option value="79">- - - - Tripods</option>
-                                <option value="13">Cameras</option>
-                                <option value="14">headphone</option>
-                                <option value="15">Smartwatch</option>
-                                <option value="16">Accessories</option>
+                        <form [formGroup]="frmSearch" class="hm-searchbox" (ngSubmit)="LoadData()">
+                            <select class="nice-select select-search-category" formControlName="txt_tendanhmuc">
+                                <option [value]="''">Loại</option>	
+                                <option *ngFor="let lsp of danh_sach_danh_muc" value="{{lsp.tenDanhMuc}}">{{lsp.tenDanhMuc}}</option>										
                             </select>
-                            <input type="text" placeholder="Enter your search key ...">
-                            <button class="li-btn" type="submit"><i class="fa fa-search"></i></button>
+                            <!-- <select formControlName="txt_tendanhmuc" class="form-control"placeholder="Quyền">
+                                <option [value]="''">Quyền</option>										
+                                <option [value]="'Admin'">Admin</option>
+                                <option [value]="'User'">User</option>
+                            </select> -->
+                            <input class="select-search-category" type="text" formControlName="txt_tendanhmuc" placeholder="Enter your search key ...">
+                            <input type="text" formControlName="txt_tensanpham" placeholder="Enter your search key ...">
+                            <button class="li-btn" (click)="createModal()" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
                 </div>
@@ -226,3 +164,146 @@
     </div>
 
 </header>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="createsanphamModal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+            <div class="col-lg-12 order-1 order-lg-2">
+                <div class="shop-toolbar">
+                    <div class="product-view-mode" >
+                        <a class="active grid-3" data-target="gridview-3" data-toggle="tooltip" data-placement="top" title="Grid View"><i class="fa fa-th"></i></a>
+                        <a class="list" data-target="listview" data-toggle="tooltip" data-placement="top" title="List View"><i class="fa fa-th-list"></i></a>
+                    </div>
+                    <div style="  background-color: #e25b57;
+                    border: none;
+                    color: white;
+                    padding: 5px 22px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    " 
+                    [ngClass]="{active: loc=='TD'}" (click)="setDieuKienLoc('TD')" class="name">Giá giảm dần</div>
+                    <div style="  background-color: #e25b57;
+                    border: none;
+                    color: white;
+                    padding: 5px 22px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
+                    "  
+                    [ngClass]="{active: loc=='GD'}" (click)="setDieuKienLoc('GD')" class="name">Giá tăng dần</div>                                  
+                    <div class="product-item-selection_area">
+                        <div class="product-short">
+                            <label class="select-label">Trang:</label>
+                            <select class="name" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                                <option value="6">6</option>
+                                <option value="12">12</option>
+                                <option value="24">24</option> 
+                                <option value="46">46</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="list_timkiem && list_timkiem.length > 0" class="shop-product-wrap grid gridview-3 row">
+                    <div *ngFor="let it of list_timkiem" class="col-lg-4">
+                        <div class="slide-item">
+                            <div  class="single_product">
+                                <div class="product-img">
+                                    <a [routerLink]="['/chi-tiet',it.maSanPham]">
+                                        <img class="primary-img" src="{{it.anhDaiDien}}" alt="Image">
+                                    </a>
+                                    <div class="add-actions">
+                                        <ul>   
+                                            <li><a class="hiraola-add_cart" (click)="_addToCart(it)" data-toggle="tooltip" data-placement="top" title="Thêm Vàp Giỏ Hàng"><i class="ion-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="hiraola-product_content">
+                                    <div class="product-desc_info">
+                                        <h6><a class="product-name" [routerLink]="['/chi-tiet',it.maSanPham]">{{it.tenSanPham}}</a></h6>
+                                        <div class="price-box">
+                                            <span class="old-price">{{it.gia | number:'1.0-0' }}</span>
+                                        </div>
+                                        <div class="additional-add_action">
+                                            <ul>
+                                                <li>
+                                                    <span class="old-price">{{applyDiscount(it.gia, it.phanTram) | number:'1.0-0'}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <div class="rating-box">
+                                            <ul>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="silver-color"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-slide_item">
+                            <div class="single_product">
+                                <div class="product-img">
+                                    <a [routerLink]="['/chi-tiet',it.maSanPham]">
+                                        <img class="primary-img" src="{{it.anhDaiDien}}" alt="Image">
+                                    </a>
+                                </div>
+                                <div class="hiraola-product_content">
+                                    <div class="product-desc_info">
+                                        <h6><a class="product-name" [routerLink]="['/chi-tiet',it.maSanPham]">{{it.tenSanPham}}</a></h6>
+                                        <div class="additional-add_action">
+                                            <ul>
+                                                <li>
+                                                    <span class="old-price">{{applyDiscount(it.gia, it.phanTram) | number:'1.0-0'}}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- <div class="rating-box">
+                                            <ul>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li class="silver-color"><i class="fa fa-star"></i></li>
+                                            </ul>
+                                        </div> --> 
+                                        <div class="product-short_desc">
+                                            <p style="height: 200px; overflow: auto; "[innerHTML]="it.moTaSanPham"></p>
+                                        </div>
+                                    </div>
+                                    <div class="add-actions">
+                                        <ul>
+                                            <li><a class="hiraola-add_cart" (click)="_addToCart(it)" data-toggle="tooltip" data-placement="top" title="Thêm Vàp Giỏ Hàng"><i class="ion-bag"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hiraola-paginatoin-area">
+                            <div class="row">
+                                <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+		</div>
+	</div>
+</div> 

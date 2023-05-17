@@ -21,7 +21,7 @@ export class DonHangComponent extends BaseComponent implements OnInit, AfterView
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 6;
+  public pageSize: any = 5;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);

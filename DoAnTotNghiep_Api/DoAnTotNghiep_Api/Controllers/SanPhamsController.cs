@@ -143,6 +143,75 @@ namespace DoAnTotNghiep_Api.Controllers
             }
         }
 
+        [Route("timkiem")]
+        [HttpPost]
+        public IActionResult Searchtq([FromBody] Dictionary<string, object> formData)
+        {
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                string loc = "";
+                if (formData.Keys.Contains("loc") && !string.IsNullOrEmpty(Convert.ToString(formData["loc"]))) { loc = formData["loc"].ToString(); }
+                var tensanpham = formData.Keys.Contains("tensanpham") ? (formData["tensanpham"]).ToString().Trim() : "";
+                var tendanhmuc = formData.Keys.Contains("tendanhmuc") ? (formData["tendanhmuc"]).ToString().Trim() : ""; 
+                var result = from a in db.SanPhams
+                             join b in db.DanhMucs on a.MaDanhMuc equals b.MaDanhMuc
+                             join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
+                             join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
+                             join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                             join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
+                             join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
+                             select new
+                             {
+                                 MaSanPham = a.MaSanPham,
+                                 TenSanPham = a.TenSanPham,
+                                 TenDanhMuc = b.TenDanhMuc,
+                                 Gia = f.Gia,
+                                 PhanTram = g.PhanTram,
+                                 TenThongSo = h.TenThongSo,
+                                 Mota = h.MoTa,
+                                 TenNhaSanXuat = t.TenNhaSanXuat,
+                                 MotaNSX = t.MoTa,
+                                 TenDonViTinh = s.TenDonViTinh,
+                                 MoTaSanPham = a.MoTaSanPham,
+                                 AnhDaiDien = a.AnhDaiDien,
+                                 CreatedAt = a.CreatedAt,
+                                 UpdatedAt = a.UpdatedAt,
+
+                             };
+                var result1 = result.Where(x => x.TenSanPham.Contains(tensanpham) && x.TenDanhMuc.Contains(tendanhmuc)).ToList();
+                long total = result1.Count();
+                dynamic result2 = null;
+                switch (loc)
+                {
+                    case "TD":
+                        result2 = result1.OrderBy(x => x.Gia).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        break;
+                    case "GD":
+                        result2 = result1.OrderByDescending(x => x.Gia).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        break;
+                    default:
+                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        break;
+                }
+                return Ok(
+                            new ResponseListMessage
+                            {
+                                page = page,
+                                totalItem = total,
+                                pageSize = pageSize,
+                                data = result2
+                            }
+                   );
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         [Route("get-by-id/{id}")]
         [HttpGet]
         public IActionResult GetById(int? id)

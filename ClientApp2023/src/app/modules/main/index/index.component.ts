@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/core/common/base-component';
 import { ApiService } from 'src/app/core/services/api.service';
 import { CartService } from 'src/app/core/services/cart.service';
@@ -15,8 +16,10 @@ export class IndexComponent extends BaseComponent implements OnInit,AfterViewIni
   
   public danh_sach_san_pham:any;
   public danh_sach_danh_muc:any;
+  public frmSearch: FormGroup;
   constructor(injector: Injector,private _send: SendService, private _cart: CartService,) {
     super(injector);
+    
   }
   public _addToCart(item: any) {
     this._cart.addToCart(item);
@@ -30,18 +33,15 @@ export class IndexComponent extends BaseComponent implements OnInit,AfterViewIni
   ngOnInit(): void {
     this._api.get('/api/SanPhams/Get-All').subscribe(res => {
       this.danh_sach_san_pham = res;
-      console.log(this.danh_sach_san_pham);
       setTimeout(() => {
         this.loadScripts('assets/js/main.js');
       });
     });
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.danh_sach_danh_muc = res;
-      setTimeout(() => {
-        this.loadScripts('assets/js/main.js');
-      });
     });
   }
+
   ngAfterViewInit() {
     // this.loadScripts('assets/js/main.js');
    }

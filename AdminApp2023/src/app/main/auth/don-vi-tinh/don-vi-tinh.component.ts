@@ -21,7 +21,7 @@ export class DonViTinhComponent extends BaseComponent implements OnInit, AfterVi
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 6;
+  public pageSize: any = 5;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
@@ -30,7 +30,7 @@ export class DonViTinhComponent extends BaseComponent implements OnInit, AfterVi
     });
   }
   ngOnInit(): void {
-    // this.loc = localStorage.getItem('loc') || '';
+    this.loc = localStorage.getItem('loc') || '';
     this.LoadData();
   }
   public LoadData() {

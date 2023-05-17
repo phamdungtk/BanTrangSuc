@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-//import { DateilComponent } from './main/dateil/dateil.component';
 import { IndexComponent } from './main/index/index.component';
 import { ModulesComponent } from './modules.component';
 export const ModulesRoutingModule: Routes = [

@@ -24,7 +24,6 @@ export class CartComponent extends BaseComponent implements OnInit, AfterViewIni
     let finalPrice: number = gia - gia * (phanTram / 100);
     return finalPrice;
   }
-
   ngOnInit(): void {
     this.list = JSON.parse(localStorage.getItem('cart') || '[]');
     this.tTong = this.list.reduce((sum: any, x: any) => sum + x.gia * x.quantity, 0);

@@ -10,12 +10,13 @@ declare var $: any;
 })
 export class CtDonHangComponent extends BaseComponent implements OnInit, AfterViewInit {
   public list_ctdonhang: any;
+  public tTong: any;
   public id: any;
   public frmCTDonHang: FormGroup;
   public frmSearch: FormGroup;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 1;
+  public pageSize: any = 5;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
@@ -37,7 +38,15 @@ export class CtDonHangComponent extends BaseComponent implements OnInit, AfterVi
         this.totalItem = res.totalItem;
         console.log(res.data);
       }); 
-    });  
+    }); 
+    this._route.params.subscribe(params => {
+      this.id = params['id'];
+      this._api.post('/api/ThongKes/tong-don-hang-theo-ma', { ma_don_hang: this.id}).subscribe(res => {
+        this.tTong = res;
+        console.log(res);
+      }); 
+    }); 
+    
   }
   public loadPage(page: any) {
     this._api.post('/api/DonHangs/search-ct', {loc: this.loc,  page: page, pageSize: this.pageSize, ma_don_hang: this.id}).subscribe(res => {

@@ -6,7 +6,6 @@ export class GlobalErrorHandlerService implements ErrorHandler {
     constructor(private injector: Injector) { }    
 
     handleError(error: any) {
-        debugger;
       let router = this.injector.get(Router);
       console.log('URL: ' + router.url);
       

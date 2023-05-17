@@ -3,10 +3,6 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/core/common/base-component';
-
-import { OrderInfo } from '../model/OrderInfo';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ReturnServices, defaultTypeOrders } from 'src/app/core/services/Services';
 declare var require: any;
 
 @Component({
@@ -159,7 +155,4 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
       }
     });
   }
-
-  
-
 }

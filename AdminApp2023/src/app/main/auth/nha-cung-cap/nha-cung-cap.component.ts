@@ -21,7 +21,7 @@ export class NhaCungCapComponent extends BaseComponent implements OnInit, AfterV
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 6;
+  public pageSize: any = 5;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
