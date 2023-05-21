@@ -42,21 +42,17 @@
                         </div>
                         <span class="reference">Giảm giá: {{item.phanTram}}%</span>
                         <div class="rating-box">
-                            <ul>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li class="silver-color"><i class="fa fa-star"></i></li>
+                            <ul>                                
+                                <li >Đánh Giá: <a style="color: rgb(255, 51, 0);">   0{{TrB_sao}} Sao</a> </li>
                             </ul>
                         </div>
                         <div class="sp-essential_stuff">
                             <ul>
                                 <li>Giá Sản Phẩm: <a href="javascript:void(0)"><span>{{item.gia | number:'1.0-0' }} VND</span></a></li>
+                                <li>Giá Sản Phẩm Giảm giá: <a href="javascript:void(0)"><span>{{applyDiscount(item.gia, item.phanTram) | number:'1.0-0'}} VND</span></a></li>
                                 <li>Thương Hiệu <a href="javascript:void(0)">{{item.tenNhaSanXuat}}</a></li>
                                 <li>Mã Sản Phẩm: <a href="javascript:void(0)">Sản phẩm {{item.maSanPham}}</a></li>
-                                <li>Số Lượng: <a href="javascript:void(0)">600</a></li>
-                                <li>Availability: <a href="javascript:void(0)">In Stock</a></li>
+                               
                             </ul>
                         </div>
                         <!-- <div class="product-size_box">
@@ -153,64 +149,89 @@
                             </div>
                         </div>
                         <div id="reviews" class="tab-pane" role="tabpanel">
-                            <div class="tab-pane active" id="tab-review">
-                                <form class="form-horizontal" id="form-review">
-                                    <div id="review">
-                                        <table class="table table-striped table-bordered">
-                                            <tbody>
-                                                <tr>
-                                                    <td style="width: 50%;"><strong>Customer</strong></td>
-                                                    <td class="text-right">25/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <p>Good product! Thank you very much</p>
-                                                        <div class="rating-box">
-                                                            <ul>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            <div class="tab-pane active form-horizontal" id="tab-review">
+                                <div id="review">
+                                    <table class="table table-striped table-bordered" *ngFor="let list_phanhoi of list_phanhoi">
+                                        <tbody>
+                                            <tr>
+                                                <td style=" vertical-align: middle; text-align: center;"><strong>{{list_phanhoi.hoTen}}</strong></td>
+                                                <td style=" vertical-align: middle; text-align: center;">{{list_phanhoi.ngayPhanHoi | date:'yyyy-MM-dd HH:mm:ss'}}</td> 
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <p>{{list_phanhoi.noiDung}}</p>
+                                                    <div class="rating-box">
+                                                        <ul>
+                                                            <li *ngIf="list_phanhoi.sao=='1'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='2'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='2'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='3'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='3'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='3'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='4'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='4'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='4'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='4'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='5'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='5'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='5'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='5'"><i class="fa fa-star"></i></li>
+                                                            <li *ngIf="list_phanhoi.sao=='5'"><i class="fa fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="form-group">                                               
+                                        <div  class="btn mr-1"><ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                                        </ngb-pagination></div>
+                                        <div class="btn mr-1"  style="float: right;"><select class="form-control" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                                            <option value="5">5</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option> 
+                                            <option value="40">40</option>
+                                        </select></div>
+                                        <div class="btn mr-1"  style="float: right;"><button [ngClass]="{active: loc=='TD'}" (click)="setDieuKienLoc('TD')"type="submit" class="btn btn-primary"><i class="fa fa-sort-up"></i></button></div>
+                                        <div class="btn mr-1" style="float: right;"><button [ngClass]="{active: loc=='GD'}" (click)="setDieuKienLoc('GD')"type="submit" class="btn btn-primary"><i class="fa fa-sort-down"></i></button></div>
+                                        <div class="btn mr-1" style="float: right;"><button [ngClass]="{active: loc=='ALL'}" (click)="setDieuKienLoc('ALL')"type="submit" class="btn btn-primary"><i class="fa fa-retweet"></i></button></div>
                                     </div>
-                                    <h2>Write a review</h2>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12 p-0">
-                                            <label>Your Email <span class="required">*</span></label>
-                                            <input class="review-input" type="email" name="con_email" id="con_email" required>
-                                        </div>
-                                    </div>
+                                </div>
+                                <hr>
+                                <form [formGroup]="frmKhach" (ngSubmit)="onSubmit(frmKhach.value)" class="form-horizontal" id="form-review">
+                                    
+                                    <h2>Viết Phản hồi</h2> 
                                     <div class="form-group required second-child">
                                         <div class="col-sm-12 p-0">
-                                            <label class="control-label">Share your opinion</label>
-                                            <textarea class="review-textarea" name="con_message" id="con_message"></textarea>
-                                            <div class="help-block"><span class="text-danger">Note:</span> HTML is not
-                                                translated!</div>
+                                            <label class="control-label">Sản Phẩm</label>
+                                            <select formControlName="txt_masanpham" class="form-group col-12">
+                                                <option *ngIf="item" value="{{item.maSanPham}}">{{item.tenSanPham}}</option>
+                                            </select>                     
+                                        </div>
+                                        <div class="col-sm-12 p-0">
+                                            <label class="control-label">Nhập Nội Dung</label>
+                                            <textarea class="review-textarea" formControlName="txt_noidung" name="con_message" id="con_message"></textarea>                                         
                                         </div>
                                     </div>
                                     <div class="form-group last-child required">
                                         <div class="col-sm-12 p-0">
                                             <div class="your-opinion">
-                                                <label>Your Rating</label>
-                                                <span>
-                                                <select class="star-rating">
-                                                    <option value="1">1</option>
-                                                    <option value="2">2</option>
-                                                    <option value="3">3</option>
-                                                    <option value="4">4</option>
-                                                    <option value="5">5</option>
+                                            <span>
+                                                <label class="control-label">Sao</label>
+                                                <select formControlName="txt_sao" class="form-group col-12">
+                                                    <option [value]="'1'">1 Sao</option>
+                                                    <option [value]="'2'">2 Sao</option>
+                                                    <option [value]="'3'">3 Sao</option>
+                                                    <option [value]="'4'">4 Sao</option>
+                                                    <option [value]="'5'">5 Sao</option>
                                                 </select>
                                             </span>
                                             </div>
                                         </div>
-                                        <div class="hiraola-btn-ps_right">
-                                            <a href="javascript:void(0)" class="hiraola-btn hiraola-btn_dark">Continue</a>
+                                        <div class="order-button-payment">
+                                            <!-- <a class="button" (click)="ThanhToan()" value="Cập Nhập" type="submit"> 123 </a> -->
+                                            <input [disabled]="frmKhach.invalid" [ngStyle]="{'background-color':frmKhach.invalid?'#F4F6F8':'blue'}" value="Đặt Hàng" type="submit">
                                         </div>
                                     </div>
                                 </form>
@@ -222,7 +243,7 @@
         </div>
     </div>
 </div>
-
+<hr>
 <div class="hiraola-product_area hiraola-product_area-2 ">
     <div class="container">
         <div class="row" >
@@ -257,11 +278,7 @@
                                     </div>
                                     <!-- <div class="rating-box">
                                         <ul>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li class="silver-color"><i class="fa fa-star"></i></li>
+                                            <li style="text-align: center;" >Đánh Giá: <a style="color: rgb(255, 51, 0);"> {{TrB_sao_sp}} Sao</a> </li>
                                         </ul>
                                     </div> -->
                                 </div>
@@ -274,3 +291,4 @@
         </div>
     </div>
 </div>
+<hr>

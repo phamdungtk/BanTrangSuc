@@ -86,7 +86,9 @@
 															</button>
 															<div style="height: 108px; overflow: auto;"class="dropdown-menu" role="menu">
 																<div class="dropdown-divider"></div>
-																<button class="dropdown-item"(click)="openViewModal(ur.maSanPham)">Xem</button>
+																<button class="dropdown-item"(click)="openViewModal(ur.maSanPham)">Xem Chi Tiết</button>
+																<div class="dropdown-divider"></div>								
+																<button class="dropdown-item" [routerLink]="['/auth/phan-hoi', ur.maSanPham]">Đánh Giá</button>
 																<div class="dropdown-divider"></div>
 																<button class="dropdown-item" [routerLink]="['/auth/chi-tiet-anh', ur.maSanPham]">Ảnh</button>
 																<div class="dropdown-divider"></div>
@@ -129,8 +131,8 @@
       	</div>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="ViewModal">
-	<div class="modal-dialog">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"  id="ViewModal">
+	<div class="modal-dialog modal-lg">
 	  <div class="modal-content">
 		<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalLabel">Chi Tiết Sản Phẩm</h5>
@@ -142,28 +144,40 @@
 				<div class="row">
 					<div class="col-md-5" style="text-align: right;">Tên Sản Phẩm: </div>
 					<div class="col-md-7">{{sanpham.tenSanPham}}</div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Tên Danh Mục: </div>
 					<div class="col-md-7"> {{sanpham.tenDanhMuc}}</div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Giá Sản Phẩm: </div>
 					<div class="col-md-7">{{sanpham.gia | number:'1.0-0'}}</div>	
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Đơn Vị Tính: </div>
 					<div class="col-md-7">{{sanpham.tenDonViTinh}}</div>			
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Phần Trăm Giảm Giá: </div>
 					<div class="col-md-7">{{sanpham.phanTram}}</div>
-					<div class="col-md-5"style="text-align: right;">Tên Thông Số: </div>
+					<hr>
+					<div class="col-md-5"style="text-align: right; ">Tên Thông Số: </div>
 					<div class="col-md-7">{{sanpham.tenThongSo}}</div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Mô Tả Thông Số: </div>
-					<div class="col-md-7" style="height: 100px; overflow: auto; "[innerHTML]="sanpham.mota"></div>
+					<div class="col-md-7" style="height: 200px; overflow: auto;  border-bottom: 2px solid #585858;border-top: 2px solid #585858; "[innerHTML]="sanpham.mota"></div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Mô Tả Sản Phẩm: </div>
-					<div class="col-md-7" style="height: 100px; overflow: auto; "[innerHTML]="sanpham.moTaSanPham"></div>
+					<div class="col-md-7" style="height: 200px; overflow: auto;  border-bottom: 2px solid #585858;"[innerHTML]="sanpham.moTaSanPham"></div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Mô Tả Nhà Sản Xuất: </div>
-					<div class="col-md-7"style="height: 100px; overflow: auto; "[innerHTML]="sanpham.motaNSX"></div>
+					<div class="col-md-7"style="height: 200px; overflow: auto;  border-bottom: 2px solid #585858;"[innerHTML]="sanpham.motaNSX"></div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
 					<div class="col-md-7">{{sanpham.createdAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Ngày Sửa: </div>
 					<div class="col-md-7">{{sanpham.updatedAt | date:'yyyy-MM-dd HH:mm:ss'}}</div>
+					<hr>
 					<div class="col-md-5"style="text-align: right;">Ảnh: </div>
-					<div class="col-md-7"><img [src]="sanpham.anhDaiDien" style="width: 88px; height: 88px;" class="img-rounded" alt=""></div>			
+					<div class="col-md-7"><img [src]="sanpham.anhDaiDien" style="width: 88px; height: 88px;" class="img-rounded" alt=""></div>
+					<hr>			
 				</div>
 		  	</div>
 		  <div class="modal-footer">

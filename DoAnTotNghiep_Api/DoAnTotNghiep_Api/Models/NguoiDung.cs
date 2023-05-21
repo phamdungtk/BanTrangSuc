@@ -29,5 +29,11 @@ public partial class NguoiDung
 
     public virtual ICollection<HoaDonNhap> HoaDonNhaps { get; } = new List<HoaDonNhap>();
 
+    public virtual ICollection<KhachHang> KhachHangs { get; } = new List<KhachHang>();
+
+    public virtual ICollection<PhanHoi> PhanHois { get; } = new List<PhanHoi>();
+
     public virtual ICollection<TaiKhoan> TaiKhoans { get; } = new List<TaiKhoan>();
+
+    public virtual ICollection<TinTuc> TinTucs { get; } = new List<TinTuc>();
 }

@@ -3,6 +3,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BaseComponent } from 'src/app/core/common/base-component';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 declare var require: any;
 
 @Component({
@@ -14,8 +15,9 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
   public frmKhach: FormGroup;
   public list_items: any;
   public tTong: any;
+  public user : any;
   public tTongGiamGia: any;
-  constructor(injector: Injector,private _router: Router, private http: HttpClient) {
+  constructor(injector: Injector,private _router: Router, private http: HttpClient,private authenticationService: AuthenticationService) {
     super(injector);
   }
   applyDiscount(gia: number, phanTram: number): number {
@@ -89,17 +91,19 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
   //   return sorted;
   // };
   ngOnInit(): void {
-
+    this.user = this.authenticationService.userValue;
     this.list_items = JSON.parse(localStorage.getItem('cart') || '[]');
     this.tTong = this.list_items.reduce((sum: any, x: any) => sum + x.gia * x.quantity, 0);
     this.tTongGiamGia = this.list_items.reduce((sum:any, x:any) => sum +  (x.gia - x.gia * (x.phanTram / 100)) * x.quantity, 0);
     this.frmKhach = new FormGroup({
-      'txt_hoten': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-      'txt_sdt': new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
-      'txt_email': new FormControl('', [Validators.email]),
-      'txt_diachi': new FormControl('', [Validators.required]),
+      'txt_hoten': new FormControl(this.user.hoTen, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+      'txt_sdt': new FormControl(this.user.dienThoai, [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
+      'txt_email': new FormControl(this.user.email, [Validators.email]),
+      'txt_diachi': new FormControl(this.user.diaChi, [Validators.required]),
+      'txt_manguoidung': new FormControl(this.user.maNguoiDung),
       'txt_ghichu': new FormControl('')
     });
+    debugger
     
     setTimeout(() => {
       this.loadScripts('assets/js/main.js');
@@ -128,7 +132,8 @@ export class CheckoutComponent extends BaseComponent implements OnInit {
       tenKhachHang: val.txt_hoten,
       diaChi: val.txt_diachi,
       soDienThoai: val.txt_sdt,
-      email: val.txt_email
+      email: val.txt_email,
+      maNguoiDung : val.txt_manguoidung,
     };
     obj.donhang = [];
     this.list_items.forEach((x: any) => {

@@ -1,0 +1,75 @@
+<div class="row" style="margin-top: 10%;">
+    <div class="col-lg-4 col-md-12">
+        <!-- <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Text Align Left</h4>
+                <p class="card-text">Jelly beans sugar plum cheesecake cookie oat cake soufflé.Tootsie roll bonbon liquorice tiramisu pie powder.Donut sweet
+                    roll marzipan pastry cookie cake tootsie roll oat cake cookie.</p>
+                <p class="card-text">Sweet roll marzipan pastry halvah. Cake bear claw sweet. Tootsie roll pie marshmallow lollipop chupa chups donut fruitcake
+                    cake.Jelly beans sugar plum cheesecake cookie oat cake soufflé. Tart lollipop carrot cake sugar plum. Marshmallow wafer
+                    tiramisu jelly beans.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div> -->
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <div class="card text-center">
+            <div class="card-body">
+                <form [formGroup]="frmLogin" (ngSubmit)="Login(frmLogin.value)">
+                    <div class="panel panel-body login-form">
+                        <div class="text-center">
+                            <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                            <h5 class="content-group">ĐĂNG NHẬP</h5>
+                        </div>
+                
+                        <div *ngIf="taikhoan.invalid && (taikhoan.dirty || taikhoan.touched)">
+                            <span style="color:red ;" *ngIf="taikhoan.errors?.['required']">Tài khoản không được rỗng</span>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input formControlName="txt_taikhoan" type="text" class="form-control" placeholder="Tài khoản" ngModel>
+                            <div class="form-control-feedback">
+                                <i class="icon-user text-muted"></i>
+                            </div>
+                        </div>
+                
+                        <div *ngIf="matkhau.invalid && (matkhau.dirty || matkhau.touched)">
+                            <span style="color:red ;" *ngIf="matkhau.errors?.['required']">Mật khẩu không được rỗng</span>
+                        </div>
+                        <div class="form-group has-feedback has-feedback-left">
+                            <input formControlName="txt_matkhau" type="password" class="form-control" placeholder="Mật khẩu" ngModel>
+                            <div class="form-control-feedback">
+                                <i class="icon-lock2 text-muted"></i>
+                            </div>
+                        </div>
+                        <div style="color:red ;" *ngIf="error">
+                            Tài khoản hoặc mật khẩu không đúng!
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="frmLogin.invalid"  type="submit" class="btn btn-primary btn-block">Đăng Nhập<i class="icon-circle-right2 position-right"></i></button>
+                        </div>
+                        <div class="text-center">
+                            <a (click)="dangky()">Đăng Ký</a>
+                        </div>
+                        <div class="text-center">
+                            <a href="">Quyên mật khẩu?</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+        <!-- <div class="card text-right">
+            <div class="card-body">
+                <h4 class="card-title">Text Align Right</h4>
+                <p class="card-text">Jelly beans sugar plum cheesecake cookie oat cake soufflé.Tootsie roll bonbon liquorice tiramisu pie powder.Donut sweet
+                    roll marzipan pastry cookie cake tootsie roll oat cake cookie.</p>
+                <p class="card-text">Sweet roll marzipan pastry halvah. Cake bear claw sweet. Tootsie roll pie marshmallow lollipop chupa chups donut fruitcake
+                    cake.Jelly beans sugar plum cheesecake cookie oat cake soufflé. Tart lollipop carrot cake sugar plum. Marshmallow wafer
+                    tiramisu jelly beans.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div> -->
+    </div>
+</div>
+

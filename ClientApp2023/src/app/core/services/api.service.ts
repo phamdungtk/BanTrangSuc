@@ -40,4 +40,32 @@ export class ApiService {
             );
 
     }
+    public delete(url: string, id: any) {
+        let cloneHeader: any = {};
+        cloneHeader['Content-Type'] = 'application/json';
+        const headerOptions = new HttpHeaders(cloneHeader);
+        return this._http
+            .delete<any>(this.host + url + '/' + id, { headers: headerOptions })
+            .pipe(
+                map((res: any) => {
+                    return res;
+                })
+            );
+    }
+    public uploadFileSingle(url: string, folder: string, file: Blob) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('folder', folder);
+        return this._http.post(this.host + url, formData, {reportProgress: true, observe: 'events' })
+    }
+
+    public uploadFileMulti(url: string, folder: string, ...file: Blob[]) {
+        const formData = new FormData();
+        file.forEach(x => {
+            formData.append('files', x);
+        });
+        formData.append('folder', folder);
+        return this._http.post(this.host + url, formData, { reportProgress: true, observe: 'events' })
+    }
 }
+

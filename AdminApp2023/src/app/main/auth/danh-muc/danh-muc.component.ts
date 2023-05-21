@@ -12,7 +12,7 @@ declare var $: any;
 export class DanhMucComponent extends BaseComponent implements OnInit, AfterViewInit {
   public list_loaisanpham: any;
   public list_maloai: any;
-  public selectloaicha: any = 1;
+  public mdm: string = "";
   public isCreate = false;
   public loai: any;
   public frmLoai: FormGroup;
@@ -44,9 +44,7 @@ export class DanhMucComponent extends BaseComponent implements OnInit, AfterView
       // console.log(res.totalItem);
     });
     this._api.get('/api/LoaiSanPhams/Get-All').subscribe(res => {
-      this.list_maloai = res;
-      this.selectloaicha = this.list_maloai[0].maDonViTinh;
-      console.log(this.selectloaicha);      
+      this.list_maloai = res;      
     });
   }
   public loadPage(page: any) {
@@ -71,9 +69,7 @@ export class DanhMucComponent extends BaseComponent implements OnInit, AfterView
       });
     });
   } 
-  change_dm(sel_dm: any){
-    this.selectloaicha= sel_dm;
-  }
+
   setDieuKienLoc(loc: any) {
     this.loc = loc;
     localStorage.setItem('loc',loc); 
@@ -106,10 +102,11 @@ export class DanhMucComponent extends BaseComponent implements OnInit, AfterView
         console.log(this.loai);
         this.doneSetupForm = true; 
         this.frmLoai = new FormGroup({
-          'txt_madanhmuccha': new FormControl(this.loai.maDanhMucCha), 
+          'txt_madanhmuccha': new FormControl(''), 
           'txt_tendanhmuc': new FormControl(this.loai.tenDanhMuc, [Validators.required, Validators.minLength(1), Validators.maxLength(250)]),
-
-        });        
+        }); 
+        this.mdm = this.loai.maDanhMucCha;    
+        console.log(this.mdm );  
       });
     });
   }
@@ -157,7 +154,7 @@ export class DanhMucComponent extends BaseComponent implements OnInit, AfterView
     }
     let obj: any = {};
     obj.DanhMuc = {
-      maDanhMucCha:parseInt(this.selectloaicha),
+      maDanhMucCha:dm.txt_madanhmuccha,
       tenDanhMuc: dm.txt_tendanhmuc,
       stt: 1,
       trangThai: true,

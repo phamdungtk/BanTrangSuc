@@ -32,14 +32,16 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a href="my-account.html">Tài Khoản<i class="fa fa-chevron-down"></i></a>
+                                <li><a>Tài Khoản<i class="fa fa-chevron-down"></i></a>
                                     <ul class="ht-dropdown ht-my_account">
-                                        <li><a href="javascript:void(0)">Đăng Ký</a></li>
-                                        <li class="active"><a href="javascript:void(0)">Đăng Nhập</a></li>
+                                        <li *ngIf="user.loaiQuyen == 'User'"><a>{{user.hoTen}}</a></li>
+                                        <li *ngIf="user.loaiQuyen == 'User'"><a>Đổi Mật Khẩu</a></li>
+                                        <li class="active"(click)="dangnhap()"  ><a>Đăng Nhập</a></li>
+                                        <li *ngIf="user.loaiQuyen == 'User'"><a (click)="logout()" >Đăng Xuất</a></li>
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -67,8 +69,8 @@
                                 <option [value]="'Admin'">Admin</option>
                                 <option [value]="'User'">User</option>
                             </select> -->
-                            <input class="select-search-category" type="text" formControlName="txt_tendanhmuc" placeholder="Enter your search key ...">
-                            <input type="text" formControlName="txt_tensanpham" placeholder="Enter your search key ...">
+                            <input class="select-search-category" type="text" formControlName="txt_tendanhmuc" placeholder="tìm kiếm theo tên loại ...">
+                            <input type="text" formControlName="txt_tensanpham" placeholder="tìm kiếm theo tên sản phẩm ...">
                             <button class="li-btn" (click)="createModal()" data-toggle="modal" data-target="#exampleModal" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
@@ -90,16 +92,20 @@
                     <div class="main-menu_area">
                         <nav>
                             <ul>
-                                <li class="dropdown-holder"><a href="#">Trang Chủ</a>                                   
+                                <li class="dropdown-holder"><a [routerLink]="['/']">Trang Chủ</a>                                   
+                                </li>&nbsp;&nbsp;
+                                <li class="megamenu-holder"><a [routerLink]="['/san-pham']">Tổng Quan Sản Phẩm</a>                                  
+                                </li>&nbsp;&nbsp;
+                                <li><a [routerLink]="['/tin-tuc']">Tin Tức Trang Sức</a>
+                                </li>&nbsp;&nbsp;
+                                <li class="dropdown-holder"><a>Thương Hiệu</a>
+                                    <ul class="hm-dropdown" >
+                                        <li *ngFor="let x of thuong_hieu"><a>{{x.tenNhaSanXuat}}</a></li>
+                                        
+                                    </ul>
                                 </li>
-                                <li class="megamenu-holder"><a href="shop-left-sidebar.html">Sản Phẩm</a>                                  
-                                </li>
-                                <li><a href="blog-left-sidebar.html">Tin Tức</a>
-                                 
-                                </li>
-                                <li><a href="about-us.html">Giới Thiệu</a></li>
-                                <li><a href="contact.html">Thưởng Hiệu</a></li>
-                                <li><a href="shop-left-sidebar.html">KHuyến Mãi</a></li>
+
+                                <li><a [routerLink]="['/gioi-thieu']">Giới Thiệu</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -164,8 +170,8 @@
     </div>
 
 </header>
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="createsanphamModal">
-	<div class="modal-dialog modal-lg">
+<div class="modal fade modal-wrapper" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="createsanphamModal">
+	<div class="modal-dialog modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -203,7 +209,7 @@
                     <div class="product-item-selection_area">
                         <div class="product-short">
                             <label class="select-label">Trang:</label>
-                            <select class="name" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                            <select class="name" class="form-control" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
                                 <option value="6">6</option>
                                 <option value="12">12</option>
                                 <option value="24">24</option> 

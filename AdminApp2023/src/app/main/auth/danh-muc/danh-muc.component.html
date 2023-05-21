@@ -32,7 +32,7 @@
 											<thead>
 												<tr style="text-align: center;">                                              
 													<th>
-														<input formControlName="txt_tendanhmuc" type="text" class="form-control" placeholder="Họ tên">
+														<input formControlName="txt_tendanhmuc" type="text" class="form-control" placeholder="Tên danh mục">
 													</th>									
 													<th ><button  style="float: right;" type="submit" class="btn btn-primary"><i class="icon-search4 position-right"></i> Tìm kiếm</button></th>                                    					
 												</tr>
@@ -119,18 +119,17 @@
 				class="form-horizontal">
 				<div class="modal-body" style="padding-left: 50px !important; padding-right:50px !important;">
 					<div class="form-group">
-						<label class="col-lg-3 control-label">Tên Danh Mục</label>
+						<label class="col-lg-3 control-label">Tên Danh Mục Cha</label>
                         <div class="col-lg-12 ">
-                            <select #sel_dm (change)="change_dm(sel_dm.value)" class="form-control">
-								<option value=""></option>
-                                <option *ngFor="let lsp of list_maloai" [selected]="selectloaicha==lsp.maDanhMucCha?true:false" value="{{lsp.maDanhMuc}}">{{lsp.tenDanhMuc}}</option>
+                            <select formControlName="txt_madanhmuccha" [(ngModel)]="mdm" class="form-control">
+                                <option *ngFor="let lsp of list_maloai"  value="{{lsp.maDanhMuc}}">{{lsp.tenDanhMuc}}</option>
                             </select>
                         </div>                       
 					</div>
 					<div class="form-group">
 						<label class="col-lg-3 control-label">Tên Danh Mục<span style="color:red ;">*</span></label>
 						<div class="col-lg-12">
-							<input formControlName="txt_tendanhmuc" type="text" class="form-control" placeholder="Họ tên">
+							<input formControlName="txt_tendanhmuc"  type="text" class="form-control" placeholder="Họ tên">
 							<div *ngIf="tendanhmuc.invalid && (tendanhmuc.dirty || tendanhmuc.touched)">
 								<div *ngIf="tendanhmuc.errors?.['required']" style="color:red ;">Tên danh mục không được rỗng</div>
 								<div *ngIf="tendanhmuc.errors?.['minlength']" style="color:red ;">

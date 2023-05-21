@@ -9,7 +9,6 @@ public partial class ApiTrangSucContext : DbContext
     public ApiTrangSucContext()
     {
     }
-
     public ApiTrangSucContext(DbContextOptions<ApiTrangSucContext> options)
         : base(options)
     {
@@ -45,11 +44,15 @@ public partial class ApiTrangSucContext : DbContext
 
     public virtual DbSet<NhomSanPham> NhomSanPhams { get; set; }
 
+    public virtual DbSet<PhanHoi> PhanHois { get; set; }
+
     public virtual DbSet<SanPham> SanPhams { get; set; }
 
     public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
 
     public virtual DbSet<ThongSoKyThuat> ThongSoKyThuats { get; set; }
+
+    public virtual DbSet<TinTuc> TinTucs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -71,6 +74,7 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.ChiTietAnhSanPhams)
                 .HasForeignKey(d => d.MaSanPham)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_ChiTietAnhSanPham_SanPham");
         });
 
@@ -89,7 +93,6 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.ChiTietDonHangs)
                 .HasForeignKey(d => d.MaSanPham)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChiTietDonHang_SanPham");
         });
 
@@ -104,10 +107,12 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaHoaDonNhapNavigation).WithMany(p => p.ChiTietHoaDonNhaps)
                 .HasForeignKey(d => d.MaHoaDonNhap)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_ChiTietHoaDonNhap_HoaDonNhap");
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.ChiTietHoaDonNhaps)
                 .HasForeignKey(d => d.MaSanPham)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_ChiTietHoaDonNhap_SanPham");
         });
 
@@ -122,12 +127,10 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaNhomSanPhamNavigation).WithMany(p => p.ChiTietNhoms)
                 .HasForeignKey(d => d.MaNhomSanPham)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChiTietNhom_NhomSanPham");
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.ChiTietNhoms)
                 .HasForeignKey(d => d.MaSanPham)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ChiTietNhom_SanPham");
         });
 
@@ -180,7 +183,6 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.GiaSanPhams)
                 .HasForeignKey(d => d.MaSanPham)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_GiaSanPham_SanPham");
         });
 
@@ -190,6 +192,11 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.Property(e => e.CreatedAt).HasColumnName("created_at");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.GiamGia)
+                .HasForeignKey(d => d.MaSanPham)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_GiamGia_SanPham");
         });
 
         modelBuilder.Entity<HoaDonNhap>(entity =>
@@ -207,12 +214,11 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.HoaDonNhaps)
                 .HasForeignKey(d => d.MaNguoiDung)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_HoaDonNhap_NguoiDung");
 
             entity.HasOne(d => d.MaNhaCungCapNavigation).WithMany(p => p.HoaDonNhaps)
                 .HasForeignKey(d => d.MaNhaCungCap)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_HoaDonNhap_NhaCungCap");
         });
 
@@ -232,6 +238,11 @@ public partial class ApiTrangSucContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.TenKhachHang).HasMaxLength(250);
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.KhachHangs)
+                .HasForeignKey(d => d.MaNguoiDung)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_KhachHang_NguoiDung");
         });
 
         modelBuilder.Entity<NguoiDung>(entity =>
@@ -299,6 +310,20 @@ public partial class ApiTrangSucContext : DbContext
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<PhanHoi>(entity =>
+        {
+            entity.HasKey(e => e.MaPhanHoi).HasName("PK_Table_1");
+
+            entity.ToTable("PhanHoi");
+
+            entity.Property(e => e.NgayPhanHoi).HasColumnType("datetime");
+
+            entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.PhanHois)
+                .HasForeignKey(d => d.MaNguoiDung)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_PhanHoi_NguoiDung");
+        });
+
         modelBuilder.Entity<SanPham>(entity =>
         {
             entity.HasKey(e => e.MaSanPham);
@@ -315,17 +340,15 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaDanhMucNavigation).WithMany(p => p.SanPhams)
                 .HasForeignKey(d => d.MaDanhMuc)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_SanPham_DanhMuc");
 
             entity.HasOne(d => d.MaDonViTinhNavigation).WithMany(p => p.SanPhams)
                 .HasForeignKey(d => d.MaDonViTinh)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SanPham_DonViTinh");
 
             entity.HasOne(d => d.MaNhaSanXuatNavigation).WithMany(p => p.SanPhams)
                 .HasForeignKey(d => d.MaNhaSanXuat)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_SanPham_NhaSanXuat");
         });
 
@@ -366,7 +389,24 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.ThongSoKyThuats)
                 .HasForeignKey(d => d.MaSanPham)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_ThongSoKyThuat_SanPham1");
+        });
+
+        modelBuilder.Entity<TinTuc>(entity =>
+        {
+            entity.HasKey(e => e.MaTinTuc);
+
+            entity.ToTable("TinTuc");
+
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.TieuDe).HasMaxLength(150);
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+
+            entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.TinTucs)
+                .HasForeignKey(d => d.MaNguoiDung)
+                .OnDelete(DeleteBehavior.SetNull)
+                .HasConstraintName("FK_TinTuc_NguoiDung");
         });
 
         OnModelCreatingPartial(modelBuilder);

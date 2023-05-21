@@ -9,17 +9,17 @@ public partial class SanPham
 
     public int? MaDanhMuc { get; set; }
 
-    public string? TenSanPham { get; set; } = null!;
+    public string? TenSanPham { get; set; }
 
-    public string? MoTaSanPham { get; set; } = null!;
+    public string? MoTaSanPham { get; set; }
 
-    public string? AnhDaiDien { get; set; } = null!;
+    public string? AnhDaiDien { get; set; }
 
     public int? MaNhaSanXuat { get; set; }
 
     public int? MaDonViTinh { get; set; }
 
-    public string? CreatedAt { get; set; } = null!;
+    public string? CreatedAt { get; set; }
 
     public string? UpdatedAt { get; set; }
 
@@ -33,11 +33,13 @@ public partial class SanPham
 
     public virtual ICollection<GiaSanPham> GiaSanPhams { get; } = new List<GiaSanPham>();
 
-    public virtual DanhMuc? MaDanhMucNavigation { get; set; } = null!;
+    public virtual ICollection<GiamGium> GiamGia { get; } = new List<GiamGium>();
 
-    public virtual DonViTinh? MaDonViTinhNavigation { get; set; } = null!;
+    public virtual DanhMuc? MaDanhMucNavigation { get; set; }
 
-    public virtual NhaSanXuat? MaNhaSanXuatNavigation { get; set; } = null!;
+    public virtual DonViTinh? MaDonViTinhNavigation { get; set; }
+
+    public virtual NhaSanXuat? MaNhaSanXuatNavigation { get; set; }
 
     public virtual ICollection<ThongSoKyThuat> ThongSoKyThuats { get; } = new List<ThongSoKyThuat>();
 }

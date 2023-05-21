@@ -16,4 +16,6 @@ public partial class GiamGium
     public string? CreatedAt { get; set; }
 
     public string? UpdatedAt { get; set; }
+
+    public virtual SanPham? MaSanPhamNavigation { get; set; }
 }

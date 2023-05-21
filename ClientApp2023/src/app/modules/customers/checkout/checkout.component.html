@@ -34,7 +34,7 @@
                                             </span>
                                         </label> 
                                         <br>
-                                        <input formControlName="txt_hoten" type="text" ngModel>
+                                        <input formControlName="txt_hoten" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -45,7 +45,7 @@
                                                 <span *ngIf="sodienthoai.errors?.['pattern']">Không đúng định dạng số điện thoại</span>
                                             </span>
                                         </label><br>
-                                        <input formControlName="txt_sdt" type="text" ngModel>
+                                        <input formControlName="txt_sdt" type="text" >
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -55,7 +55,7 @@
                                                 <span *ngIf="email.errors?.['email']">Không đúng định dạng của email</span>
                                             </span> 
                                         </label><br>
-                                        <input formControlName="txt_email" type="text" ngModel>
+                                        <input formControlName="txt_email" type="text" >
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -65,13 +65,13 @@
                                                 <span *ngIf="diachi.errors?.['required']">Địa chỉ không được rỗng</span>
                                             </span> 
                                         </label><br>
-                                        <input formControlName="txt_diachi" cols="135"type="text" rows="1" ngModel>
+                                        <input formControlName="txt_diachi" cols="135"type="text" rows="1" >
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="checkout-form-list">             
                                         <label for="txt_ghichu">Ghi chú:</label><br>
-                                        <input formControlName="txt_ghichu" id="txt_ghichu" cols="135"type="text" rows="1" ngModel>
+                                        <input formControlName="txt_ghichu" id="txt_ghichu" cols="135"type="text" rows="1" >
                                     </div>
                                 </div>
                             
@@ -177,4 +177,5 @@
         </form>
        
     </div>
+   
 </div>

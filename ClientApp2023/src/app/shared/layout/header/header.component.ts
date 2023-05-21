@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { log } from 'console';
 import { BaseComponent } from 'src/app/core/common/base-component';
+import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { CartService } from 'src/app/core/services/cart.service';
 import { SendService } from 'src/app/core/services/send.service';
 declare var $: any;
@@ -13,6 +14,7 @@ declare var $: any;
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent extends BaseComponent implements OnInit,AfterViewInit{
+  public user: any; 
   public sosanphams:any=0;
   public list: any;
   public tTong: any;
@@ -28,15 +30,23 @@ export class HeaderComponent extends BaseComponent implements OnInit,AfterViewIn
   public pageSize: any = 6;
   public totalItem: any;
   public danh_sach_danh_muc:any;
-  constructor(injector: Injector,private _router: Router,private _send: SendService, private _cart: CartService,) {
+  public thuong_hieu:any;
+  constructor(injector: Injector,private _router: Router,private _send: SendService, private _cart: CartService,private authenticationService: AuthenticationService) {
     super(injector);
     this.frmSearch = new FormGroup({
       'txt_tensanpham': new FormControl('', [Validators.required]),
       'txt_tendanhmuc': new FormControl('', [Validators.required]),
     });
   }
+  
   public ThanhToan () {
     this._router.navigate(['/customers/thanhtoan']);
+  }
+  public dangky () {
+    this._router.navigate(['/register']);
+  }
+  public dangnhap () {
+    this._router.navigate(['/login']);
   }
   public _addToCart(item: any) {
     this._cart.addToCart(item);
@@ -48,6 +58,7 @@ export class HeaderComponent extends BaseComponent implements OnInit,AfterViewIn
     return finalPrice;
   }
   ngOnInit(): void {
+    this.user = this.authenticationService.userValue;
     this.list = JSON.parse(localStorage.getItem('cart') || '[]');
     this.tTong = this.list.reduce((sum:any, x:any) => sum +  x.gia * x.quantity, 0);
     this.sosanphams=this._cart.getItems().length;
@@ -63,10 +74,13 @@ export class HeaderComponent extends BaseComponent implements OnInit,AfterViewIn
     this._api.post('/api/SanPhams/timkiem', {  loc: this.loc, page: this.page, pageSize: this.pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc']}).subscribe(res => {
       this.list_timkiem = res.data;
       this.totalItem = res.totalItem;
-      console.log(this.list_timkiem);
+      // console.log(this.list_timkiem);
     }); 
     this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
       this.danh_sach_danh_muc = res;
+    });
+    this._api.get('/api/NhaSanXuats/Get-All').subscribe(res => {
+      this.thuong_hieu = res;
     });
   }
   public loadPage(page: any) {
@@ -87,6 +101,9 @@ export class HeaderComponent extends BaseComponent implements OnInit,AfterViewIn
     this.loc = loc;
     localStorage.setItem('loc',loc); 
     this.loadData(this.pageSize);
+  }
+  logout() {
+    this.authenticationService.logout();
   }
   public createModal() {
     this.showUpdateModal = true;

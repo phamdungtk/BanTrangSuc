@@ -33,25 +33,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="hiraola-sidebar_categories">
-                        <div class="hiraola-categories_title">
-                            <h5>Brand</h5>
-                        </div>
-                        <ul class="sidebar-checkbox_list">
-                            <li>
-                                <a href="javascript:void(0)">Brand 1(15)</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Brand 2(16)</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Brand 3(16)</a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">Brand 4(17)</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
                 <div class="sidebar-banner_area">
                     <div class="banner-item img-hover_effect">
@@ -94,7 +75,7 @@
                     <div class="product-item-selection_area">
                         <div class="product-short">
                             <label class="select-label">Trang:</label>
-                            <select class="name" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                            <select class="name"  class="form-control"(ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
                                 <option value="6">6</option>
                                 <option value="12">12</option>
                                 <option value="24">24</option> 

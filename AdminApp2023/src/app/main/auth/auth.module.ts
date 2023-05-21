@@ -17,8 +17,8 @@ import { ChiTietNhomComponent } from './chi-tiet-nhom/chi-tiet-nhom.component';
 import { DonHangComponent } from './don-hang/don-hang.component';
 import { NhaCungCapComponent } from './nha-cung-cap/nha-cung-cap.component';
 import { CtDonHangComponent } from './ct-don-hang/ct-don-hang.component';
-
-
+import { PhanHoiComponent } from './phan-hoi/phan-hoi.component';
+import { TinTucComponent } from './tin-tuc/tin-tuc.component';
 @NgModule({
   declarations: [
     NguoiDungComponent,
@@ -32,7 +32,9 @@ import { CtDonHangComponent } from './ct-don-hang/ct-don-hang.component';
     ChiTietNhomComponent,
     DonHangComponent,
     NhaCungCapComponent,
-    CtDonHangComponent
+    CtDonHangComponent,
+    PhanHoiComponent,
+    TinTucComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -68,6 +70,7 @@ import { CtDonHangComponent } from './ct-don-hang/ct-don-hang.component';
         component: HoaDonNhapComponent,
       },
       { path: 'chi-tiet-anh/:id', component: CtAnhSanPhamComponent },
+      { path: 'phan-hoi/:id', component: PhanHoiComponent },
       {
         path: 'nhom-san-pham',
         component: NhomSanPhamComponent,
@@ -81,6 +84,10 @@ import { CtDonHangComponent } from './ct-don-hang/ct-don-hang.component';
       {
         path: 'nha-cung-cap',
         component: NhaCungCapComponent,
+      },
+      {
+        path: 'tin-tuc',
+        component: TinTucComponent,
       },
   ]),  
   ]

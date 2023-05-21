@@ -1,0 +1,106 @@
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="breadcrumb-content">
+            <h2>Tin Tức</h2>
+            <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li class="active">Tổng Quan Tin Tức</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Hiraola's Breadcrumb Area End Here -->
+
+<!-- Begin Hiraola's Blog Column Three Area -->
+<div class="hiraola-blog_area hiraola-blog_area-2 grid-view_area blog-column-three_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row blog-item_wrap" *ngIf="list_item && list_item.length > 0" >
+                    <div class="col-lg-4" *ngFor="let it of list_item">
+                        <div class="blog-item">
+                            <div class="blog-img img-hover_effect">
+                                <a>
+                                    <img src="{{it.anhTinTuc}}" style="height: 200px;" alt="Hiraola's Blog Image">
+                                </a>
+                                <div class="blog-meta-2">
+                                    <div class="blog-time_schedule">
+                                        <span class="month">{{it.createdAt | date:'yyyy-MM-dd'}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-heading">
+                                    <h5>
+                                        <a>{{it.tieuDe}}</a>
+                                    </h5>
+                                </div>
+                                <!-- <div class="blog-short_desc">
+                                    <p>Aenean vestibulum pretium enim, non commodo urna volutpat vitae. Pellentesque vel
+                                        lacus
+                                        eget est d...
+                                    </p>
+                                </div> -->
+                                <div class="hiraola-read-more_area">
+                                    <a [routerLink]="['/chi-tiet-tin-tuc',it.maTinTuc]" class="hiraola-read_more">Xem</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="hiraola-paginatoin-area">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <ngb-pagination (pageChange)="loadPage($event)" [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItem">
+                                    </ngb-pagination>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="product-select-box">
+                                        <div style="  background-color: #e25b57;
+                                        border: none;
+                                        color: white;
+                                        padding: 5px 22px;
+                                        text-align: center;
+                                        text-decoration: none;
+                                        display: inline-block;
+                                        font-size: 16px;
+                                        margin: 4px 2px;
+                                        cursor: pointer;
+                                        " 
+                                        [ngClass]="{active: loc=='TD'}" (click)="setDieuKienLoc('TD')" class="name">Giá giảm dần</div>
+                                        <div style="  background-color: #e25b57;
+                                        border: none;
+                                        color: white;
+                                        padding: 5px 22px;
+                                        text-align: center;
+                                        text-decoration: none;
+                                        display: inline-block;
+                                        font-size: 16px;
+                                        margin: 4px 2px;
+                                        cursor: pointer;
+                                        "  
+                                        [ngClass]="{active: loc=='GD'}" (click)="setDieuKienLoc('GD')" class="name">Giá tăng dần</div>                                  
+                                        <div class="product-item-selection_area">
+                                            <div class="product-short">
+                                                
+                                                <select class="name"  class="form-control" (ngModelChange)="loadData($event)" [(ngModel)]="pageSize">
+                                                    <option value="6">6</option>
+                                                    <option value="12">12</option>
+                                                    <option value="24">24</option> 
+                                                    <option value="46">46</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

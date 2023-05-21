@@ -7,10 +7,11 @@ import { SanPhamComponent } from './san-pham/san-pham.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TextContentTruncatePipe } from 'src/app/truncate.pipe';
-
-
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { NhomSanPhamComponent } from './nhom-san-pham/nhom-san-pham.component';
+import { GioiThieuComponent } from './gioi-thieu/gioi-thieu.component';
+import { TintucComponent } from './tintuc/tintuc.component';
+import { CtTintucComponent } from './ct-tintuc/ct-tintuc.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,11 @@ import { TextContentTruncatePipe } from 'src/app/truncate.pipe';
     DanhMucComponent,
     ChiTietComponent,
     SanPhamComponent,
+    NhomSanPhamComponent,
+    GioiThieuComponent,
+    TintucComponent,
+    CtTintucComponent,
+    // CKEditorModule,
     // TextContentTruncatePipe
   ],
   imports: [
@@ -29,7 +35,11 @@ import { TextContentTruncatePipe } from 'src/app/truncate.pipe';
       { path: 'chi-tiet/:id', component: ChiTietComponent },
       { path: 'index', component: IndexComponent },
       { path: 'san-pham', component: SanPhamComponent },
-      { path: 'danh-muc/:id', component: DanhMucComponent }
+      { path: 'tin-tuc', component: TintucComponent },
+      { path: 'chi-tiet-tin-tuc/:id', component: CtTintucComponent },
+      { path: 'gioi-thieu', component: GioiThieuComponent },
+      { path: 'danh-muc/:id', component: DanhMucComponent },
+      { path: 'nhom-san-pham/:id', component: NhomSanPhamComponent},
     ])
   ],
 })

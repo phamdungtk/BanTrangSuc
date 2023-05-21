@@ -27,6 +27,7 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
   public showUpdateModal: any;
   public doneSetupForm: any;
   public loc:any;
+  public id :any;
   public page: any = 1;
   public pageSize: any = 5;
   public totalItem: any;
@@ -128,8 +129,12 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
     setTimeout(() => {
       $('#createsanphamModal').modal('toggle');
       this.doneSetupForm = true;
+      function getRandomId() {
+        return Math.floor((Math.random()*6)+1);
+      }
+      this.id = (typeof this.id === 'undefined') ? getRandomId() : this.id;
       this.frmHoaDonNhap = new FormGroup({
-        'txt_sohoadon': new FormControl('HDN - ', [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
+        'txt_sohoadon': new FormControl('SHD' + this.id, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
         'txt_ngaynhap': new FormControl('', [Validators.required]),
         'txt_soluong': new FormControl('', []),
         'txt_dongianhap': new FormControl('', []),

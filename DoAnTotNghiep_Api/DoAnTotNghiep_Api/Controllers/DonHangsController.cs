@@ -260,6 +260,71 @@ namespace DoAnTotNghiep_Api.Controllers
                 throw new Exception(ex.Message);
             }
         }
+        [Route("search-lichsu")]
+        [HttpPost]
+        public IActionResult SearchCTLS([FromBody] Dictionary<string, object> formData)
+        {
+            try
+            {
+                var page = int.Parse(formData["page"].ToString());
+                var pageSize = int.Parse(formData["pageSize"].ToString());
+                int? ma_nguoi_dung = null;
+                string loc = "";
+                if (formData.Keys.Contains("loc") && !string.IsNullOrEmpty(Convert.ToString(formData["loc"]))) { loc = formData["loc"].ToString(); }
+                if (formData.Keys.Contains("ma_nguoi_dung") && !string.IsNullOrEmpty(Convert.ToString(formData["ma_nguoi_dung"]))) { ma_nguoi_dung = int.Parse(formData["ma_nguoi_dung"].ToString()); }
+                var result = from a in db.DonHangs
+                             join b in db.ChiTietDonHangs on a.MaDonHang equals b.MaDonHang
+                             join f in db.SanPhams on b.MaSanPham equals f.MaSanPham
+                             join g in db.KhachHangs on a.MaKhachHang equals g.MaKhachHang
+                             join t in db.NguoiDungs on g.MaNguoiDung equals t.MaNguoiDung
+                             select new
+                             {
+                                 a.MaDonHang,
+                                 a.MaKhachHang,
+                                 a.NgayDat,
+                                 a.TrangThaiDonHang,
+                                 b.MaChiTietDonHang,
+                                 b.MaSanPham,
+                                 b.SoLuong,
+                                 b.GiaMua,
+                                 f.TenSanPham,
+                                 f.AnhDaiDien,
+                                 g.TenKhachHang,
+                                 g.DiaChi,
+                                 g.SoDienThoai,
+                                 g.Email,
+                                 t.MaNguoiDung
+                             };
+                var result1 = result.Where(s => s.MaNguoiDung == ma_nguoi_dung || ma_nguoi_dung == null).ToList();
+                long total = result1.Count();
+                dynamic result2 = null;
+                switch (loc)
+                {
+                    case "TD":
+                        result2 = result1.OrderBy(x => x.TenSanPham).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        break;
+                    case "GD":
+                        result2 = result1.OrderByDescending(x => x.TenSanPham).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        break;
+                    default:
+                        result2 = result1.OrderByDescending(x => x.NgayDat).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        break;
+                }
+                return Ok(
+                            new ResponseListMessage
+                            {
+                               page = page,
+                               totalItem = total,
+                               pageSize = pageSize,
+                               data = result2
+                            }
+                        );
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         [Route("create-giohang")]
         [HttpPost]
         public IActionResult CreateItem([FromBody] GioHang model)

@@ -19,5 +19,9 @@ public partial class KhachHang
 
     public string? UpdatedAt { get; set; }
 
+    public int? MaNguoiDung { get; set; }
+
     public virtual ICollection<DonHang> DonHangs { get; } = new List<DonHang>();
+
+    public virtual NguoiDung? MaNguoiDungNavigation { get; set; }
 }

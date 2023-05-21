@@ -9,7 +9,7 @@ public partial class ChiTietNhom
 
     public int MaNhomSanPham { get; set; }
 
-    public int? MaSanPham { get; set; }
+    public int MaSanPham { get; set; }
 
     public string? CreatedAt { get; set; }
 
