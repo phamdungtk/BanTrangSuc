@@ -11,7 +11,7 @@ import { SendService } from 'src/app/core/services/send.service';
   styleUrls: ['./chi-tiet.component.css']
 })
 export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewInit {
-  
+  public list_thongso:any;
   public list_item:any;
   public list_anh:any;
   public list_tuongtu:any;
@@ -82,7 +82,13 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
         this.TrB_sao = res.result3;
       }); 
     });
-   
+    this._route.params.subscribe(params => {
+      this.id = params['id'];
+      this._api.post('/api/ThongSoKyThuats/search-ts', { ma_san_pham: this.id }).subscribe(res => {
+        this.list_thongso = res.result1;
+        console.log(this.list_thongso);
+      }); 
+    });
       
       
   }

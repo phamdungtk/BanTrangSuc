@@ -11,7 +11,7 @@ namespace DoAnTotNghiep_Api.Entities
             //public ChiTietNhom? chitietnhom { get; set; }
             public GiaSanPham? giasapham { get; set; }
             public GiamGium? giamgia { get; set; }
-            public ThongSoKyThuat? thongsokythuat { get; set; }
+            //public ThongSoKyThuat? thongsokythuat { get; set; }
             public NhaSanXuat? nhasanxuat { get; set; }
             public DonViTinh? donvitinh { get; set; }
     }

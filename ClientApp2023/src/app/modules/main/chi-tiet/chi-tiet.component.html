@@ -141,12 +141,20 @@
                             </div>
                         </div>
                         <div id="specification" class="tab-pane" role="tabpanel">
-                            <div class="product-description">
-                                <ul>
-                                    <li style="text-align: center;">{{item.tenThongSo}}</li>
-                                    <li style="text-align: center;" [innerHTML]="item.mota"></li>
-                                </ul>
-                            </div>
+                            <table class="table table-bordered specification-inner_stuff">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"><strong>Thông Số</strong></td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr *ngFor="let x of list_thongso">
+                                        <td>{{x.tenThongSo}}</td>
+                                        <td>{{x.moTa}}</td>
+                                    </tr>
+                                </tbody>
+                               
+                            </table>
                         </div>
                         <div id="reviews" class="tab-pane" role="tabpanel">
                             <div class="tab-pane active form-horizontal" id="tab-review">
@@ -220,7 +228,7 @@
                                             <span>
                                                 <label class="control-label">Sao</label>
                                                 <select formControlName="txt_sao" class="form-group col-12">
-                                                    <option [value]="'1'">1 Sao</option>
+                                                    <option [value]="'1'">1 Sao <i class="fa fa-star"></i></option>
                                                     <option [value]="'2'">2 Sao</option>
                                                     <option [value]="'3'">3 Sao</option>
                                                     <option [value]="'4'">4 Sao</option>
@@ -231,7 +239,7 @@
                                         </div>
                                         <div class="order-button-payment">
                                             <!-- <a class="button" (click)="ThanhToan()" value="Cập Nhập" type="submit"> 123 </a> -->
-                                            <input [disabled]="frmKhach.invalid" [ngStyle]="{'background-color':frmKhach.invalid?'#F4F6F8':'blue'}" value="Đặt Hàng" type="submit">
+                                            <input [disabled]="frmKhach.invalid" [ngStyle]="{'background-color':frmKhach.invalid?'#F4F6F8':'blue'}" value="Gửi Phản Hồi" type="submit">
                                         </div>
                                     </div>
                                 </form>

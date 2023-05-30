@@ -31,7 +31,7 @@ namespace DoAnTotNghiep_Api.Controllers
                              join b in db.DanhMucs on a.MaDanhMuc equals b.MaDanhMuc
                              join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
                              join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-                             join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                             //join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
                              join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
                              join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
                              select new
@@ -41,8 +41,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  MaSanPham = a.MaSanPham,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
-                                 TenThongSo = h.TenThongSo,
-                                 Mota = h.MoTa,
+                                 //TenThongSo = h.TenThongSo,
+                                 //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
                                  MotaNSX = t.MoTa,
                                  TenDonViTinh = s.TenDonViTinh,
@@ -70,7 +70,7 @@ namespace DoAnTotNghiep_Api.Controllers
                              join b in db.DanhMucs on a.MaDanhMuc equals b.MaDanhMuc
                              join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
                              join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-                             join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                             //join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
                              join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
                              join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
                              select new
@@ -80,8 +80,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  MaSanPham = a.MaSanPham,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
-                                 TenThongSo = h.TenThongSo,
-                                 Mota = h.MoTa,
+                                 //TenThongSo = h.TenThongSo,
+                                 //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
                                  MotaNSX = t.MoTa,
                                  TenDonViTinh = s.TenDonViTinh,
@@ -113,7 +113,7 @@ namespace DoAnTotNghiep_Api.Controllers
                              join b in db.DanhMucs on a.MaDanhMuc equals b.MaDanhMuc
                              join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
                              join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-                             join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                             //join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
                              join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
                              join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
                              select new
@@ -123,8 +123,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  TenDanhMuc = b.TenDanhMuc,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
-                                 TenThongSo = h.TenThongSo,
-                                 Mota = h.MoTa,
+                                 //TenThongSo = h.TenThongSo,
+                                 //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
                                  MotaNSX = t.MoTa,
                                  TenDonViTinh = s.TenDonViTinh,
@@ -258,7 +258,7 @@ namespace DoAnTotNghiep_Api.Controllers
                              join b in db.DanhMucs on a.MaDanhMuc equals b.MaDanhMuc
                              join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
                              join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-                             join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                             //join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
                              join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
                              join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
                              select new
@@ -268,8 +268,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  TenDanhMuc = b.TenDanhMuc,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
-                                 TenThongSo = h.TenThongSo,
-                                 Mota = h.MoTa,
+                                 //TenThongSo = h.TenThongSo,
+                                 //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
                                  MotaNSX = t.MoTa,
                                  TenDonViTinh = s.TenDonViTinh,
@@ -321,7 +321,7 @@ namespace DoAnTotNghiep_Api.Controllers
                          //join e in db.ChiTietNhoms on a.MaSanPham equals e.MaSanPham
                          join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
                          join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-                         join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                         //join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
                          join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
                          join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
                          select new
@@ -336,8 +336,8 @@ namespace DoAnTotNghiep_Api.Controllers
                              //MaNhomSanPham = e.MaNhomSanPham,
                              Gia = f.Gia,
                              PhanTram = g.PhanTram,
-                             TenThongSo = h.TenThongSo,
-                             Mota = h.MoTa,
+                             //TenThongSo = h.TenThongSo,
+                             //Mota = h.MoTa,
                              TenNhaSanXuat = t.TenNhaSanXuat,
                              MaNhaSanXuat = t.MaNhaSanXuat,
                              MotaNSX = t.MoTa,
@@ -402,11 +402,11 @@ namespace DoAnTotNghiep_Api.Controllers
             db.GiamGia.Add(model.giamgia);
             db.SaveChanges();
 
-            model.thongsokythuat.CreatedAt = DateTime.Now.ToString(DateFormat);
-            model.thongsokythuat.UpdatedAt = DateTime.Now.ToString(DateFormat);
-            model.thongsokythuat.MaSanPham = MaSanPham;
-            db.ThongSoKyThuats.Add(model.thongsokythuat);
-            db.SaveChanges();
+            //model.thongsokythuat.CreatedAt = DateTime.Now.ToString(DateFormat);
+            //model.thongsokythuat.UpdatedAt = DateTime.Now.ToString(DateFormat);
+            //model.thongsokythuat.MaSanPham = MaSanPham;
+            //db.ThongSoKyThuats.Add(model.thongsokythuat);
+            //db.SaveChanges();
 
             return Ok(new { data = "OK" });
         }
@@ -438,12 +438,12 @@ namespace DoAnTotNghiep_Api.Controllers
             obj_giamgia.UpdatedAt = model.giamgia.UpdatedAt;
             db.SaveChanges();
 
-            model.thongsokythuat.UpdatedAt = DateTime.Now.ToString(DateFormat);
-            var obj_thongsokythuat = db.ThongSoKyThuats.SingleOrDefault(x => x.MaSanPham == model.thongsokythuat.MaSanPham);
-            obj_thongsokythuat.TenThongSo = model.thongsokythuat.TenThongSo;
-            obj_thongsokythuat.MoTa = model.thongsokythuat.MoTa;
-            obj_thongsokythuat.UpdatedAt = model.thongsokythuat.UpdatedAt;
-            db.SaveChanges();
+            //model.thongsokythuat.UpdatedAt = DateTime.Now.ToString(DateFormat);
+            //var obj_thongsokythuat = db.ThongSoKyThuats.SingleOrDefault(x => x.MaSanPham == model.thongsokythuat.MaSanPham);
+            //obj_thongsokythuat.TenThongSo = model.thongsokythuat.TenThongSo;
+            //obj_thongsokythuat.MoTa = model.thongsokythuat.MoTa;
+            //obj_thongsokythuat.UpdatedAt = model.thongsokythuat.UpdatedAt;
+            //db.SaveChanges();
             return Ok(new { data = "OK" });
         }
 

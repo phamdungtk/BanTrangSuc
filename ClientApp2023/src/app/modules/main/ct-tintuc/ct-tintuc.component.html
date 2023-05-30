@@ -34,7 +34,7 @@
                     <hr>
                     <div class="hiraola-blog-sidebar">
                         <h4 class="hiraola-blog-sidebar-title">Tiêu Đề Tin</h4>
-                        <ul class="hiraola-blog-archive" *ngFor="let list_tin of list_tin">
+                        <ul class="hiraola-blog-archive" *ngFor="let list_tin of list_tin ">
                             <li><a [routerLink]="['/chi-tiet-tin-tuc',list_tin.maTinTuc]">{{list_tin.tieuDe}}</a></li>                           
                         </ul>
                     </div>

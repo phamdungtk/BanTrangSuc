@@ -110,8 +110,8 @@ export class CtAnhSanPhamComponent extends BaseComponent implements OnInit, Afte
     });
   }
  
-  public onRemove(MaSanPham: any) {
-    this._api.delete('/api/CTAnhSanPhams/delete-ctanhsp', MaSanPham).subscribe(res => {
+  public onRemove(maAnhChitiet: any) {
+    this._api.delete('/api/CTAnhSanPhams/delete-ctanhsp', maAnhChitiet).subscribe(res => {
       alert('Xóa dữ liệu thành công');
       this.LoadData();
     });

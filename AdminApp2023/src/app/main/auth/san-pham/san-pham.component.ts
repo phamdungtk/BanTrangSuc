@@ -100,15 +100,15 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   get phantram() {
     return this.frmSanPham.get('txt_phantram')!;
   }
-  get tenthongso() {
-    return this.frmSanPham.get('txt_tenthongso')!;
-  }
+  // get tenthongso() {
+  //   return this.frmSanPham.get('txt_tenthongso')!;
+  // }
   get txt_manhasanxuat() {
     return this.frmSanPham.get('txt_tennhasanxuat')!;
   }
-  get mota() {
-    return this.frmSanPham.get('txt_mota')!;
-  }
+  // get mota() {
+  //   return this.frmSanPham.get('txt_mota')!;
+  // }
   get tendonvitinh() {
     return this.frmSanPham.get('txt_tendonvitinh')!;
   }
@@ -130,8 +130,8 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
         'txt_madonvitinh': new FormControl('', [Validators.required]),
         'txt_gia': new FormControl('', [Validators.required]),
         'txt_phantram': new FormControl('', [Validators.required]),
-        'txt_tenthongso': new FormControl('', [Validators.required]),
-        'txt_mota': new FormControl('', [Validators.required]),
+        // 'txt_tenthongso': new FormControl('', [Validators.required]),
+        // 'txt_mota': new FormControl('', [Validators.required]),
       });
     });
   }
@@ -162,8 +162,8 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
           'txt_madonvitinh': new FormControl('', [Validators.required]),        
           'txt_gia': new FormControl(this.sanpham.gia, [Validators.required]),
           'txt_phantram': new FormControl(this.sanpham.phanTram, [Validators.required]),
-          'txt_tenthongso': new FormControl(this.sanpham.tenThongSo, [Validators.required]),
-          'txt_mota': new FormControl(this.sanpham.mota, [Validators.required]),
+          // 'txt_tenthongso': new FormControl(this.sanpham.tenThongSo, [Validators.required]),
+          // 'txt_mota': new FormControl(this.sanpham.mota, [Validators.required]),
         });
         this.nsx = this.sanpham.maNhaSanXuat;
         this.mdm = this.sanpham.maDanhMuc;
@@ -219,10 +219,10 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     obj.giamgia = {
       phanTram: vl.txt_phantram,
     }
-    obj.thongsokythuat = {
-      tenThongSo: vl.txt_tenthongso,
-      moTa: vl.txt_mota
-    }
+    // obj.thongsokythuat = {
+    //   tenThongSo: vl.txt_tenthongso,
+    //   moTa: vl.txt_mota
+    // }
     if (this.isCreate) {
       if (this.file) {
         this._api.uploadFileSingle('/api/upload/upload-single', 'sanpham', this.file).subscribe((res: any) => {
@@ -255,7 +255,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       obj.sanpham.MaSanPham = this.sanpham.maSanPham;
       obj.giasapham.MaSanPham = this.sanpham.maSanPham;
       obj.giamgia.MaSanPham = this.sanpham.maSanPham;
-      obj.thongsokythuat.MaSanPham = this.sanpham.maSanPham;
+      // obj.thongsokythuat.MaSanPham = this.sanpham.maSanPham;
       if (this.file) {
         this._api.uploadFileSingle('/api/upload/upload-single', 'sanpham', this.file).subscribe((res: any) => {
           if (res && res.body && res.body.filePath) {

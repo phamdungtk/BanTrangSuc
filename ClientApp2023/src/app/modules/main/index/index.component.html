@@ -98,7 +98,7 @@
 <div class="hiraola-banner_area">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4" *ngFor="let x of danh_sach_nhom">
+            <div class="col-lg-4" *ngFor="let x of danh_sach_nhom ">
                 <div class="banner-item img-hover_effect">
                     <a [routerLink]="['/nhom-san-pham', x.maNhomSanPham]">
                         <img class="img-full" src="{{x.anhNhom}}" alt="Hiraola's Banner">
@@ -325,6 +325,3 @@
 </div>
 
 <hr>
-
-
-<!-- Hiraola's Shipping Area End Here -->

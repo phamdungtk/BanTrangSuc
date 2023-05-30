@@ -84,13 +84,15 @@
 															<button type="button" class="btn btn-success"><i class="fa fa-cog"></i></button>
 															<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown">
 															</button>
-															<div style="height: 108px; overflow: auto;"class="dropdown-menu" role="menu">
+															<div style="height: 138px; overflow: auto;"class="dropdown-menu" role="menu">
 																<div class="dropdown-divider"></div>
 																<button class="dropdown-item"(click)="openViewModal(ur.maSanPham)">Xem Chi Tiết</button>
 																<div class="dropdown-divider"></div>								
 																<button class="dropdown-item" [routerLink]="['/auth/phan-hoi', ur.maSanPham]">Đánh Giá</button>
 																<div class="dropdown-divider"></div>
 																<button class="dropdown-item" [routerLink]="['/auth/chi-tiet-anh', ur.maSanPham]">Ảnh</button>
+																<div class="dropdown-divider"></div>
+																<button class="dropdown-item" [routerLink]="['/auth/thong-so-ky-thuat', ur.maSanPham]">Thông Số</button>
 																<div class="dropdown-divider"></div>
 																<button class="dropdown-item" (click)="openUpdateModal(ur.maSanPham)">Sửa</button>
 																<div class="dropdown-divider"></div>
@@ -157,12 +159,12 @@
 					<div class="col-md-5"style="text-align: right;">Phần Trăm Giảm Giá: </div>
 					<div class="col-md-7">{{sanpham.phanTram}}</div>
 					<hr>
-					<div class="col-md-5"style="text-align: right; ">Tên Thông Số: </div>
+					<!-- <div class="col-md-5"style="text-align: right; ">Tên Thông Số: </div>
 					<div class="col-md-7">{{sanpham.tenThongSo}}</div>
 					<hr>
 					<div class="col-md-5"style="text-align: right;">Mô Tả Thông Số: </div>
 					<div class="col-md-7" style="height: 200px; overflow: auto;  border-bottom: 2px solid #585858;border-top: 2px solid #585858; "[innerHTML]="sanpham.mota"></div>
-					<hr>
+					<hr> -->
 					<div class="col-md-5"style="text-align: right;">Mô Tả Sản Phẩm: </div>
 					<div class="col-md-7" style="height: 200px; overflow: auto;  border-bottom: 2px solid #585858;"[innerHTML]="sanpham.moTaSanPham"></div>
 					<hr>
@@ -247,7 +249,7 @@
 							</div>							
 						</div>
 					</div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
 						<label class="col-lg-3 control-label">Tên Thông Số<span style="color:red ;">*</span></label>
 						<div class="col-lg-12">
 							<input formControlName="txt_tenthongso" type="text" class="form-control" placeholder="Tên Thông Số">
@@ -256,7 +258,7 @@
 								</div>
 							</div>								
 						</div>
-					</div>
+					</div> -->
                     <div class="form-group">
 						<label class="col-lg-3 control-label">Phần Trăm Giảm Giá<span style="color:red ;">*</span></label>
 						<div class="col-lg-12 ">
@@ -331,7 +333,7 @@
 							</div>
 						</div>
 					</div>								
-                    <div class="form-group">
+                    <!-- <div class="form-group">
 						<label class="col-lg-3 control-label">Mô Tả Thông Số Kỹ Thuật</label>
 						<div class="col-lg-12">
                             <ckeditor  formControlName="txt_mota" [editor]="Editor" data="<p>Nhập thông tin tại đây!</p>"></ckeditor>
@@ -340,7 +342,7 @@
 								</div>
 							</div>		
 						</div>
-					</div>
+					</div> -->
                     <div class="form-group">
 						<label class="col-lg-3 control-label">Mô Tả Sản Phẩm</label>
 						<div class="col-lg-12">
