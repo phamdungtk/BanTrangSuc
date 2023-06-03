@@ -6,6 +6,10 @@
 			<button (click)="createModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 				Thêm Hoá Đơn Nhập
 			</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button (click)="exportExcel()" type="button" class="btn btn-primary">
+				Xuất Excel
+			</button>
         </div>
         <div class="content-header-right col-md-8 col-12">
           <div class="breadcrumbs-top float-md-right">
@@ -53,7 +57,7 @@
 							
 							<div class="card-content collapse show">
 								<div class="table-responsive">
-									<table class="table">
+									<table class="table" id = "excel-table">
 										<thead class="">
 											<tr style="text-align: center;">
 												<th >STT</th>
@@ -186,14 +190,14 @@
 							</div> -->
 						</div>
 					</div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
 						<label class="col-lg-3 control-label">Người Nhập</label>
                         <div class="col-lg-12 ">
                             <select class="form-control" formControlName="txt_manguoidung" [(ngModel)]="nd">
                                 <option *ngFor="let nd of list_nguoidung" value="{{nd.maNguoiDung}}">{{nd.hoTen}}</option>
                             </select>
                         </div>                       
-					</div>
+					</div> -->
                     <div class="form-group">
 						<label class="col-lg-3 control-label">Sản Phẩm</label>
                         <div class="col-lg-12 ">

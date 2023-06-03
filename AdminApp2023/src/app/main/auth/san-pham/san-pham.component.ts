@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/core/common/base-component';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 declare var $: any;
+import * as XLSX from 'xlsx';
+import jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-san-pham',
   templateUrl: './san-pham.component.html',
@@ -77,6 +80,38 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     this.loc = loc;
     localStorage.setItem('loc',loc); 
     this.loadData(this.pageSize);
+  }
+  fileName= 'san-pham.xlsx';
+  public exportExcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
+  public convetToPDF(){
+    var data = document.getElementById('excel-table') as HTMLElement;;
+    
+    html2canvas(data).then(canvas => {
+    // Few necessary setting options
+    var imgWidth = 208;
+    var pageHeight = 295;
+    var imgHeight = canvas.height * imgWidth / canvas.width;
+    var heightLeft = imgHeight;
+    
+    const contentDataURL = canvas.toDataURL('image/png')
+    let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+    var position = 0;
+    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
+    pdf.save('san-pham.pdf'); // Generated PDF
+    });
   }
   applyDiscount(gia: number, phanTram: number): number {
     let finalPrice: number = gia - gia * (phanTram / 100);

@@ -6,6 +6,14 @@
 			<button (click)="createModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
 				Thêm Sản Phẩm
 			</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button (click)="exportExcel()" type="button" class="btn btn-primary">
+				Xuất Excel
+			</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button (click)="convetToPDF()" type="button" class="btn btn-primary">
+				Xuất PDF
+			</button>
         </div>
         <div class="content-header-right col-md-8 col-12">
           <div class="breadcrumbs-top float-md-right">
@@ -52,7 +60,7 @@
 							
 							<div class="card-content collapse show">
 								<div class="table-responsive">
-									<table class="table">
+									<table class="table" id = "excel-table">
 										<thead class="">
 											<tr style="text-align: center;">
 												<th >STT</th>
@@ -125,8 +133,7 @@
 									<div class="btn mr-1" style="float: right;"><button [ngClass]="{active: loc=='ALL'}" (click)="setDieuKienLoc('ALL')"type="submit" class="btn btn-primary"><i class="fa fa-retweet"></i></button></div>
 								</div>
 							</div>
-						</div> 
-												
+						</div> 											
                     </div>
             	</div>
         	</div>

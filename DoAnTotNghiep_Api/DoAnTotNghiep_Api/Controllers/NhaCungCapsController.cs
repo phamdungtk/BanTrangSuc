@@ -46,7 +46,7 @@ namespace DoAnTotNghiep_Api.Controllers
                 if (formData.Keys.Contains("loc") && !string.IsNullOrEmpty(Convert.ToString(formData["loc"]))) { loc = formData["loc"].ToString(); }
                 var tenncc = formData.Keys.Contains("tenncc") ? (formData["tenncc"]).ToString().Trim() : "";
                 var result = db.NhaCungCaps.ToList();
-                var result1 = result.Where(x => x.TenNhaCungCap.Contains(tenncc)).OrderByDescending(x => x.CreatedAt).ToList();
+                var result1 = result.Where(x => x.TenNhaCungCap.Contains(tenncc)).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)
@@ -58,7 +58,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.TenNhaCungCap).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderBy(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(

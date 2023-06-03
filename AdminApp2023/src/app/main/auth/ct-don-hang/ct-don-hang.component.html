@@ -6,6 +6,10 @@
             <button [routerLink]="['/auth/don-hang']" type="button" class="btn btn-primary">
 				Quay Lại
 			</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button (click)="exportExcel()" type="button" class="btn btn-primary">
+				Xuất Excel
+			</button>
         </div>
         <div class="content-header-right col-md-8 col-12">
           <div class="breadcrumbs-top float-md-right">
@@ -24,10 +28,10 @@
         	<div class="row">
             	<div class="col-12">              
                     <div class="card">                     
-						<form [formGroup]="frmSearch" class="form-horizontal" (ngSubmit)="LoadData()" >
+						<form class="form-horizontal" (ngSubmit)="LoadData()" >
 							<div class="card-content collapse show">
 								<div class="table-responsive">
-									<table class="table">
+									<table class="table" id = "excel-table">
 										<thead class="">
 											<tr style="text-align: center;">
 												<th >STT</th>

@@ -243,6 +243,118 @@ namespace DoAnTotNghiep_Api.Controllers
                 return Ok("Err");
             }
         }
+        [Route("thongketongdm")]
+        [HttpGet]
+        public IActionResult Getalldm()
+        {
+            try
+            {
+                var result = db.DanhMucs.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketonghdn")]
+        [HttpGet]
+        public IActionResult Getallhdn()
+        {
+            try
+            {
+                var result = db.HoaDonNhaps.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongnsp")]
+        [HttpGet]
+        public IActionResult Getallnsp()
+        {
+            try
+            {
+                var result = db.NhomSanPhams.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongdvt")]
+        [HttpGet]
+        public IActionResult Getalldvt()
+        {
+            try
+            {
+                var result = db.DonViTinhs.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongnsx")]
+        [HttpGet]
+        public IActionResult Getallnsx()
+        {
+            try
+            {
+                var result = db.NhaSanXuats.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongncc")]
+        [HttpGet]
+        public IActionResult Getallncc()
+        {
+            try
+            {
+                var result = db.NhaCungCaps.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongtt")]
+        [HttpGet]
+        public IActionResult Getalltt()
+        {
+            try
+            {
+                var result = db.TinTucs.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("thongketongdg")]
+        [HttpGet]
+        public IActionResult Getalldg()
+        {
+            try
+            {
+                var result = db.PhanHois.Count();
+                return Ok(new { result });
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
         [Route("thongketong")]
         [HttpGet]
         public IActionResult Getalll()

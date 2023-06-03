@@ -2,6 +2,7 @@ import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/core/common/base-component';
 declare var $: any;
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-don-hang',
@@ -61,6 +62,22 @@ export class DonHangComponent extends BaseComponent implements OnInit, AfterView
     localStorage.setItem('loc',loc); 
     this.loadData(this.pageSize);
   } 
+  fileName= 'hon-dang.xlsx';
+  public exportExcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
+ 
   public onRemove(MaDonHang: any) {
     this._api.delete('/api/DonHangs/delete-DonHang', MaDonHang).subscribe(res => {
       alert('Xóa dữ liệu thành công');

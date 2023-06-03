@@ -2,6 +2,8 @@ import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/core/common/base-component';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import * as XLSX from 'xlsx';
 declare var $: any;
 @Component({
   selector: 'app-hoa-don-nhap',
@@ -9,6 +11,7 @@ declare var $: any;
   styleUrls: ['./hoa-don-nhap.component.css']
 })
 export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterViewInit {
+  // public id: Guid;
   public Editor = ClassicEditor;
   public list_hoadonnhap: any;
   public list_ctanhsanpham: any;
@@ -27,11 +30,13 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
   public showUpdateModal: any;
   public doneSetupForm: any;
   public loc:any;
-  public id :any;
+  public idd :any;
   public page: any = 1;
   public pageSize: any = 5;
   public totalItem: any;
-  constructor(injector: Injector) {
+  public user : any;
+
+  constructor(injector: Injector,private authenticationService: AuthenticationService) {
     super(injector);
     this.frmSearch = new FormGroup({
       'txt_sanpham': new FormControl('', []),
@@ -42,6 +47,7 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
   }
 
   ngOnInit(): void {
+    this.user = this.authenticationService.userValue;
     this.loc = localStorage.getItem('loc') || '';
     this.LoadData();
   }
@@ -50,10 +56,7 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
       this.list_hoadonnhap = res.data;
       this.totalItem = res.totalItem;
       console.log(this.list_hoadonnhap);      
-      setTimeout(() => {
-        this.loadScripts(
-        );
-      });
+      
     });
     this._api.get('/api/SanPhams/Get-All').subscribe(res => {
       this.list_sanpham = res;
@@ -72,9 +75,7 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
     this._api.post('/api/HoaDonNhaps/search', {loc: this.loc,  page: page, pageSize: this.pageSize, sohoadon: this.frmSearch.value['txt_sohoadon'],nguoidung: this.frmSearch.value['txt_nguoidung'], sanpham: this.frmSearch.value['txt_sanpham'], nhacungcap: this.frmSearch.value['txt_nhacungcap']}).subscribe(res => {
       this.list_hoadonnhap = res.data;
       this.totalItem = res.totalItem;
-      setTimeout(() => {
-        this.loadScripts('');
-      });
+      
     });
   }
   public loadData(pageSize:any) {
@@ -89,6 +90,22 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
     localStorage.setItem('loc',loc); 
     this.loadData(this.pageSize);
   }
+  fileName= 'hoa-don-nhap.xlsx';
+  public exportExcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
+ 
   // get sohoadon() {
   //   return this.frmHoaDonNhap.get('txt_sohoadon')!;
   // }
@@ -129,16 +146,17 @@ export class HoaDonNhapComponent extends BaseComponent implements OnInit, AfterV
     setTimeout(() => {
       $('#createsanphamModal').modal('toggle');
       this.doneSetupForm = true;
+      var max = Math.pow(2, 32),seed;
       function getRandomId() {
-        return Math.floor((Math.random()*6)+1);
+        return Math.round(Math.random() * max);
       }
-      this.id = (typeof this.id === 'undefined') ? getRandomId() : this.id;
+      this.idd = (typeof this.idd === 'undefined') ? getRandomId() : this.idd;
       this.frmHoaDonNhap = new FormGroup({
-        'txt_sohoadon': new FormControl('SHD' + this.id, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
+        'txt_sohoadon': new FormControl('SHD_' + this.idd, [Validators.required, Validators.minLength(3), Validators.maxLength(250)]),
         'txt_ngaynhap': new FormControl('', [Validators.required]),
         'txt_soluong': new FormControl('', []),
         'txt_dongianhap': new FormControl('', []),
-        'txt_manguoidung': new FormControl('', []),
+        'txt_manguoidung': new FormControl(this.user.maNguoiDung, []),
         'txt_manhacungcap': new FormControl('', []),
         'txt_masanpham': new FormControl('', []),
       });

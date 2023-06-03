@@ -93,7 +93,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  CreatedAt = a.CreatedAt,
                                  UpdatedAt = a.UpdatedAt,
                              };
-                var result1 = result.Where(x => x.SoHoaDon.Contains(sohoadon) && x.HoTen.Contains(nguoidung)&& x.TenSanPham.Contains(sanpham) && x.TenNhaCungCap.Contains(nhacungcap)).OrderByDescending(x => x.CreatedAt).ToList();
+                var result1 = result.Where(x => x.SoHoaDon.Contains(sohoadon) && x.HoTen.Contains(nguoidung)&& x.TenSanPham.Contains(sanpham) && x.TenNhaCungCap.Contains(nhacungcap)).ToList();
                 long total = result1.Count();
                 dynamic result2 = null;
                 switch (loc)
@@ -105,7 +105,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.SoHoaDon).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderBy(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(

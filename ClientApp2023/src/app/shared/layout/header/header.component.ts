@@ -31,6 +31,7 @@ export class HeaderComponent extends BaseComponent implements OnInit,AfterViewIn
   public totalItem: any;
   public danh_sach_danh_muc:any;
   public thuong_hieu:any;
+  public danh_sach_nhom:any; 
   constructor(injector: Injector,private _router: Router,private _send: SendService, private _cart: CartService,private authenticationService: AuthenticationService) {
     super(injector);
     this.frmSearch = new FormGroup({
@@ -81,6 +82,10 @@ export class HeaderComponent extends BaseComponent implements OnInit,AfterViewIn
     });
     this._api.get('/api/NhaSanXuats/Get-All').subscribe(res => {
       this.thuong_hieu = res;
+    });
+    this._api.get('/api/NhomSanPhams/Get-All-Nsp').subscribe(res => {
+      this.danh_sach_nhom = res;
+      // console.log(res);
     });
   }
   public loadPage(page: any) {

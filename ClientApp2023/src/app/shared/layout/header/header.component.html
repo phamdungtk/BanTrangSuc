@@ -93,11 +93,21 @@
                         <nav>
                             <ul>
                                 <li class="dropdown-holder"><a [routerLink]="['/']">Trang Chủ</a>                                   
-                                </li>&nbsp;&nbsp;
-                                <li class="megamenu-holder"><a [routerLink]="['/san-pham']">Tổng Quan Sản Phẩm</a>                                  
-                                </li>&nbsp;&nbsp;
-                                <li><a [routerLink]="['/tin-tuc']">Tin Tức Trang Sức</a>
-                                </li>&nbsp;&nbsp;
+                                </li>
+                                <li class="megamenu-holder"><a [routerLink]="['/san-pham']">Sản Phẩm</a>                                  
+                                </li>
+                                <li class="dropdown-holder"><a>Nhóm Sản Phẩm</a>
+                                    <ul class="hm-dropdown" style="padding: 15px; text-align: center;" >  
+                                        <li  *ngFor="let x of danh_sach_nhom ">
+                                            <img  [routerLink]="['/nhom-san-pham', x.maNhomSanPham]" style="width: 250px;height: 80px;"  src="{{x.anhNhom}}" alt="#">
+                                            <a [routerLink]="['/nhom-san-pham', x.maNhomSanPham]" >{{x.tenNhom}}</a>
+                                                
+                                        </li>  
+                                        <li class="menu-item_img"></li>
+                                    </ul>
+                                </li>
+                                <li><a [routerLink]="['/tin-tuc']">Tin Tức</a>
+                                </li>
                                 <li class="dropdown-holder"><a>Thương Hiệu</a>
                                     <ul class="hm-dropdown" >
                                         <li *ngFor="let x of thuong_hieu"><a>{{x.tenNhaSanXuat}}</a></li>

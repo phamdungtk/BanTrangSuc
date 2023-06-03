@@ -27,7 +27,21 @@ namespace DoAnTotNghiep_Api.Controllers
         {
             try
             {
-                var result = db.NhomSanPhams.OrderByDescending(x => x.CreatedAt).ToList();
+                var result = db.NhomSanPhams.OrderByDescending(x => x.CreatedAt).Take(3).ToList();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return Ok("Err");
+            }
+        }
+        [Route("Get-All-Nsp")]
+        [HttpGet]
+        public IActionResult Getallnsp()
+        {
+            try
+            {
+                var result = db.NhomSanPhams.OrderByDescending(x => x.CreatedAt).Take(10).ToList();
                 return Ok(result);
             }
             catch (Exception ex)

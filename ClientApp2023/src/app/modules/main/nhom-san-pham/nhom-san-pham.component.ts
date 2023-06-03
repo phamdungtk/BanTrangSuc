@@ -13,7 +13,6 @@ export class NhomSanPhamComponent extends BaseComponent implements OnInit {
   public page: any = 1;
   public id: any;
   public pageSize: any = 1;
-  public list_item: any;
   public totalItem: any;
   public danh_sach_nhom:any;
   public danh_sach_danh_muc:any;
@@ -49,7 +48,7 @@ export class NhomSanPhamComponent extends BaseComponent implements OnInit {
   }
   public loadPage(page: any) {
     this._api.post('/api/NhomSanPhams/searchnhom', {loc: this.loc,  page: page, pageSize: this.pageSize, ma_nhom_sp: this.id }).subscribe(res => {
-      this.list_item = res.data;
+      this.danh_sach_nhom = res.data;
       this.totalItem = res.totalItem;
       setTimeout(() => {
         this.loadScripts('');
@@ -60,7 +59,7 @@ export class NhomSanPhamComponent extends BaseComponent implements OnInit {
   public loadData(pageSize:any) {
    this.pageSize = pageSize;
     this._api.post('/api/NhomSanPhams/searchnhom', { loc: this.loc, page: 1, pageSize: pageSize, ma_nhom_sp: this.id }).subscribe(res => {
-      this.list_item = res.data;
+      this.danh_sach_nhom = res.data;
       this.totalItem = res.totalItem;
       setTimeout(() => {
         this.loadScripts('');

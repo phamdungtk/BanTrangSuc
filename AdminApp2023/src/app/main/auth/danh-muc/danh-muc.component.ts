@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/core/common/base-component';
 import MatchValidation from 'src/app/core/helpers/must-match.validator';
 declare var $: any;
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-danh-muc',
@@ -69,7 +70,22 @@ export class DanhMucComponent extends BaseComponent implements OnInit, AfterView
       });
     });
   } 
-
+  fileName= 'danh-muc.xlsx';
+  public exportExcel(): void
+  {
+    /* pass here the table id */
+    let element = document.getElementById('excel-table');
+    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+ 
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+ 
+    /* save to file */  
+    XLSX.writeFile(wb, this.fileName);
+ 
+  }
+ 
   setDieuKienLoc(loc: any) {
     this.loc = loc;
     localStorage.setItem('loc',loc); 
