@@ -31,7 +31,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   public doneSetupForm: any;
   public loc:any;
   public page: any = 1;
-  public pageSize: any = 5;
+  public pageSize: any = 10;
   public totalItem: any;
   constructor(injector: Injector) {
     super(injector);
@@ -50,7 +50,7 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       this.list_sanpham = res.data;
       this.totalItem = res.totalItem;
     });
-    this._api.get('/api/LoaiSanPhams/get-loai-sanpham').subscribe(res => {
+    this._api.get('/api/LoaiSanPhams/Get-All').subscribe(res => {
       this.list_loaisp = res;
     });
     this._api.get('/api/DonViTinhs/Get-All').subscribe(res => {

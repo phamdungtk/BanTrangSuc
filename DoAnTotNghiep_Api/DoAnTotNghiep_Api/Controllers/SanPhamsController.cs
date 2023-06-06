@@ -186,7 +186,7 @@ namespace DoAnTotNghiep_Api.Controllers
                              //join e in db.ChiTietNhoms on a.MaSanPham equals e.MaSanPham
                              join f in db.GiaSanPhams on a.MaSanPham equals f.MaSanPham
                              join g in db.GiamGia on a.MaSanPham equals g.MaSanPham
-                             join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
+                             //join h in db.ThongSoKyThuats on a.MaSanPham equals h.MaSanPham
                              join t in db.NhaSanXuats on a.MaNhaSanXuat equals t.MaNhaSanXuat
                              join s in db.DonViTinhs on a.MaDonViTinh equals s.MaDonViTinh
                              select new
@@ -200,8 +200,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  //MaNhomSanPham = e.MaNhomSanPham,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
-                                 TenThongSo = h.TenThongSo,
-                                 Mota = h.MoTa,
+                                 //TenThongSo = h.TenThongSo,
+                                 //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
                                  MotaNSX = t.MoTa,
                                  TenDonViTinh = s.TenDonViTinh,
