@@ -32,7 +32,7 @@
                                         title="Remove"></i></a></td>
                                     <td class="hiraola-product-thumbnail" style="width: 150px; height: 150px;"><a href="javascript:void(0)"><img src="{{x.anhDaiDien}}"></a></td>
                                     <td class="hiraola-product-name"><a href="javascript:void(0)">{{x.tenSanPham}}</a></td>
-                                    <td class="hiraola-product-price"><span class="amount">{{x.gia}}đ</span></td>
+                                    <td class="hiraola-product-price"><span class="amount">{{x.gia | number:'1.0-0'}}đ</span></td>
                                     <td class="hiraola-product-price"><span class="amount">{{applyDiscount(x.gia, x.phanTram) | number:'1.0-0'}}đ</span></td>
                                     <td class="quantity">
                                         <div class="cart-plus-minus">
@@ -53,14 +53,14 @@
                         <div class="col-12">
                             <div class="coupon-all">
                                 <div class="coupon">
-                                    <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
+                                    <!-- <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
                                     <input class="button" name="apply_coupon" value="Apply coupon" type="submit">
-                                  
+                                   -->
                                 </div>
                                 <div class="coupon2">
                                     <input class="button" (click)="updateCart()" value="Cập Nhập" type="submit">&nbsp; &nbsp; 
                                     <input class="button" (click)="XoaCart()" value="Xoá Tất Cả" type="submit">&nbsp; &nbsp; 
-                                    <input class="button" name="update_cart" value="Update cart" type="submit">
+                                    <!-- <input class="button" name="update_cart" value="Update cart" type="submit"> -->
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-
+import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root',
 })
@@ -12,6 +12,9 @@ export class ApiService {
     public host = environment.BASE_API;
     constructor(private _http: HttpClient, public router: Router, private authenticationService: AuthenticationService) {
 
+    }
+    getTotalRevenue(filter: string, startDate: Date): Observable<any> {
+        return this._http.get<any>(`${environment.BASE_API}/${filter}/${startDate.toISOString()}`);
     }
     public post(url: string, obj: any) {
         const body = JSON.stringify(obj);

@@ -8,6 +8,7 @@
         </div>
     </div>
 </div> -->
+<!-- Messenger Plugin chat Code -->
 
 <div class="slider-with-category_menu">
     <div class="container-fluid">
@@ -127,7 +128,13 @@
                                         <a  [routerLink]="['/chi-tiet',dssp.maSanPham]">
                                             <img class="primary-img" src="{{dssp.anhDaiDien}}" alt="Image">
                                         </a>
-                                        <span class="sticker">{{dssp.phanTram}}%</span>
+                                        <!-- <div *ngIf="thoigian === false">
+                                            <p style="color: red; font-size: 16px;">Hết hạn</p>
+                                          </div>
+   -->
+                                        <span class="sticker" >{{dssp.phanTram}}%</span>
+                                        <!-- <span class="sticker" *ngIf="thoigian === 'false'" > Hết hạn</span> -->
+                                        <!-- <span  *ngIf="thoigian == null"></span> -->
                                         <div class="add-actions">
                                             <ul>
                                                 <li><a class="hiraola-add_cart" (click)="_addToCart(dssp)" data-toggle="tooltip" data-placement="top" title="Thêm Vàp Giỏ Hàng"><i class="ion-bag"></i></a></li>

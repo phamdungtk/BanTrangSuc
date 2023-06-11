@@ -48,7 +48,9 @@ export class CartComponent extends BaseComponent implements OnInit, AfterViewIni
     this._api.post('/api/DonHangs/search-lichsu', {  loc: this.loc, page: this.page, pageSize: this.pageSize, ma_nguoi_dung: this.id}).subscribe(res => {
       this.list_lichsu = res.data;
       this.totalItem = res.totalItem;
-       
+      setTimeout(() => {
+        this.loadScripts('assets/js/main.js');
+      });
       console.log(res.data);
     }); 
     this._api.post('/api/ThongKes/tong-dh-theo-mand', {ma_nguoidung: this.id}).subscribe(res => {
@@ -99,10 +101,24 @@ export class CartComponent extends BaseComponent implements OnInit, AfterViewIni
         this.tTong = 0;
     }
   }
+  // public updateCart() {
+  //   localStorage.setItem('cart', JSON.stringify(this.list));
+  //   alert("Đã cập nhật thông tin giỏ hàng thành công!");
+  // }
   public updateCart() {
+    this.list = this.list.filter((x: any) => x.quantity > 0);
+    alert("Số Lượng 0 Sản Phẩm Bị Xoá!");
+       // Check the quantity of each product before updating the cart
+    for (let i = 0; i < this.list.length; i++) {
+      if (this.list[i].quantity > 10) {
+        this.list[i].quantity = 10;
+        alert("Số Lượng Không Được Quán 10 Sản Phân Nha!");
+      }
+    }
     localStorage.setItem('cart', JSON.stringify(this.list));
     alert("Đã cập nhật thông tin giỏ hàng thành công!");
   }
+  
   public Xoa(maSanPham: any) {
     if (confirm("Bạn muốn xóa sản phẩm này khỏi giỏ hàng!")) {
       this._cart.deleteItem(maSanPham);   

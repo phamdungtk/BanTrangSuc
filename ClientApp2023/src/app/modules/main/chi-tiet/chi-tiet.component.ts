@@ -14,6 +14,7 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
   public list_thongso:any;
   public list_item:any;
   public list_anh:any;
+  public thoigian:any;
   public list_tuongtu:any;
   public item:any;
   public item_ma:any;
@@ -27,6 +28,7 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
   public TrB_sao: any;
   public TrB_sao_sp: any;
   public totalItem: any;
+  public discountPercent: number;
   constructor(injector: Injector, private _cart: CartService, private _send: SendService,private authenticationService: AuthenticationService) {
     super(injector);
   }
@@ -41,13 +43,24 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
     return finalPrice;
   }
   ngOnInit(): void {
+
+    
+    
+    
     this._route.params.subscribe(params => {
       let id = params['id'];
       this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {
-        this.item = res.sanpham      
+        this.item = res.sanpham   
         setTimeout(() => {
           this.loadScripts('assets/js/main.js');
         });
+      });
+    });
+    this._route.params.subscribe(params => {
+      let id = params['id'];
+      this._api.get('/api/SanPhams/'+ id).subscribe(res => {
+        this.thoigian = res   
+        console.log(this.thoigian);
       });
     });
     this._route.params.subscribe(params => {
@@ -62,6 +75,7 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
         this.list_tuongtu = res;    
       });
     });
+    
     this.user = this.authenticationService.userValue;
     this.frmKhach = new FormGroup({
       'txt_noidung': new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(200)]),

@@ -4,7 +4,11 @@
       <div class="content-header row">
         <div class="content-header-left col-md-4 col-12 mb-2">
 			<button (click)="createModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-				Thêm Ảnh Sản Phẩm
+				Thêm thông số
+			</button>
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<button [routerLink]="['/auth/san-pham']" type="button" class="btn btn-primary">
+				Quay Lại
 			</button>
         </div>
         <div class="content-header-right col-md-8 col-12">
@@ -13,7 +17,7 @@
               	<ol class="breadcrumb">
                 	<li class="breadcrumb-item"><a href="index.html">Trang Chủ</a>
                 		</li>
-                			<li class="breadcrumb-item active">Chi Tiết Ảnh
+                			<li class="breadcrumb-item active">Thông số
                 		</li>
               		</ol>
             		</div>

@@ -3,6 +3,7 @@ using DoAnTotNghiep_Api.Models;
 using DoAnTotNghiep_Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace DoAnTotNghiep_Api.Controllers
 {
@@ -133,6 +134,7 @@ namespace DoAnTotNghiep_Api.Controllers
                 //Tbsao += decimal.Parse(result1.Sum(s => s.Sao).ToString());
                 var result3 = (tongsao / result2).ToString("#.#");
                 return Ok(new { result3 });
+
 
             }
             catch (Exception ex)

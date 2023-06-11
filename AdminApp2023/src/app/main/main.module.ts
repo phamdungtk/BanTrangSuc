@@ -4,6 +4,7 @@ import { MainComponent } from './main.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { MainRoutes } from './main.route';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import { MainRoutes } from './main.route';
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
     RouterModule.forChild(MainRoutes)
   ]
 })

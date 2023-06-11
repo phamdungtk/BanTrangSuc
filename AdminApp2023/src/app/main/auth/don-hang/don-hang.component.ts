@@ -1,5 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from 'src/app/core/common/base-component';
 declare var $: any;
 import * as XLSX from 'xlsx';
@@ -24,7 +25,9 @@ export class DonHangComponent extends BaseComponent implements OnInit, AfterView
   public page: any = 1;
   public pageSize: any = 5;
   public totalItem: any;
-  constructor(injector: Injector) {
+  public filterForm: FormGroup;
+  public totalRevenue: number;
+  constructor(injector: Injector,private http: HttpClient, private formBuilder: FormBuilder) {
     super(injector);
     this.frmSearch = new FormGroup({
       'txt_trangthai': new FormControl('', []),
@@ -34,6 +37,10 @@ export class DonHangComponent extends BaseComponent implements OnInit, AfterView
   }
 
   ngOnInit(): void {
+    // this.filterForm = this.formBuilder.group({
+    //   filter: ['day'],
+    //   startDate: ['2023-06-01']
+    // });
     this.loc = localStorage.getItem('loc') || '';
     this.LoadData();
   }
@@ -117,6 +124,7 @@ export class DonHangComponent extends BaseComponent implements OnInit, AfterView
     }
     return invalid;
   }
+  
   OnSubmit(dhh: any) {
     console.log(this.findInvalidControls())
     if (this.frmDonHang.invalid) {

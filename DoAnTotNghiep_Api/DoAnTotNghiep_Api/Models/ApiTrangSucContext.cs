@@ -9,6 +9,7 @@ public partial class ApiTrangSucContext : DbContext
     public ApiTrangSucContext()
     {
     }
+
     public ApiTrangSucContext(DbContextOptions<ApiTrangSucContext> options)
         : base(options)
     {
@@ -191,6 +192,8 @@ public partial class ApiTrangSucContext : DbContext
             entity.HasKey(e => e.MaGiamGia).HasName("PK_GiamGias");
 
             entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.ThoiGianBatDau).HasColumnType("datetime");
+            entity.Property(e => e.ThoiGianKetThuc).HasColumnType("datetime");
             entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
 
             entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.GiamGia)
@@ -320,8 +323,11 @@ public partial class ApiTrangSucContext : DbContext
 
             entity.HasOne(d => d.MaNguoiDungNavigation).WithMany(p => p.PhanHois)
                 .HasForeignKey(d => d.MaNguoiDung)
-                .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("FK_PhanHoi_NguoiDung");
+
+            entity.HasOne(d => d.MaSanPhamNavigation).WithMany(p => p.PhanHois)
+                .HasForeignKey(d => d.MaSanPham)
+                .HasConstraintName("FK_PhanHoi_SanPham");
         });
 
         modelBuilder.Entity<SanPham>(entity =>

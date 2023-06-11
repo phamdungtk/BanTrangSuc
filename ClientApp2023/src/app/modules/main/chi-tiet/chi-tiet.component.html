@@ -40,10 +40,29 @@
                         <div class="sp-heading">
                             <h5><a> {{item.tenSanPham}}</a></h5>
                         </div>
-                        <span class="reference">Giảm giá: {{item.phanTram}}%</span>
+                        <div class="sp-heading">
+                            <div *ngIf="thoigian === false">
+                                <p style=" color: red; size: 16;">Hết hạn giảm giá</p>
+                              </div>
+                              
+                        </div>
+                        <div class="sp-heading">
+                            <span *ngIf="thoigian" class="reference"><p style=" color: red; size: 16;">Giảm giá: {{item.phanTram}}%</p></span>
+                        </div>
+                        <div class="sp-heading">
+                            <span class="reference">Ngày Bắt Đầu: {{item.thoiGianBatDau | date:'yyyy-MM-dd'}}</span>
+                        </div>
+                        <div class="sp-heading">
+                            <span class="reference">Ngày Kết Thúc: {{item.thoiGianKetThuc | date:'yyyy-MM-dd'}}</span>
+                        </div>
+                        
+                        
+                   
                         <div class="rating-box">
                             <ul>                                
-                                <li >Đánh Giá: <a style="color: rgb(255, 51, 0);">   0{{TrB_sao}} Sao</a> </li>
+                                <li  *ngIf="!(TrB_sao)">Đánh Giá: <a style="color: rgb(255, 51, 0);">  Chưa Đánh Giá</a> </li>
+                                <li *ngIf="TrB_sao">Đánh Giá: <a style="color: rgb(255, 51, 0);">   {{TrB_sao}} Sao</a> </li>
+                                <!-- <li >Đánh Giá: <a style="color: rgb(255, 51, 0);">   0{{TrB_sao}} Sao</a> </li> -->
                             </ul>
                         </div>
                         <div class="sp-essential_stuff">

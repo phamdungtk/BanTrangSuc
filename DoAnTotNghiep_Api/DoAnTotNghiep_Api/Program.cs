@@ -1,15 +1,17 @@
 
 using DoAnTotNghiep_Api.Helpers;
+using DoAnTotNghiep_Api.Models;
 using DoAnTotNghiep_Api.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using System.Configuration;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -77,6 +79,7 @@ app.UseCors(x => x
     .AllowAnyHeader());
 app.UseAuthentication();
 //
+
 app.UseAuthorization();
 
 app.MapControllers();

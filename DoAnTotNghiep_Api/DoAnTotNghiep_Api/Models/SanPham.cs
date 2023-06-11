@@ -41,5 +41,7 @@ public partial class SanPham
 
     public virtual NhaSanXuat? MaNhaSanXuatNavigation { get; set; }
 
+    public virtual ICollection<PhanHoi> PhanHois { get; } = new List<PhanHoi>();
+
     public virtual ICollection<ThongSoKyThuat> ThongSoKyThuats { get; } = new List<ThongSoKyThuat>();
 }

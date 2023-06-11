@@ -3,9 +3,11 @@ import { Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoleGuard } from '../core/guards/role.guard';
 import { Role } from '../entities/role';
+import { FormsModule } from '@angular/forms';
 
 export const MainRoutes: Routes = [
   {
+
     path: '', component: MainComponent,
     children: [
       { path: '', component: DashboardComponent },   

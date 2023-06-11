@@ -3,6 +3,8 @@ using DoAnTotNghiep_Api.Models;
 using DoAnTotNghiep_Api.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 namespace DoAnTotNghiep_Api.Controllers
 {
@@ -41,6 +43,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  MaSanPham = a.MaSanPham,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
+                                 ThoiGianBatDau = g.ThoiGianBatDau,
+                                 ThoiGianKetThuc = g.ThoiGianKetThuc,
                                  //TenThongSo = h.TenThongSo,
                                  //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
@@ -53,6 +57,7 @@ namespace DoAnTotNghiep_Api.Controllers
 
                              };
                 var kq = result.OrderByDescending(x => x.CreatedAt).ToList();
+
                 return Ok(kq);
             }
             catch (Exception ex)
@@ -80,6 +85,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  MaSanPham = a.MaSanPham,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
+                                 ThoiGianBatDau = g.ThoiGianBatDau,
+                                 ThoiGianKetThuc = g.ThoiGianKetThuc,
                                  //TenThongSo = h.TenThongSo,
                                  //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
@@ -123,6 +130,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  TenDanhMuc = b.TenDanhMuc,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
+                                 ThoiGianBatDau = g.ThoiGianBatDau,
+                                 ThoiGianKetThuc = g.ThoiGianKetThuc,
                                  //TenThongSo = h.TenThongSo,
                                  //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
@@ -200,6 +209,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  //MaNhomSanPham = e.MaNhomSanPham,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
+                                 ThoiGianBatDau = g.ThoiGianBatDau,
+                                 ThoiGianKetThuc = g.ThoiGianKetThuc,
                                  //TenThongSo = h.TenThongSo,
                                  //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
@@ -268,6 +279,8 @@ namespace DoAnTotNghiep_Api.Controllers
                                  TenDanhMuc = b.TenDanhMuc,
                                  Gia = f.Gia,
                                  PhanTram = g.PhanTram,
+                                 ThoiGianBatDau = g.ThoiGianBatDau,
+                                 ThoiGianKetThuc = g.ThoiGianKetThuc,
                                  //TenThongSo = h.TenThongSo,
                                  //Mota = h.MoTa,
                                  TenNhaSanXuat = t.TenNhaSanXuat,
@@ -336,6 +349,8 @@ namespace DoAnTotNghiep_Api.Controllers
                              //MaNhomSanPham = e.MaNhomSanPham,
                              Gia = f.Gia,
                              PhanTram = g.PhanTram,
+                             ThoiGianBatDau = g.ThoiGianBatDau,
+                             ThoiGianKetThuc = g.ThoiGianKetThuc,
                              //TenThongSo = h.TenThongSo,
                              //Mota = h.MoTa,
                              TenNhaSanXuat = t.TenNhaSanXuat,
@@ -352,6 +367,47 @@ namespace DoAnTotNghiep_Api.Controllers
             var sanpham = result.SingleOrDefault(x => x.MaSanPham == id);
             return Ok(new { sanpham });
         }
+        [HttpGet("{maSanPham}")]
+        public ActionResult<bool> CheckIsExpired(int maSanPham)
+        {
+            var sanPham = db.GiamGia.FirstOrDefault(sp => sp.MaSanPham == maSanPham);
+            if (sanPham == null)
+            {
+                return false;
+            }
+            DateTime thoiGianBatDau;
+            DateTime thoiGianKetThuc;
+            bool isDateStart = DateTime.TryParse(sanPham.ThoiGianBatDau.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.None, out thoiGianBatDau);
+            bool isDateEnd = DateTime.TryParse(sanPham.ThoiGianKetThuc.ToString(), CultureInfo.InvariantCulture, DateTimeStyles.None, out thoiGianKetThuc);
+            if (!isDateStart || !isDateEnd)
+            {
+                return false;
+            }
+            var start = thoiGianBatDau.ToUniversalTime().Ticks;
+            var end = thoiGianKetThuc.ToUniversalTime().Ticks;
+            var now = DateTime.UtcNow.Ticks;
+            if (start <= now && now <= end)
+            {
+                return true;
+            }
+            else
+            {
+                //return false;
+                var giamGia =  db.GiamGia.SingleOrDefault(sp => sp.MaSanPham == maSanPham);
+                if (giamGia != null)
+                {
+                    giamGia.PhanTram = 0;
+                     db.SaveChangesAsync();
+                }
+                return false;
+            }
+        }
+
+
+
+
+
+
         [Route("get-tuongtu/{id}")]
         [HttpGet]
         public IActionResult GetProducRelatedtById(int id)
@@ -366,6 +422,8 @@ namespace DoAnTotNghiep_Api.Controllers
                              TenSanPham = a.TenSanPham,                          
                              Gia = f.Gia,
                              PhanTram = g.PhanTram,
+                             ThoiGianBatDau = g.ThoiGianBatDau,
+                             ThoiGianKetThuc = g.ThoiGianKetThuc,
                              AnhDaiDien = a.AnhDaiDien,
                              CreatedAt = a.CreatedAt,
                              UpdatedAt = a.UpdatedAt,
@@ -429,12 +487,15 @@ namespace DoAnTotNghiep_Api.Controllers
             model.giasapham.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_giasanpham = db.GiaSanPhams.SingleOrDefault(x => x.MaSanPham == model.giasapham.MaSanPham);
             obj_giasanpham.Gia = model.giasapham.Gia;
+         
             obj_giasanpham.UpdatedAt = model.giasapham.UpdatedAt;
             db.SaveChanges();
 
             model.giamgia.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_giamgia = db.GiamGia.SingleOrDefault(x => x.MaSanPham == model.giamgia.MaSanPham);
             obj_giamgia.PhanTram = model.giamgia.PhanTram;
+            obj_giamgia.ThoiGianBatDau = model.giamgia.ThoiGianBatDau;
+            obj_giamgia.ThoiGianKetThuc = model.giamgia.ThoiGianKetThuc;
             obj_giamgia.UpdatedAt = model.giamgia.UpdatedAt;
             db.SaveChanges();
 

@@ -2,8 +2,13 @@
 using DoAnTotNghiep_Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Drawing.Printing;
 using System.Globalization;
+using System;
+using System.Linq;
+using Microsoft.Data.SqlClient;
+using System.Configuration;
 
 namespace DoAnTotNghiep_Api.Controllers
 {
@@ -401,7 +406,177 @@ namespace DoAnTotNghiep_Api.Controllers
             TongTienn += decimal.Parse(db.PhanHois.Sum(s => s.Sao).ToString());
             return TongTienn;
         }
+        [HttpGet("{year}/{month}/{day}")]
+        public async Task<ActionResult<decimal>> GetTotalSalesByDate(int year, int month, int day)
+        {
+            var startDate = new DateTime(year, month, day, 0, 0, 0);
+            var endDate = new DateTime(year, month, day, 23, 59, 59);
+
+            var totalSales = await db.DonHangs
+                .Where(s => s.NgayDat >= startDate && s.NgayDat <= endDate)
+                .SumAsync(x => x.MaDonHang);
+
+            return totalSales;
+        }
+        [HttpGet("{date}")]
+        public async Task<ActionResult<decimal>> GetTotalRevenueByDate(DateTime date)
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && DateTime.Compare(d.NgayDat.Value.Date, vnTime.Date) == 0
+                                   select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+
+            return Ok(new { TotalRevenue = totalRevenue });
+        }
+        [HttpGet("daily-ngay")]
+        public async Task<ActionResult<decimal>> GetDailyRevenue()
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+
+            // Lấy giá trị ngày của múi giờ Việt Nam
+            var vnDate = vnTime.Date;
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && DateTime.Compare(d.NgayDat.Value.Date, vnDate) == 0
+                                   select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+            string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
+            return Ok(new { formatted });
+        }
+        [HttpGet("weekly-tuan")]
+        public async Task<ActionResult<decimal>> GetWeeklyRevenue()
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+
+            // Lấy giá trị ngày đầu tiên của tuần hiện tại của múi giờ Việt Nam
+            var vnWeekStartDay = vnTime.Date.AddDays(-(int)vnTime.DayOfWeek);
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && d.NgayDat.Value.Date >= vnWeekStartDay.Date && d.NgayDat.Value.Date <= vnTime.Date
+                                   select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+            string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
+            return Ok(new { formatted });
+        }
+
+        [HttpGet("monthly-thang")]
+        public async Task<ActionResult<decimal>> GetMonthlyRevenue()
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+
+            // Lấy giá trị ngày đầu tiên của tháng hiện tại của múi giờ Việt Nam
+            var vnMonthFirstDay = new DateTime(vnTime.Year, vnTime.Month, 1);
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && d.NgayDat.Value.Date >= vnMonthFirstDay.Date && d.NgayDat.Value.Date <= vnTime.Date
+                                   select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+            string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
+            return Ok(new { formatted });
+        }
+        [HttpGet("quarterly-quy")]
+        public async Task<ActionResult<decimal>> GetQuarterlyRevenue()
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+
+            // Lấy giá trị ngày đầu tiên của quý hiện tại của múi giờ Việt Nam
+            var quarter = (vnTime.Month - 1) / 3 + 1;
+            var vnQuarterStartDay = new DateTime(vnTime.Year, 3 * quarter - 2, 1);
+
+            var quarterLastDay = vnQuarterStartDay.AddMonths(3).AddDays(-1).Date;
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && d.NgayDat.Value.Date >= vnQuarterStartDay.Date && d.NgayDat.Value.Date <= vnTime.Date
+                                   select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+            string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
+            return Ok(new { formatted });
+        }
+        [HttpGet("annual-nam")]
+        public async Task<ActionResult<decimal>> GetAnnualRevenue()
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, vnTimeZone);
+
+            // Lấy giá trị ngày đầu tiên của năm hiện tại của múi giờ Việt Nam
+            var vnYearStartDay = new DateTime(vnTime.Year, 1, 1);
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && d.NgayDat.Value.Date >= vnYearStartDay.Date && d.NgayDat.Value.Date <= vnTime.Date
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+            string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
+            return Ok(new { formatted });
+        }
+
+        [HttpGet("{filter}/{startDate}")]
+        public async Task<ActionResult<decimal>> GetTotalRevenueByDate(string filter, DateTime startDate)
+        {
+            // Chuyển đổi múi giờ từ UTC sang múi giờ Việt Nam
+            var vnTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            var vnStartDate = TimeZoneInfo.ConvertTimeFromUtc(startDate, vnTimeZone);
+
+            var endDate = new DateTime();
+            switch (filter.ToLower())
+            {
+                case "day":
+                    endDate = vnStartDate.Date.AddDays(1).AddTicks(-1);
+                    break;
+                case "week":
+                    endDate = vnStartDate.AddDays(7 - (int)vnStartDate.DayOfWeek).Date.AddDays(1).AddTicks(-1);
+                    break;
+                case "month":
+                    endDate = vnStartDate.AddMonths(1).AddDays(-vnStartDate.Day + 1).Date.AddDays(1).AddTicks(-1);
+                    break;
+                case "quarter":
+                    var quarter = (vnStartDate.Month - 1) / 3 + 1;
+                    var quarterStartMonth = 3 * quarter - 2;
+                    endDate = new DateTime(vnStartDate.Year, quarterStartMonth, 1).AddMonths(3).AddDays(-1).Date.AddDays(1).AddTicks(-1);
+                    break;
+                case "year":
+                    endDate = new DateTime(vnStartDate.Year + 1, 1, 1).Date.AddTicks(-1);
+                    break;
+                default:
+                    return BadRequest("Invalid filter.");
+            }
+
+            var revenues = await (from d in db.DonHangs
+                                  join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
+                                  where d.NgayDat != null && d.NgayDat.Value.Date >= vnStartDate.Date && d.NgayDat.Value.Date <= endDate
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
+
+            var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
+
+            return Ok(new { TotalRevenue = totalRevenue });
+        }
+
     }
+
     public class Tong
     {
         public int data { get; set; }

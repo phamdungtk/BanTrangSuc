@@ -46,13 +46,74 @@
           </div>
         </div>
         <!-- ./col -->
+        
         <div class="col-lg-3 col-6">
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3 >{{tong_tien}}<sup>VND</sup></h3>
+              <h3 >{{tong_tien_ngay}}<sup>VND</sup></h3>
 
-              <p>Doanh Thu</p>
+              <p>Doanh Thu Theo Ngày</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">-------------</a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3 >{{tong_tien_tuan}}<sup>VND</sup></h3>
+
+              <p>Doanh Thu Theo Tuần</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">-------------</a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3 >{{tong_tien_thang}}<sup>VND</sup></h3>
+
+              <p>Doanh Thu Theo Tháng</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">-------------</a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3 >{{tong_tien_quy}}<sup>VND</sup></h3>
+
+              <p>Doanh Thu Theo Quý</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">-------------</a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+          <!-- small box -->
+          <div class="small-box bg-info">
+            <div class="inner">
+              <h3 >{{tong_tien_nam}}<sup>VND</sup></h3>
+
+              <p>Doanh Thu Theo Năm</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -195,9 +256,29 @@
             <a href="/auth/tin-tuc" class="small-box-footer">Thêm thông tin <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
+        <!-- ./col
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Filter:</label>
+            <select formControlName="filter">
+              <option value="day">Day</option>
+              <option value="week">Week</option>
+              <option value="month">Month</option>
+              <option value="quarter">Quarter</option>
+              <option value="year">Year</option>
+            </select>
+          </div>
         
-      </div>     
+          <div class="form-group">
+            <label>Start Date:</label>
+            <input type="date" formControlName="startDate">
+          </div>
+        
+          <button type="submit">Filter</button>
+        </form> -->
+        
+      </div> 
+      
     </div><!-- /.container-fluid -->
   </section>
   <!-- /.content -->

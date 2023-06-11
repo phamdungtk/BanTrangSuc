@@ -7,9 +7,9 @@ public partial class PhanHoi
 {
     public int MaPhanHoi { get; set; }
 
-    public int? MaSanPham { get; set; }
+    public int MaSanPham { get; set; }
 
-    public int? MaNguoiDung { get; set; }
+    public int MaNguoiDung { get; set; }
 
     public string? NoiDung { get; set; }
 
@@ -17,5 +17,7 @@ public partial class PhanHoi
 
     public DateTime? NgayPhanHoi { get; set; }
 
-    public virtual NguoiDung? MaNguoiDungNavigation { get; set; }
+    public virtual NguoiDung? MaNguoiDungNavigation { get; set; } = null!;
+
+    public virtual SanPham? MaSanPhamNavigation { get; set; } = null!;
 }

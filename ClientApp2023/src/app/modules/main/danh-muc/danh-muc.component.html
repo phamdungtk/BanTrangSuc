@@ -92,6 +92,7 @@
                                     <a [routerLink]="['/chi-tiet',it.maSanPham]">
                                         <img class="primary-img" src="{{it.anhDaiDien}}" alt="Image">
                                     </a>
+                                    <span class="sticker" >{{it.phanTram}}%</span>
                                     <div class="add-actions">
                                         <ul>   
                                             <li><a class="hiraola-add_cart" (click)="_addToCart(it)" data-toggle="tooltip" data-placement="top" title="Thêm Vàp Giỏ Hàng"><i class="ion-bag"></i></a></li>
@@ -130,9 +131,11 @@
                                     <a [routerLink]="['/chi-tiet',it.maSanPham]">
                                         <img class="primary-img" src="{{it.anhDaiDien}}" alt="Image">
                                     </a>
+                                    <span class="sticker" >{{it.phanTram}}%</span>
                                 </div>
                                 <div class="hiraola-product_content">
                                     <div class="product-desc_info">
+                                       
                                         <h6><a class="product-name" [routerLink]="['/chi-tiet',it.maSanPham]">{{it.tenSanPham}}</a></h6>
                                         <!-- <div class="price-box">
                                             <span class="old-price">{{it.gia | number:'1.0-0' }}</span>
@@ -154,19 +157,12 @@
                                             </ul>
                                         </div> --> 
                                         <div class="product-short_desc">
-                                            <p style="height: 200px; overflow: auto; "[innerHTML]="it.moTaSanPham"></p>
+                                            <p style="height: 100px; overflow: auto; "></p>
                                         </div>
                                     </div>
                                     <div class="add-actions">
                                         <ul>
-                                            <li><a class="hiraola-add_cart" href="cart.html" data-toggle="tooltip" data-placement="top" title="Add To Cart">Add To Cart</a></li>
-                                            <li><a class="hiraola-add_compare" href="compare.html" data-toggle="tooltip" data-placement="top" title="Compare This Product"><i
-                                                    class="ion-ios-shuffle-strong"></i></a></li>
-                                            <li class="quick-view-btn" data-toggle="modal" data-target="#exampleModalCenter"><a href="javascript:void(0)" data-toggle="tooltip" data-placement="top" title="Quick View"><i
-                                                    class="ion-eye"></i></a></li>
-                                            <li><a class="hiraola-add_compare" href="wishlist.html" data-toggle="tooltip" data-placement="top" title="Add To Wishlist"><i
-                                                    class="ion-android-favorite-outline"></i></a>
-                                            </li>
+                                            <li><a class="hiraola-add_cart"  (click)="_addToCart(it)"  data-toggle="tooltip" data-placement="top" title="Thêm Giỏ Hàng">Thêm Giỏ Hàng</a></li>  
                                         </ul>
                                     </div>
                                 </div>

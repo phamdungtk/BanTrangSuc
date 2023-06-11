@@ -60,6 +60,12 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
       this.list_nhasanxuat = res;    
     });
   }
+  
+
+  applyDiscount(gia: number, phanTram: number): number {
+    let finalPrice: number = gia - gia * (phanTram / 100);
+    return finalPrice;
+  }
   public loadPage(page: any) {
     this._api.post('/api/SanPhams/search', {loc: this.loc,  page: page, pageSize: this.pageSize, tensanpham: this.frmSearch.value['txt_tensanpham'], tendanhmuc: this.frmSearch.value['txt_tendanhmuc'], tennhasanxuat: this.frmSearch.value['txt_tennhasanxuat']}).subscribe(res => {
       this.list_sanpham = res.data;
@@ -98,7 +104,6 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   }
   public convetToPDF(){
     var data = document.getElementById('excel-table') as HTMLElement;;
-    
     html2canvas(data).then(canvas => {
     // Few necessary setting options
     var imgWidth = 208;
@@ -108,15 +113,16 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     
     const contentDataURL = canvas.toDataURL('image/png')
     let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+    pdf.text('PDF File in Angular By Access Zombies Code', 11, 8);
     var position = 0;
+    
     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
     pdf.save('san-pham.pdf'); // Generated PDF
     });
+
   }
-  applyDiscount(gia: number, phanTram: number): number {
-    let finalPrice: number = gia - gia * (phanTram / 100);
-    return finalPrice;
-  }
+  
+  
   get tensanpham() {
     return this.frmSanPham.get('txt_tensanpham')!;
   }
@@ -165,8 +171,8 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
         'txt_madonvitinh': new FormControl('', [Validators.required]),
         'txt_gia': new FormControl('', [Validators.required]),
         'txt_phantram': new FormControl('', [Validators.required]),
-        // 'txt_tenthongso': new FormControl('', [Validators.required]),
-        // 'txt_mota': new FormControl('', [Validators.required]),
+        'txt_thoigianbatdau': new FormControl('', [Validators.required]),
+        'txt_thoigianketthuc': new FormControl('', [Validators.required]),
       });
     });
   }
@@ -197,12 +203,14 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
           'txt_madonvitinh': new FormControl('', [Validators.required]),        
           'txt_gia': new FormControl(this.sanpham.gia, [Validators.required]),
           'txt_phantram': new FormControl(this.sanpham.phanTram, [Validators.required]),
-          // 'txt_tenthongso': new FormControl(this.sanpham.tenThongSo, [Validators.required]),
-          // 'txt_mota': new FormControl(this.sanpham.mota, [Validators.required]),
-        });
+          'txt_thoigianbatdau': new FormControl('', [Validators.required]),
+          'txt_thoigianketthuc': new FormControl('', [Validators.required]),
+        });     
         this.nsx = this.sanpham.maNhaSanXuat;
         this.mdm = this.sanpham.maDanhMuc;
         this.mdvt = this.sanpham.maDonViTinh;
+        this.frmSanPham.get('txt_thoigianbatdau')?.patchValue(this.formatDate(new Date(this.sanpham.thoiGianBatDau)))
+        this.frmSanPham.get('txt_thoigianketthuc')?.patchValue(this.formatDate(new Date(this.sanpham.thoiGianKetThuc)))
       }); 
     });
   }
@@ -253,6 +261,8 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     }
     obj.giamgia = {
       phanTram: vl.txt_phantram,
+      thoiGianBatDau: vl.txt_thoigianbatdau,
+      thoiGianKetThuc: vl.txt_thoigianketthuc,
     }
     // obj.thongsokythuat = {
     //   tenThongSo: vl.txt_tenthongso,

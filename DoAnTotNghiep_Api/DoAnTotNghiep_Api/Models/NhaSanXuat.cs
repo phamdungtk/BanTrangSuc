@@ -7,7 +7,7 @@ public partial class NhaSanXuat
 {
     public int MaNhaSanXuat { get; set; }
 
-    public string TenNhaSanXuat { get; set; } = null!;
+    public string? TenNhaSanXuat { get; set; }
 
     public string? MoTa { get; set; }
 
