@@ -364,10 +364,18 @@ namespace DoAnTotNghiep_Api.Controllers
         {
             obj.UpdatedAt = DateTime.Now.ToString(DateFormat);
             var obj_donhang = db.DonHangs.SingleOrDefault(x => x.MaDonHang == obj.MaDonHang);
-            obj_donhang.TrangThaiDonHang = obj.TrangThaiDonHang;
-            obj_donhang.UpdatedAt = obj.UpdatedAt;
-            db.SaveChanges();
-            return Ok(new { data = "OK" });
+            if (obj_donhang.TrangThaiDonHang == 4)
+            {
+                return BadRequest("TrangThaiDonHang is already 1, cannot update!");
+            }
+            else
+            {
+                obj_donhang.TrangThaiDonHang = obj.TrangThaiDonHang;
+                obj_donhang.UpdatedAt = obj.UpdatedAt;
+                db.SaveChanges();
+                return Ok(new { data = "OK" });
+            }
+
         }
         [Route("delete-DonHang/{MaDonHang}")]
         [HttpDelete]

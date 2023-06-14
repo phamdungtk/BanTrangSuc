@@ -80,18 +80,32 @@ export class CartComponent extends BaseComponent implements OnInit, AfterViewIni
   ngAfterViewInit() {
     this.loadScripts('');
   }
+  // public Giam(maSanPham: any) {
+  //   var index = this.list.findIndex((x: any) => x.maSanPham == maSanPham);
+  //   if (index >= 0 && this.list[index].quantity >= 1) {
+  //     this.list[index].quantity -= 1;
+  //     this.tTong = this.list.reduce((sum:any, x:any) => sum + x.gia  * x.quantity, 0);
+  //   }
+  // }
+  // public Tang(maSanPham: any) {
+  //   var index = this.list.findIndex((x: any) => x.maSanPham == maSanPham);
+  //   if (index >= 0) {
+  //     this.list[index].quantity += 1;
+  //     this.tTong = this.list.reduce((sum:any, x:any) => sum + x.gia  * x.quantity, 0);
+  //   }
+  // }
   public Giam(maSanPham: any) {
     var index = this.list.findIndex((x: any) => x.maSanPham == maSanPham);
     if (index >= 0 && this.list[index].quantity >= 1) {
       this.list[index].quantity -= 1;
-      this.tTong = this.list.reduce((sum:any, x:any) => sum + x.gia  * x.quantity, 0);
+      this.tTong = this.list.reduce((sum:any, x:any) => sum + x.giaSanPham  * x.quantity, 0);
     }
   }
   public Tang(maSanPham: any) {
     var index = this.list.findIndex((x: any) => x.maSanPham == maSanPham);
     if (index >= 0) {
       this.list[index].quantity += 1;
-      this.tTong = this.list.reduce((sum:any, x:any) => sum + x.gia  * x.quantity, 0);
+      this.tTong = this.list.reduce((sum:any, x:any) => sum + x.giaSanPham  * x.quantity, 0);
     }
   }
   public XoaCart() {
@@ -107,7 +121,6 @@ export class CartComponent extends BaseComponent implements OnInit, AfterViewIni
   // }
   public updateCart() {
     this.list = this.list.filter((x: any) => x.quantity > 0);
-    alert("Số Lượng 0 Sản Phẩm Bị Xoá!");
        // Check the quantity of each product before updating the cart
     for (let i = 0; i < this.list.length; i++) {
       if (this.list[i].quantity > 10) {
@@ -118,6 +131,7 @@ export class CartComponent extends BaseComponent implements OnInit, AfterViewIni
     localStorage.setItem('cart', JSON.stringify(this.list));
     alert("Đã cập nhật thông tin giỏ hàng thành công!");
   }
+
   
   public Xoa(maSanPham: any) {
     if (confirm("Bạn muốn xóa sản phẩm này khỏi giỏ hàng!")) {

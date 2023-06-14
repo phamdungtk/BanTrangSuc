@@ -8,10 +8,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 @NgModule({
   declarations: [
     CartComponent,
-    CheckoutComponent
+    CheckoutComponent,
+
   ],
   imports: [
     CommonModule,FormsModule,ReactiveFormsModule,NgbModule,

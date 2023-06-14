@@ -87,14 +87,15 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     localStorage.setItem('loc',loc); 
     this.loadData(this.pageSize);
   }
+  
   fileName= 'san-pham.xlsx';
   public exportExcel(): void
   {
-    /* pass here the table id */
+    /* chuyển vào đây id bảng*/
     let element = document.getElementById('excel-table');
     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
  
-    /* generate workbook and add the worksheet */
+    /* tạo sổ làm việc và thêm trang tính*/
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
  
@@ -102,25 +103,51 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
     XLSX.writeFile(wb, this.fileName);
  
   }
-  public convetToPDF(){
-    var data = document.getElementById('excel-table') as HTMLElement;;
-    html2canvas(data).then(canvas => {
-    // Few necessary setting options
-    var imgWidth = 208;
-    var pageHeight = 295;
-    var imgHeight = canvas.height * imgWidth / canvas.width;
-    var heightLeft = imgHeight;
-    
-    const contentDataURL = canvas.toDataURL('image/png')
-    let pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
-    pdf.text('PDF File in Angular By Access Zombies Code', 11, 8);
-    var position = 0;
-    
-    pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)
-    pdf.save('san-pham.pdf'); // Generated PDF
+  public convertToPDF() {
+    var data = document.getElementById('excel-table') as HTMLElement;
+    var pdf = new jspdf('p', 'pt', 'a4');
+  
+    // Thiết lập kiểu chữ
+    pdf.setFont('Helvetica-Bold');
+    pdf.setFontSize(14);
+  
+    // Thiết lập bảng màu và màu chữ
+    var primaryColor = [67, 181, 129];
+    var secondaryColor = [245, 248, 250];
+    pdf.setFillColor(primaryColor[0], primaryColor[1], primaryColor[2]);
+    pdf.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
+  
+    var imgWidth = pdf.internal.pageSize.getWidth() - 40; // Thêm khoảng cách để tránh tràn bảng
+    var imgHeight = data.clientHeight * imgWidth / data.clientWidth;
+    html2canvas(data, {scale: 2}).then(canvas => { // Tăng độ phân giải hình ảnh
+      var imgData = canvas.toDataURL('image/png');
+  
+      var imgRatio = imgHeight / imgWidth;
+      var pageHeight = pdf.internal.pageSize.height - 50; // Trừ đi khoảng cách để tránh tràn bảng
+      var position = 0;
+      while (position < imgHeight) {
+        pdf.addImage(imgData, 'PNG', 2, 110, imgWidth, imgHeight, undefined, 'FAST');
+        position += pageHeight;
+        if (position < imgHeight) {
+          pdf.addPage();
+        }
+      }
+  
+      // Định dạng và in tên sản phẩm và ngày giờ
+      pdf.setFont('Quicksand', 'bold');
+      pdf.setFontSize(26);
+      pdf.setTextColor(0, 0, 0);
+      pdf.text('San Pham', pdf.internal.pageSize.width / 2, 70, {align: 'center'});
+      pdf.setFont('Helvetica');
+      pdf.setFontSize(14); 
+      pdf.setTextColor(0, 0, 0);
+      pdf.text('Ngay Gio: ' + new Date().toLocaleString('vi'), pdf.internal.pageSize.width / 2, 90, {align: 'center'});
+  
+      pdf.save('san-pham.pdf');
     });
-
   }
+  
+  
   
   
   get tensanpham() {
@@ -140,6 +167,11 @@ export class SanPhamComponent extends BaseComponent implements OnInit, AfterView
   }
   get phantram() {
     return this.frmSanPham.get('txt_phantram')!;
+  }
+  get thoigianbatdau() {
+    return this.frmSanPham.get('txt_thoigianbatdau')!;
+  } get thoigianketthuc() {
+    return this.frmSanPham.get('txt_thoigianketthuc')!;
   }
   // get tenthongso() {
   //   return this.frmSanPham.get('txt_tenthongso')!;

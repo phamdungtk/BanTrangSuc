@@ -56,7 +56,7 @@ namespace DoAnTotNghiep_Api.Controllers
                                  UpdatedAt = a.UpdatedAt,
 
                              };
-                var kq = result.OrderByDescending(x => x.CreatedAt).ToList();
+                var kq = result.OrderByDescending(x => x.MaSanPham).ToList();
 
                 return Ok(kq);
             }
@@ -155,7 +155,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.Gia).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.MaSanPham).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(
@@ -234,7 +234,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.Gia).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.MaSanPham).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(
@@ -304,7 +304,7 @@ namespace DoAnTotNghiep_Api.Controllers
                         result2 = result1.OrderByDescending(x => x.Gia).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                     default:
-                        result2 = result1.OrderByDescending(x => x.CreatedAt).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
+                        result2 = result1.OrderByDescending(x => x.MaSanPham).Skip(pageSize * (page - 1)).Take(pageSize).ToList();
                         break;
                 }
                 return Ok(

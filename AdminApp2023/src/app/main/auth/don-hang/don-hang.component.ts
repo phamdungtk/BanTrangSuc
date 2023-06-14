@@ -138,16 +138,32 @@ export class DonHangComponent extends BaseComponent implements OnInit, AfterView
     if (this.isCreate)  {
       obj.donhangs.maDonHang = this.donhang.maDonHang;
       console.log(obj.donhangs.maDonHang);
+      // this._api.post('/api/DonHangs/update-DonHang', obj.donhangs).subscribe(result  => {
+      //   if (result  && result.data) {
+      //     alert('Cập nhật dữ liệu thành công');
+      //     this.LoadData();
+      //     // location.reload();
+      //     this.closeModal();
+      //   } else {
+      //     alert('Có lỗi')
+      //   }
+      // });
       this._api.post('/api/DonHangs/update-DonHang', obj.donhangs).subscribe(result  => {
-        if (result  && result.data) {
+        if (result && result.data && result.data !== 'Cannot update when TrangThaiDonHang is already 4') {
           alert('Cập nhật dữ liệu thành công');
           this.LoadData();
+          debugger
           // location.reload();
           this.closeModal();
         } else {
-          alert('Có lỗi')
+          if (result && result.data && result.data === 'Cannot update when TrangThaiDonHang is already 4') {
+            alert('Không thể sửa đơn hàng khi TrangThaiDonHang đã là 4');
+          } else {
+            alert('Có lỗi');
+          }
         }
       });
+      
     }
   }
 }

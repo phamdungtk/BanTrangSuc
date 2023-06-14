@@ -104,15 +104,15 @@ export class DashboardComponent extends BaseComponent implements OnInit, AfterVi
       this.tong_sl_dg = res.result;
     
     });
-    this._api.get('/api/ThongKes/').subscribe(res => {
-      this.tong_tien = res.result;
+    // this._api.get('/api/ThongKes/').subscribe(res => {
+    //   this.tong_tien = res.result;
     
-    });
-    const filter = 'day'; // Giá trị của filter có thể là 'day', 'week', 'month', 'quarter', 'year'
-    const startDate = '2023-06-01'; // Giá trị của startDate phải có định dạng 'yyyy-mm-dd'
-    this._api.post('/api/ThongKes/' + filter + '/' + startDate, {}).subscribe(res => {
-      console.log(res); // In kết quả trả về từ API ra console
-    });
+    // });
+    // const filter = 'day'; // Giá trị của filter có thể là 'day', 'week', 'month', 'quarter', 'year'
+    // const startDate = '2023-06-01'; // Giá trị của startDate phải có định dạng 'yyyy-mm-dd'
+    // this._api.post('/api/ThongKes/' + filter + '/' + startDate, {}).subscribe(res => {
+    //   console.log(res); // In kết quả trả về từ API ra console
+    // });
     
     
     

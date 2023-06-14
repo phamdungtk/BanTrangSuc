@@ -35,11 +35,10 @@
                                     <td class="hiraola-product-price"><span class="amount">{{x.gia | number:'1.0-0'}}đ</span></td>
                                     <td class="hiraola-product-price"><span class="amount">{{applyDiscount(x.gia, x.phanTram) | number:'1.0-0'}}đ</span></td>
                                     <td class="quantity">
-                                        <div class="cart-plus-minus">
-                                            <!-- <input class="cart-plus-minus-box" [(ngModel)] = "x.quantity" type="text" value="{{x.quantity}}"> -->
-                                            <input class="cart-plus-minus-box"  type="text" value="{{x.quantity}}">
-                                            <button class="dec qtybutton" (click)="Giam(x.maSanPham)"><i class="fa fa-angle-down"></i></button>
-                                            <button class="inc qtybutton" (click) ="Tang(x.maSanPham)"><i class="fa fa-angle-up"></i></button>
+                                        <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                            <button (click)="Giam(x.maSanPham)" style="border: 1px solid #dbdbdb;padding: 4px 10px;">-</button>
+                                            <input [(ngModel)] = "x.quantity" type="text" value="{{x.quantity}}" style="width: 35px;border: 1px solid #dbdbdb;padding: 4px; text-align: center;">
+                                            <button (click) ="Tang(x.maSanPham)" style="border: 1px solid #dbdbdb;padding: 4px 8px;">+</button>
                                         </div>
                                     </td>  
                                     <td class="hiraola-product-price"><span class="amount">{{(applyDiscount(x.gia, x.phanTram)) * x.quantity | number:'1.0-0'}}đ</span></td>

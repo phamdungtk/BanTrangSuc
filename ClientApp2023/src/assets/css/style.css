@@ -1472,6 +1472,7 @@ button, .global-overlay, .quantity .cart-plus-minus > .qtybutton, .popup_wrapper
 .template-color-1 .latest-blog_slider .slide-item .single_product,
 .template-color-1 .shop-product-wrap .slide-item .single_product {
   border: 1px solid #e5e5e5;
+  height: 350px;
 }
 
 .template-color-1 .hiraola-product_slider .slide-item .single_product:hover,

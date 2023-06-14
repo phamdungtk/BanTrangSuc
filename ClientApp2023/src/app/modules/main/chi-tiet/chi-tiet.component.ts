@@ -43,10 +43,6 @@ export class ChiTietComponent extends BaseComponent implements OnInit,AfterViewI
     return finalPrice;
   }
   ngOnInit(): void {
-
-    
-    
-    
     this._route.params.subscribe(params => {
       let id = params['id'];
       this._api.get('/api/SanPhams/get-by-id/'+ id).subscribe(res => {

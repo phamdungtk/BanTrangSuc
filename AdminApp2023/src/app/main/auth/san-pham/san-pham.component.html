@@ -11,7 +11,7 @@
 				Xuất Excel
 			</button>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<button (click)="convetToPDF()" type="button" class="btn btn-primary">
+			<button (click)="convertToPDF()" type="button" class="btn btn-primary">
 				Xuất PDF
 			</button>
         </div>
@@ -264,10 +264,10 @@
 						<div class="col-lg-12">
 							<input formControlName="txt_thoigianbatdau" type="date" class="form-control"
 								placeholder="thời gian bắt đầu">
-							<!-- <div *ngIf="ngaysinh.invalid && (ngaysinh.dirty || ngaysinh.touched)">
-								<div *ngIf="ngaysinh.errors?.['required']" style="color:red ;">Ngày sinh không được rỗng
+							<div *ngIf="thoigianbatdau.invalid && (thoigianbatdau.dirty || thoigianbatdau.touched)">
+								<div *ngIf="thoigianbatdau.errors?.['required']" style="color:red ;">Thời Gian Bắt Đầu không được rỗng
 								</div>
-							</div> -->
+							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -275,10 +275,10 @@
 						<div class="col-lg-12">
 							<input formControlName="txt_thoigianketthuc" type="date" class="form-control"
 								placeholder="thời gian kết thúc">
-							<!-- <div *ngIf="ngaysinh.invalid && (ngaysinh.dirty || ngaysinh.touched)">
-								<div *ngIf="ngaysinh.errors?.['required']" style="color:red ;">Ngày sinh không được rỗng
+							<div *ngIf="thoigianketthuc.invalid && (thoigianketthuc.dirty || thoigianketthuc.touched)">
+								<div *ngIf="thoigianketthuc.errors?.['required']" style="color:red ;">Thời gian kết thúc không được rỗng
 								</div>
-							</div> -->
+							</div>
 						</div>
 					</div>
                     <!-- <div class="form-group">
@@ -347,6 +347,10 @@
 								<option [value]="'49'">49%</option>
 								<option [value]="'50'">50%</option>
 							</select>
+							<div *ngIf="phantram.invalid && (phantram.dirty || phantram.touched)">
+								<div *ngIf="phantram.errors?.['required']" style="color:red ;"> không được rỗng
+								</div>
+							</div>	
 						</div>					
 					</div>
                     <div class="form-group">

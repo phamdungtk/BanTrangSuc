@@ -2,7 +2,7 @@ import { AfterViewInit, Component, Injector, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { log } from 'console';
 import { BaseComponent } from 'src/app/core/common/base-component';
-import { ProductService } from 'src/app/core/services/Product.service';
+// import { ProductService } from 'src/app/core/services/google-auth.service';
 import { ApiService } from 'src/app/core/services/api.service';
 import { AuthenticationService } from 'src/app/core/services/authentication.service';
 import { CartService } from 'src/app/core/services/cart.service';
@@ -29,7 +29,7 @@ export class IndexComponent extends BaseComponent implements OnInit,AfterViewIni
   public list_thoigian:any;
   public thoigian:any;
   public frmSearch: FormGroup;
-  constructor(injector: Injector,private productService: ProductService,private _send: SendService, private _cart: CartService,private authenticationService: AuthenticationService) {
+  constructor(injector: Injector,private _send: SendService, private _cart: CartService,private authenticationService: AuthenticationService) {
     super(injector);
     this.frmSearch = new FormGroup({
       'txt_gia': new FormControl('', []),

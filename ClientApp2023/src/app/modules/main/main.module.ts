@@ -12,6 +12,7 @@ import { NhomSanPhamComponent } from './nhom-san-pham/nhom-san-pham.component';
 import { GioiThieuComponent } from './gioi-thieu/gioi-thieu.component';
 import { TintucComponent } from './tintuc/tintuc.component';
 import { CtTintucComponent } from './ct-tintuc/ct-tintuc.component';
+import { EmailComponent } from './customers/email/email.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CtTintucComponent } from './ct-tintuc/ct-tintuc.component';
     GioiThieuComponent,
     TintucComponent,
     CtTintucComponent,
+    EmailComponent,
     // CKEditorModule,
     // TextContentTruncatePipe
   ],

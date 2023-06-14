@@ -183,12 +183,14 @@ namespace DoAnTotNghiep_Api.Controllers
                          join s in db.SanPhams on c.MaSanPham equals s.MaSanPham
                          join p in db.GiaSanPhams on c.MaSanPham equals p.MaSanPham
                          join t in db.GiamGia on c.MaSanPham equals t.MaSanPham
-                         group c by new { 
+                         group c by new
+                         {
                              MaSanPham = s.MaSanPham,
                              TenSanPham = s.TenSanPham,
                              Gia = p.Gia,
                              PhanTram = t.PhanTram,
-                             AnhDaiDien = string.IsNullOrEmpty(s.AnhDaiDien) ? "" : s.AnhDaiDien } into g
+                             AnhDaiDien = string.IsNullOrEmpty(s.AnhDaiDien) ? "" : s.AnhDaiDien
+                         } into g
                          select new
                          {
                              MaSanPham = g.Key.MaSanPham,
@@ -203,7 +205,7 @@ namespace DoAnTotNghiep_Api.Controllers
             return Ok(new
             {
                 listbanchay = result1,
-            }); 
+            });
 
         }
         [Route("thongketong-DonHang")]
@@ -428,7 +430,7 @@ namespace DoAnTotNghiep_Api.Controllers
             var revenues = await (from d in db.DonHangs
                                   join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
                                   where d.NgayDat != null && DateTime.Compare(d.NgayDat.Value.Date, vnTime.Date) == 0
-                                   select c.GiaMua * c.SoLuong).ToListAsync();
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
 
             var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
 
@@ -447,7 +449,7 @@ namespace DoAnTotNghiep_Api.Controllers
             var revenues = await (from d in db.DonHangs
                                   join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
                                   where d.NgayDat != null && DateTime.Compare(d.NgayDat.Value.Date, vnDate) == 0
-                                   select c.GiaMua * c.SoLuong).ToListAsync();
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
 
             var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
             string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
@@ -466,7 +468,7 @@ namespace DoAnTotNghiep_Api.Controllers
             var revenues = await (from d in db.DonHangs
                                   join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
                                   where d.NgayDat != null && d.NgayDat.Value.Date >= vnWeekStartDay.Date && d.NgayDat.Value.Date <= vnTime.Date
-                                   select c.GiaMua * c.SoLuong).ToListAsync();
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
 
             var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
             string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
@@ -486,7 +488,7 @@ namespace DoAnTotNghiep_Api.Controllers
             var revenues = await (from d in db.DonHangs
                                   join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
                                   where d.NgayDat != null && d.NgayDat.Value.Date >= vnMonthFirstDay.Date && d.NgayDat.Value.Date <= vnTime.Date
-                                   select c.GiaMua * c.SoLuong).ToListAsync();
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
 
             var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
             string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);
@@ -508,7 +510,7 @@ namespace DoAnTotNghiep_Api.Controllers
             var revenues = await (from d in db.DonHangs
                                   join c in db.ChiTietDonHangs on d.MaDonHang equals c.MaDonHang
                                   where d.NgayDat != null && d.NgayDat.Value.Date >= vnQuarterStartDay.Date && d.NgayDat.Value.Date <= vnTime.Date
-                                   select c.GiaMua * c.SoLuong).ToListAsync();
+                                  select c.GiaMua * c.SoLuong).ToListAsync();
 
             var totalRevenue = revenues.Sum(); // Tính tổng doanh thu
             string formatted = string.Format(CultureInfo.InvariantCulture, "{0:N0}", totalRevenue);

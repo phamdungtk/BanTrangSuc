@@ -1,4 +1,4 @@
-<!-- <div class="loading">
+<div class="loading">
     <div class="text-center middle">
         <div class="lds-ellipsis">
             <div></div>
@@ -7,7 +7,7 @@
             <div></div>
         </div>
     </div>
-</div> -->
+</div>
 <!-- Messenger Plugin chat Code -->
 
 <div class="slider-with-category_menu">
@@ -25,7 +25,9 @@
                                     <li class="right-menu cat-mega-title">
                                         <a style="text-transform: capitalize;">{{dsdm.tenDanhMuc}}</a>
                                         <ul *ngIf="dsdm.children && dsdm.children.length> 0">
-                                            <li  *ngFor="let cn of dsdm.children"><a [routerLink]="['/danh-muc', cn.maDanhMuc]" >{{cn.tenDanhMuc}}</a></li>
+                                            <li  *ngFor="let cn of dsdm.children"><a [routerLink]="['/danh-muc', cn.maDanhMuc]" >{{cn.tenDanhMuc}}</a>
+                                            
+                                            </li>
                                         </ul>
                                     </li>
                                 </ul>
